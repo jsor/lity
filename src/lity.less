@@ -1,0 +1,183 @@
+@lity-z-index-base: 9990;
+@lity-shadow: 0 0 8px rgba(0, 0, 0, 0.6);
+@lity-close-size: 35px;
+@lity-close-text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.6);
+@lity-iframe-ratio: 9/16;  // Or 3/4
+
+.lity {
+    z-index: @lity-z-index-base;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    white-space: nowrap;
+    background: #0b0b0b;
+    background: rgba(0, 0, 0, 0.9);
+    outline: none !important;
+    user-select: none;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+
+    &.lity-opened {
+        opacity: 1;
+    }
+
+    &.lity-closed {
+        opacity: 0;
+    }
+
+    * {
+        box-sizing: border-box;
+    }
+}
+
+.lity-wrap {
+    z-index: @lity-z-index-base;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    text-align: center;
+    outline: none !important;
+    user-select: none;
+
+    &:before {
+        content: '';
+        display: inline-block;
+        height: 100%;
+        vertical-align: middle;
+        margin-right: -0.25em;
+    }
+}
+
+.lity-loader {
+    z-index: @lity-z-index-base + 1;
+    color: #fff;
+    position: absolute;
+    top: 50%;
+    margin-top: -0.8em;
+    width: 100%;
+    text-align: center;
+    font-size: 14px;
+    font-family: Arial, Helvetica, sans-serif;
+    user-select: none;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+
+    .lity-loading & {
+        opacity: 1;
+    }
+}
+
+.lity-container {
+    z-index: @lity-z-index-base + 2;
+    position: relative;
+    text-align: left;
+    vertical-align: middle;
+    display: inline-block;
+    white-space: normal;
+    max-width: 100%;
+    max-height: 100%;
+    outline: none !important;
+    user-select: none;
+    opacity: 1;
+    transition: opacity 0.2s ease;
+
+    .lity-loading & {
+        opacity: 0;
+    }
+
+    &:after {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        display: block;
+        right: 0;
+        width: auto;
+        height: auto;
+        z-index: -1;
+        box-shadow: @lity-shadow;
+    }
+}
+
+.lity-content {
+    z-index: @lity-z-index-base + 3;
+    width: 100%;
+    user-select: all;
+}
+
+.lity-close {
+    z-index: @lity-z-index-base + 4;
+    width: @lity-close-size;
+    height: @lity-close-size;
+    line-height: @lity-close-size;
+    // Change to position: absolute to display close button inside content container
+    position: fixed;
+    right: 0;
+    top: 0;
+    text-decoration: none;
+    text-align: center;
+    padding: 0;
+    color: #fff;
+    font-style: normal;
+    font-size: @lity-close-size;
+    font-family: Arial, Baskerville, monospace;
+    text-shadow: @lity-close-text-shadow;
+    border: 0;
+    background: transparent;
+    outline: none !important;
+    user-select: none;
+    box-shadow: none;
+    -webkit-appearance: none;
+    cursor: pointer;
+
+    &:active {
+        top: 1px;
+    }
+}
+
+/* Image */
+
+.lity-image {
+    img {
+        max-width: 100%;
+        display: block;
+        line-height: 0;
+        border: 0;
+    }
+}
+
+/* iFrame */
+
+.lity-iframe {
+    .lity-container {
+        width: 100%;
+        max-width: 964px;
+    }
+}
+
+.lity-iframe-container {
+    width: 100%;
+    height: 0;
+    overflow: hidden;
+    padding-top: @lity-iframe-ratio * 100%;
+
+    iframe {
+        position: absolute;
+        display: block;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        box-shadow: @lity-shadow;
+        background: #000;
+    }
+}
+
+.lity-hide {
+    display: none;
+}
