@@ -11,7 +11,6 @@
 }(window, function(window, $, imagesLoaded) {
     'use strict';
 
-    var slice = Array.prototype.slice;
     var document = window.document;
 
     var _win = $(window);
@@ -74,56 +73,6 @@
                      </div>\
                  </div>\
                 ';
-
-    var Empty = function Empty() {};
-
-    function bind(func, that) {
-        var funcArgs = slice.call(arguments),
-            target = funcArgs.shift()
-        ;
-
-        if (!!func.bind) {
-            return target.bind.apply(func, funcArgs);
-        }
-
-        var args = funcArgs.slice(1); // for normal call
-
-        var bound;
-        var binder = function () {
-            if (this instanceof bound) {
-                var result = target.apply(
-                    this,
-                    args.concat(funcArgs)
-                );
-                if (Object(result) === result) {
-                    return result;
-                }
-                return this;
-            } else {
-
-                return target.apply(
-                    that,
-                    args.concat(funcArgs)
-                );
-            }
-        };
-
-        var boundLength = Math.max(0, target.length - args.length);
-
-        var boundArgs = [];
-        for (var i = 0; i < boundLength; i++) {
-            boundArgs.push('$' + i);
-        }
-
-        bound = Function('binder', 'return function (' + boundArgs.join(',') + '){ return binder.apply(this, arguments); }')(binder);
-        if (target.prototype) {
-            Empty.prototype = target.prototype;
-            bound.prototype = new Empty();
-            Empty.prototype = null;
-        }
-
-        return bound;
-    }
 
     function settings(settings, key, value) {
         if (arguments.length === 1) {
@@ -350,8 +299,8 @@
             }
         }
 
-        popup.handlers = bind(settings, popup, _handlers);
-        popup.options = bind(settings, popup, _options);
+        popup.handlers = settings.bind(popup, _handlers);
+        popup.options = settings.bind(popup, _options);
 
         popup.close = function() {
             close();
@@ -366,8 +315,8 @@
     };
 
     lity.version = '0.0.1';
-    lity.handlers = bind(settings, lity, _defaultHandlers);
-    lity.options = bind(settings, lity, _defaultOptions);
+    lity.handlers = settings.bind(lity, _defaultHandlers);
+    lity.options = settings.bind(lity, _defaultOptions);
 
     $(document).on('click', '[data-lity]', create());
 

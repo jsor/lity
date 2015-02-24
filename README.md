@@ -6,8 +6,10 @@ images, iframes and inline content out of the box.
 
 Minified and gzipped, its total footprint weights about 2kB.
 
-It works with [jQuery](http://jquery.com) and [Zepto](http://zeptojs.com) and is
-compatible with IE8+.
+It works with [jQuery](http://jquery.com) and [Zepto](http://zeptojs.com).
+
+If you need to be compatible compatible with IE8, use the
+[es5-shim](https://github.com/es-shims/es5-shim).
 
 Installation
 ------------
@@ -18,6 +20,8 @@ document (if your using Lity with image links,
 
 ```html
 <link href="dist/lity.css" rel="stylesheet"/>
+<!-- Remove the following line if you do not need IE8 support -->
+<!--[if lt IE 9]><script src="lib/es5-shim.js"></script><![endif]-->
 <script src="lib/jquery.js"></script>
 <script src="lib/imagesloaded.pkgd.js"></script>
 <script src="dist/lity.js"></script>
