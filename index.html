@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Lity - Lightweight responsive lightbox</title>
+    <meta name="description" content="Lity is a ultra-lightweight and responsive lightbox plugin which supports images, iframes and inline content out of the box.">
+
+    <link href='http://fonts.googleapis.com/css?family=Lato:400,400italic|Arvo:700,400,400italic' rel='stylesheet' type='text/css'>
+    <link href="assets/style.css" media="all" rel="stylesheet" type="text/css">
+    <link href="assets/prism.css" media="all" rel="stylesheet" type="text/css">
+    <link href="dist/lity.css" rel="stylesheet"/>
+</head>
+<body>
+<h1><a href="./">Lity</a></h1>
+<h2>Lightweight responsive lightbox.</h2>
+
+<p class="wrap wrap-center">
+    <a class="btn btn-primary" href="https://github.com/jsor/lity/releases/latest">Download</a>
+</p>
+
+<div class="wrap">
+    <p>Lity is a ultra-lightweight and responsive lightbox plugin which supports
+    images, iframes and inline content out of the box.</p>
+
+    <p>Minified and gzipped, its total footprint weights about 2kB.</p>
+
+    <p>It works with <a href="http://jquery.com">jQuery</a> and <a href="http://zeptojs.com">Zepto</a>.</p>
+
+    <p>If you need to be compatible compatible with IE8, use the
+    <a href="https://github.com/es-shims/es5-shim">es5-shim</a>.</p>
+
+    <h3>Demos</h3>
+
+    <p>
+        <a class="btn" href="https://farm9.staticflickr.com/8642/16455005578_0fdfc6c3da_b.jpg" data-lity>Image</a>
+        <a class="btn" href="#inline" data-lity>Inline</a>
+        <a class="btn" href="//maps.google.com/maps?q=1600+Amphitheatre+Parkway,+Mountain+View,+CA" data-lity>Google Maps</a>
+        <a class="btn" href="//www.youtube.com/watch?v=XSGBVzeBUbk" data-lity>iFrame Youtube</a>
+        <a class="btn" href="//vimeo.com/1084537" data-lity>iFrame Vimeo</a>
+    </p>
+
+    <div id="inline" style="background:#FDFDF6;padding:40px;width:500px;max-width:100%;border-radius:6px" class="lity-hide">
+        Inline content
+    </div>
+</div>
+
+<div class="wrap">
+    <h3>Installation</h3>
+
+    <p>Include the Lity javascript and css files and its dependencies in your HTML
+        document (if your using Lity with image links,
+        <a href="http://imagesloaded.desandro.com">imagesLoaded</a> is required):</p>
+
+<pre><code class="language-markup">&lt;link href="dist/lity.css" rel="stylesheet">
+&lt;!-- Remove the following line if you do not need IE8 support -->
+&lt;!--[if lt IE 9]>&lt;script src="lib/es5-shim.js">&lt;/script>&lt;![endif]-->
+&lt;script src="lib/jquery.js">&lt;/script>
+&lt;script src="lib/imagesloaded.pkgd.js">&lt;/script>
+&lt;script src="dist/lity.js">&lt;/script></code></pre>
+</div>
+
+<div class="wrap">
+    <h3>Usage</h3>
+
+    <p>Add the <code>data-lity</code> attribute to <code>&lt;a></code> elements for which you want the links to
+        be opened in a lightbox:</p>
+
+<pre><code class="language-markup">&lt;a href="https://farm9.staticflickr.com/8642/16455005578_0fdfc6c3da_b.jpg" data-lity>Image&lt;/a>
+&lt;a href="#inline" data-lity>Inline&lt;/a>
+&lt;a href="//www.youtube.com/watch?v=XSGBVzeBUbk" data-lity>iFrame Youtube&lt;/a>
+&lt;a href="//vimeo.com/1084537" data-lity>iFrame Vimeo&lt;/a>
+&lt;a href="//maps.google.com/maps?q=1600+Amphitheatre+Parkway,+Mountain+View,+CA" data-lity>Google Maps&lt;/a>
+
+&lt;div id="inline" style="background:#fff" class="lity-hide">
+Inline content
+&lt;/div></code></pre>
+</div>
+
+<div class="wrap wrap-center">
+    <p><small>Copyright (c) Jan Sorgalla. Released under the MIT license.</small></p>
+</div>
+
+<a href="https://github.com/jsor/lity"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
+
+<!--[if lt IE 9]><script src="lib/es5-shim.js"></script><![endif]-->
+<script src="lib/jquery.js"></script>
+<script src="lib/imagesloaded.pkgd.js"></script>
+<script src="dist/lity.js"></script>
+
+<script src="assets/prism.js"></script>
+</body>
+</html>

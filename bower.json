@@ -21,9 +21,12 @@
   "license": "MIT",
   "homepage": "http://sorgalla.com/lity/",
   "ignore": [
-    "**/.*",
+    "assets",
+    "lib",
     "node_modules",
     "bower_components",
-    "test"
+    "test",
+    "Gruntfile.js",
+    "index.html"
   ]
 }

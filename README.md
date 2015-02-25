@@ -19,7 +19,7 @@ document (if your using Lity with image links,
 [imagesLoaded](http://imagesloaded.desandro.com) is required):
 
 ```html
-<link href="dist/lity.css" rel="stylesheet"/>
+<link href="dist/lity.css" rel="stylesheet">
 <!-- Remove the following line if you do not need IE8 support -->
 <!--[if lt IE 9]><script src="lib/es5-shim.js"></script><![endif]-->
 <script src="lib/jquery.js"></script>
@@ -34,7 +34,7 @@ Add the `data-lity` attribute to `<a>` elements for which you want the links to
 be opened in a lightbox:
 
 ```html
-<a href="https://farm6.staticflickr.com/5561/14855714005_f56f330a7e_o.jpg" data-lity>Image</a>
+<a href="https://farm9.staticflickr.com/8642/16455005578_0fdfc6c3da_b.jpg" data-lity>Image</a>
 <a href="#inline" data-lity>Inline</a>
 <a href="//www.youtube.com/watch?v=XSGBVzeBUbk" data-lity>iFrame Youtube</a>
 <a href="//vimeo.com/1084537" data-lity>iFrame Vimeo</a>
