@@ -15,15 +15,13 @@ Installation
 ------------
 
 Include the Lity javascript and css files and its dependencies in your HTML
-document (if your using Lity with image links,
-[imagesLoaded](http://imagesloaded.desandro.com) is required):
+document:
 
 ```html
 <link href="dist/lity.css" rel="stylesheet">
 <!-- Remove the following line if you do not need IE8 support -->
 <!--[if lt IE 9]><script src="lib/es5-shim.js"></script><![endif]-->
 <script src="lib/jquery.js"></script>
-<script src="lib/imagesloaded.pkgd.js"></script>
 <script src="dist/lity.js"></script>
 ```
 

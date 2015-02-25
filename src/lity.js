@@ -1,14 +1,14 @@
 (function(window, factory) {
     if (typeof define === 'function' && define.amd) {
-        define(['jquery', 'imagesloaded'], function($, imagesLoaded) {
-            return factory(window, $, imagesLoaded);
+        define(['jquery'], function($) {
+            return factory(window, $);
         });
     } else if (typeof module === 'object' && typeof module.exports === 'object') {
-        module.exports = factory(window, require('jquery'), require('imagesloaded'));
+        module.exports = factory(window, require('jquery'));
     } else {
-        window.lity = factory(window, window.jQuery || window.Zepto, window.imagesLoaded);
+        window.lity = factory(window, window.jQuery || window.Zepto);
     }
-}(window, function(window, $, imagesLoaded) {
+}(window, function(window, $) {
     'use strict';
 
     var document = window.document;
@@ -97,6 +97,10 @@
         return 'file:' === window.location.protocol ? 'http:' : '';
     }
 
+    function error(msg) {
+        return $('<span class="lity-error"/>').append(msg);
+    }
+
     function imageHandler(target, instance) {
         if (!_imageRegexp.test(target)) {
             return false;
@@ -104,15 +108,25 @@
 
         var img = $('<img src="' + target + '">');
         var deferred = $.Deferred();
+        var failed = function() {
+            deferred.reject(error('Failed loading image'));
+        };
 
         instance
             .on('lity:resize', function(e, height) {
                 img.css('max-height', Math.floor(height) + 'px');
             });
 
-        imagesLoaded(img.get(0), function() {
-            deferred.resolve(img);
-        });
+        img
+            .on('load', function() {
+                if (!this.complete || (typeof this.naturalWidth !== "undefined" && this.naturalWidth === 0)) {
+                    failed();
+                }
+
+                deferred.resolve(img);
+            })
+            .on('error', failed)
+        ;
 
         return deferred.promise();
     }
@@ -199,7 +213,7 @@
                 _win.on('resize', resize);
                 resize();
 
-                $.when(content).done(ready);
+                $.when(content).always(ready);
             }, 0);
         }
 

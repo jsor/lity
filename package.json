@@ -5,8 +5,7 @@
   "version": "0.1.2",
   "main": "dist/lity.js",
   "dependencies": {
-    "jquery": ">=1.7",
-    "imagesloaded": ">=3.0"
+    "jquery": ">=1.7"
   },
   "devDependencies": {
     "grunt": "~0.4.5",
