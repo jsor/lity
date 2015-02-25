@@ -1,8 +1,8 @@
 {
   "name": "lity",
   "title": "Lity",
-  "description": "Lightweight responsive lightbox",
-  "version": "0.1.0",
+  "description": "Lightweight responsive lightbox.",
+  "version": "0.1.1",
   "main": "dist/lity.js",
   "dependencies": {
     "jquery": ">=1.7",
