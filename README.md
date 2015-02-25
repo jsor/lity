@@ -8,7 +8,7 @@ Minified and gzipped, its total footprint weights about 2kB.
 
 It works with [jQuery](http://jquery.com) and [Zepto](http://zeptojs.com).
 
-If you need to be compatible compatible with IE8, use the
+If you need to be compatible with IE8, use the
 [es5-shim](https://github.com/es-shims/es5-shim).
 
 Installation
