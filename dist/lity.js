@@ -317,7 +317,7 @@
         return create(options);
     };
 
-    lity.version = '0.0.1';
+    lity.version = '0.1.1';
     lity.handlers = settings.bind(lity, _defaultHandlers);
     lity.options = settings.bind(lity, _defaultOptions);
 
