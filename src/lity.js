@@ -318,6 +318,11 @@
         popup.handlers = settings.bind(popup, _handlers);
         popup.options = settings.bind(popup, _options);
 
+        popup.open = function(target) {
+            open(target);
+            return popup;
+        };
+
         popup.close = function() {
             close();
             return popup;
