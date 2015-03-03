@@ -111,9 +111,6 @@
         };
 
         img
-            .on('lity:resize', function(e, height) {
-                img.css('max-height', Math.floor(height) + 'px');
-            })
             .on('load', function() {
                 if (!this.complete || (typeof this.naturalWidth !== "undefined" && this.naturalWidth === 0)) {
                     failed();
@@ -155,16 +152,31 @@
 
     function inlineHandler(target) {
         try {
-            return $(target).clone();
+            var el = $(target);
         } catch (e) {
             return false;
         }
+
+        var placeholder = $('<span style="display:none !important" class="lity-inline-placeholder"/>');
+
+        return el
+            .after(placeholder)
+            .on('lity:ready', function(e, instance) {
+                instance.one('lity:close', function() {
+                    placeholder
+                        .before(el.addClass('lity-hide'))
+                        .remove()
+                    ;
+                });
+            })
+        ;
     }
 
     function create(options) {
         var _options = $.extend({}, _defaultOptions),
             _handlers = $.extend({}, _defaultHandlers),
             _instance,
+            _content,
             _resize;
 
         function ready(content) {
@@ -172,14 +184,10 @@
                 return;
             }
 
-            if (!content.jquery) {
-                content = $(content);
-            }
+            _content = $(content);
 
-            _resize = resize.bind(null, content);
-
-            _win.on('resize', _resize);
-            _resize();
+            _win.on('resize', resize);
+            resize();
 
             _instance
                 .find('.lity-loader')
@@ -193,15 +201,22 @@
                 .removeClass('lity-loading')
                 .find('.lity-content')
                 .empty()
-                .append(content.removeClass('lity-hide'))
-                .trigger('lity:ready', [content, popup])
+                .append(_content)
+            ;
+
+            _content
+                .removeClass('lity-hide')
+                .trigger('lity:ready', [_instance, popup])
             ;
         }
 
-        function resize(content) {
+        function resize() {
             var height = document.documentElement.clientHeight ? document.documentElement.clientHeight : Math.round(_win.height());
 
-            content.trigger('lity:resize', [height]);
+            _content
+                .css('max-height', Math.floor(height) + 'px')
+                .trigger('lity:resize', [_instance, popup])
+            ;
         }
 
         function init(handler, content) {
@@ -213,7 +228,7 @@
                     .on('click', '[data-lity-close]', function(e) {
                         $(e.target).is('[data-lity-close]') && close();
                     })
-                    .trigger('lity:open', [popup])
+                    .trigger('lity:open', [_instance, popup])
                 ;
 
                 $.when(content).always(ready);
@@ -268,16 +283,20 @@
                 return;
             }
 
-            _resize && _win.off('resize', _resize);
+            _win.off('resize', resize);
+
+            _content
+                .trigger('lity:close', [_instance, popup])
+            ;
 
             _instance
-                .trigger('lity:close', [popup])
                 .removeClass('lity-opened')
                 .addClass('lity-closed')
             ;
 
             var instance = _instance;
             _instance = null;
+            _content = null;
 
             var deferred = $.Deferred();
 

@@ -40,8 +40,24 @@
         <a class="btn" href="//vimeo.com/1084537" data-lity>iFrame Vimeo</a>
     </p>
 
-    <div id="inline" style="background:#FDFDF6;padding:40px;width:500px;max-width:100%;border-radius:6px" class="lity-hide">
-        Inline content
+    <div id="inline" style="overflow:auto;background:#FDFDF6;padding:20px;width:600px;max-width:100%;border-radius:6px" class="lity-hide">
+        <form>
+            <fieldset style="border:0;">
+                <ul style="list-style:none">
+                    <li>
+                        <label for="input">Input</label>
+                        <input type="text" required name="name" id="input">
+                    </li>
+                    <li>
+                        <label for="textarea" style="width:100%">Textarea</label><br>
+                        <textarea id="textarea" rows="10" style="width:100%"></textarea>
+                    </li>
+                    <li>
+                        <input type="submit">
+                    </li>
+                </ul>
+            </fieldset>
+        </form>
     </div>
 </div>
 
