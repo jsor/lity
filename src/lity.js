@@ -176,8 +176,7 @@
         var _options = $.extend({}, _defaultOptions),
             _handlers = $.extend({}, _defaultHandlers),
             _instance,
-            _content,
-            _resize;
+            _content;
 
         function ready(content) {
             if (!_instance) {

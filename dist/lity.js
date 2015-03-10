@@ -1,4 +1,4 @@
-/*! Lity - v0.2.0 - 2015-03-03
+/*! Lity - v0.2.0 - 2015-03-10
 * http://sorgalla.com/lity/
 * Copyright (c) 2015 Jan Sorgalla; Licensed MIT */
 (function(window, factory) {
@@ -179,8 +179,7 @@
         var _options = $.extend({}, _defaultOptions),
             _handlers = $.extend({}, _defaultHandlers),
             _instance,
-            _content,
-            _resize;
+            _content;
 
         function ready(content) {
             if (!_instance) {
