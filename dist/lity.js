@@ -30,6 +30,7 @@
     };
 
     var _defaultOptions = {
+        esc: true
     };
 
     var transitionEndEvent = (function() {
@@ -178,8 +179,27 @@
     function create(options) {
         var _options = $.extend({}, _defaultOptions),
             _handlers = $.extend({}, _defaultHandlers),
+            _currentOptions,
             _instance,
-            _content;
+            _content,
+            _ready = $.Deferred();
+
+        _ready.resolve();
+
+        function keyup(e) {
+            if (!!_currentOptions.esc && e.keyCode === 27) {
+                close()
+            }
+        }
+
+        function resize() {
+            var height = document.documentElement.clientHeight ? document.documentElement.clientHeight : Math.round(_win.height());
+
+            _content
+                .css('max-height', Math.floor(height) + 'px')
+                .trigger('lity:resize', [_instance, popup])
+            ;
+        }
 
         function ready(content) {
             if (!_instance) {
@@ -210,19 +230,14 @@
                 .removeClass('lity-hide')
                 .trigger('lity:ready', [_instance, popup])
             ;
-        }
 
-        function resize() {
-            var height = document.documentElement.clientHeight ? document.documentElement.clientHeight : Math.round(_win.height());
-
-            _content
-                .css('max-height', Math.floor(height) + 'px')
-                .trigger('lity:resize', [_instance, popup])
-            ;
+            _ready.resolve();
         }
 
         function init(handler, content) {
             _instance = $(_html).appendTo('body');
+
+            _win.one('keyup', keyup);
 
             setTimeout(function() {
                 _instance
@@ -240,9 +255,9 @@
         function open(target) {
             var handler, content;
 
-            if (_options.handler && _handlers[_options.handler]) {
-                content = _handlers[_options.handler](target, instance, popup);
-                handler = _options.handler;
+            if (_currentOptions.handler && _handlers[_currentOptions.handler]) {
+                content = _handlers[_currentOptions.handler](target, instance, popup);
+                handler = _currentOptions.handler;
             } else {
                 var handlers = $.extend({}, _handlers), lateHandlers = {};
 
@@ -274,6 +289,7 @@
             }
 
             if (content) {
+                _ready = $.Deferred();
                 $.when(close()).done(init.bind(null, handler, content));
             }
 
@@ -285,33 +301,38 @@
                 return;
             }
 
-            _win.off('resize', resize);
-
-            _content
-                .trigger('lity:close', [_instance, popup])
-            ;
-
-            _instance
-                .removeClass('lity-opened')
-                .addClass('lity-closed')
-            ;
-
-            var instance = _instance;
-            _instance = null;
-            _content = null;
-
             var deferred = $.Deferred();
 
-            transitionEnd(instance).always(function() {
-                instance.remove();
-                deferred.resolve();
+            _ready.done(function() {
+                _win
+                    .off('resize', resize)
+                    .off('keyup', keyup)
+                ;
+
+                _content && _content
+                    .trigger('lity:close', [_instance, popup])
+                ;
+
+                _instance
+                    .removeClass('lity-opened')
+                    .addClass('lity-closed')
+                ;
+
+                var instance = _instance;
+                _instance = null;
+                _content = null;
+
+                transitionEnd(instance).always(function() {
+                    instance.remove();
+                    deferred.resolve();
+                });
             });
 
             return deferred.promise();
         }
 
         function popup(eventOrTarget) {
-            var target, isEvent = eventOrTarget && !!eventOrTarget.preventDefault;
+            var target, isEvent = eventOrTarget && !!eventOrTarget.preventDefault, opts;
 
             if (!isEvent) {
                 target = eventOrTarget;
@@ -320,12 +341,14 @@
             if (!target) {
                 var el = $(this);
                 target = el.attr('data-lity-target') || el.attr('href') || el.attr('src');
-                popup.options(el.data('lity-options') || el.data('lity') || {});
+                opts = el.data('lity-options') || el.data('lity') || {};
             }
 
             if (!target) {
                 return;
             }
+
+            _currentOptions = $.extend({}, _options, opts);
 
             if (open(target)) {
                 if (isEvent) {
