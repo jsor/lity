@@ -2,7 +2,7 @@
   "name": "lity",
   "title": "Lity",
   "description": "Lightweight responsive lightbox.",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "main": "dist/lity.js",
   "peerDependencies": {
     "jquery": ">=1.7"
