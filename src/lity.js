@@ -179,9 +179,7 @@
             _currentOptions,
             _instance,
             _content,
-            _ready = $.Deferred();
-
-        _ready.resolve();
+            _ready = $.Deferred().resolve();
 
         function keyup(e) {
             if (!!_currentOptions.esc && e.keyCode === 27) {

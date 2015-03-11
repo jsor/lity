@@ -1,4 +1,4 @@
-/*! Lity - v0.2.0 - 2015-03-10
+/*! Lity - v0.2.0 - 2015-03-11
 * http://sorgalla.com/lity/
 * Copyright (c) 2015 Jan Sorgalla; Licensed MIT */
 (function(window, factory) {
@@ -182,9 +182,7 @@
             _currentOptions,
             _instance,
             _content,
-            _ready = $.Deferred();
-
-        _ready.resolve();
+            _ready = $.Deferred().resolve();
 
         function keyup(e) {
             if (!!_currentOptions.esc && e.keyCode === 27) {
