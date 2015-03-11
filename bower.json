@@ -22,11 +22,11 @@
   "homepage": "http://sorgalla.com/lity/",
   "ignore": [
     "assets",
-    "lib",
     "node_modules",
     "bower_components",
-    "test",
+    "vendor",
     "Gruntfile.js",
-    "index.html"
+    "index.html",
+    "package.json"
   ]
 }
