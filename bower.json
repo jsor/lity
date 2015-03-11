@@ -11,6 +11,9 @@
     "globals",
     "node"
   ],
+  "dependencies": {
+    "jquery": ">=1.7"
+  },
   "keywords": [
     "lightbox",
     "modal",
