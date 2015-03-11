@@ -24,6 +24,7 @@
   "license": "MIT",
   "homepage": "http://sorgalla.com/lity/",
   "ignore": [
+    "**/.*",
     "assets",
     "node_modules",
     "bower_components",
