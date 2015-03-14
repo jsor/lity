@@ -2,6 +2,11 @@
   "name": "lity",
   "title": "Lity",
   "description": "Lightweight responsive lightbox.",
+  "author": {
+    "name": "Jan Sorgalla",
+    "url": "http://sorgalla.com"
+  },
+  "homepage": "http://sorgalla.com/lity/",
   "version": "0.2.1",
   "main": "dist/lity.js",
   "peerDependencies": {
@@ -33,10 +38,6 @@
     "jquery-plugin",
     "ecosystem:jquery"
   ],
-  "author": {
-    "name": "Jan Sorgalla",
-    "url": "http://sorgalla.com"
-  },
   "licenses": [
     {
       "type": "MIT",
@@ -45,6 +46,5 @@
   ],
   "bugs": {
     "url": "https://github.com/jsor/lity/issues"
-  },
-  "homepage": "http://sorgalla.com/lity/"
+  }
 }
