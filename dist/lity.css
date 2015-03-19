@@ -1,4 +1,4 @@
-/*! Lity - v0.2.1 - 2015-03-11
+/*! Lity - v0.2.1 - 2015-03-19
 * http://sorgalla.com/lity/
 * Copyright (c) 2015 Jan Sorgalla; Licensed MIT */
 .lity {
@@ -12,10 +12,6 @@
   background: #0b0b0b;
   background: rgba(0, 0, 0, 0.9);
   outline: none !important;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
   opacity: 0;
   -webkit-transition: opacity 0.2s ease;
        -o-transition: opacity 0.2s ease;
@@ -41,10 +37,6 @@
   left: 0;
   text-align: center;
   outline: none !important;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
 }
 .lity-wrap:before {
   content: '';
@@ -63,10 +55,6 @@
   text-align: center;
   font-size: 14px;
   font-family: Arial, Helvetica, sans-serif;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
   opacity: 0;
   -webkit-transition: opacity 0.2s ease;
        -o-transition: opacity 0.2s ease;
@@ -85,10 +73,6 @@
   max-width: 100%;
   max-height: 100%;
   outline: none !important;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
   opacity: 1;
   -webkit-transition: opacity 0.2s ease;
        -o-transition: opacity 0.2s ease;
@@ -114,10 +98,6 @@
 .lity-content {
   z-index: 9993;
   width: 100%;
-  -webkit-user-select: all;
-     -moz-user-select: all;
-      -ms-user-select: all;
-          user-select: all;
 }
 .lity-close {
   z-index: 9994;
@@ -138,10 +118,6 @@
   border: 0;
   background: transparent;
   outline: none !important;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
   -webkit-box-shadow: none;
           box-shadow: none;
   -webkit-appearance: none;
