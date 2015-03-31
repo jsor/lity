@@ -7,7 +7,7 @@
     "url": "http://sorgalla.com"
   },
   "homepage": "http://sorgalla.com/lity/",
-  "version": "0.2.1",
+  "version": "1.0.0",
   "main": "dist/lity.js",
   "peerDependencies": {
     "jquery": ">=1.7"
@@ -35,6 +35,7 @@
     "popup",
     "lightweight",
     "responsive",
+    "jquery",
     "jquery-plugin",
     "ecosystem:jquery"
   ],

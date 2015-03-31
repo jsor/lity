@@ -1,6 +1,6 @@
 {
   "name": "lity",
-  "version": "0.2.1",
+  "version": "1.0.0",
   "authors": [
     "Jan Sorgalla <jsorgalla@gmail.com>"
   ],
@@ -19,7 +19,10 @@
     "modal",
     "popup",
     "lightweight",
-    "responsive"
+    "responsive",
+    "jquery",
+    "jquery-plugin",
+    "ecosystem:jquery"
   ],
   "license": "MIT",
   "homepage": "http://sorgalla.com/lity/",
