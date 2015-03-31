@@ -113,8 +113,8 @@
 
         img
             .on('load', function() {
-                if (!this.complete || (typeof this.naturalWidth !== "undefined" && this.naturalWidth === 0)) {
-                    failed();
+                if (typeof this.naturalWidth !== "undefined" && this.naturalWidth === 0) {
+                    return failed();
                 }
 
                 deferred.resolve(img);
