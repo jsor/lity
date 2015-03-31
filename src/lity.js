@@ -113,7 +113,7 @@
 
         img
             .on('load', function() {
-                if (typeof this.naturalWidth !== "undefined" && this.naturalWidth === 0) {
+                if (this.naturalWidth === 0) {
                     return failed();
                 }
 
