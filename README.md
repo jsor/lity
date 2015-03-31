@@ -20,8 +20,8 @@ document:
 ```html
 <link href="dist/lity.css" rel="stylesheet">
 <!-- Remove the following line if you do not need IE8 support -->
-<!--[if lt IE 9]><script src="lib/es5-shim.js"></script><![endif]-->
-<script src="lib/jquery.js"></script>
+<!--[if lt IE 9]><script src="vendor/es5-shim.js"></script><![endif]-->
+<script src="vendor/jquery.js"></script>
 <script src="dist/lity.js"></script>
 ```
 
