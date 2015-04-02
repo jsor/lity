@@ -212,7 +212,9 @@
                         el.remove();
                     });
                 })
-                .end()
+            ;
+
+            _instance
                 .removeClass('lity-loading')
                 .find('.lity-content')
                 .empty()
