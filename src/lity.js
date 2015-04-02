@@ -171,7 +171,7 @@
         ;
     }
 
-    function create(options) {
+    function lity(options) {
         var _options = $.extend({}, _defaultOptions),
             _handlers = $.extend({}, _defaultHandlers),
             _currentOptions,
@@ -368,15 +368,11 @@
         return popup.options(options);
     }
 
-    var lity = function(options) {
-        return create(options);
-    };
-
     lity.version = '@VERSION';
     lity.handlers = settings.bind(lity, _defaultHandlers);
     lity.options = settings.bind(lity, _defaultOptions);
 
-    $(document).on('click', '[data-lity]', create());
+    $(document).on('click', '[data-lity]', lity());
 
     return lity;
 }));
