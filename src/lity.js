@@ -283,7 +283,7 @@
 
             if (content) {
                 _ready = $.Deferred();
-                $.when(close()).done(init.bind(null, handler, content));
+                $.when(close()).done($.proxy(init, null, handler, content));
             }
 
             return !!content;
@@ -352,8 +352,8 @@
             return popup;
         }
 
-        popup.handlers = settings.bind(popup, _handlers);
-        popup.options = settings.bind(popup, _options);
+        popup.handlers = $.proxy(settings, popup, _handlers);
+        popup.options = $.proxy(settings, popup, _options);
 
         popup.open = function(target) {
             open(target);
@@ -369,8 +369,8 @@
     }
 
     lity.version = '@VERSION';
-    lity.handlers = settings.bind(lity, _defaultHandlers);
-    lity.options = settings.bind(lity, _defaultOptions);
+    lity.handlers = $.proxy(settings, lity, _defaultHandlers);
+    lity.options = $.proxy(settings, lity, _defaultOptions);
 
     $(document).on('click', '[data-lity]', lity());
 
