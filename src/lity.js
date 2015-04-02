@@ -62,16 +62,16 @@
         return deferred.promise();
     }
 
-    var _html = '<div class="lity lity-loading" tabindex="-1">\
-                    <div class="lity-wrap" data-lity-close>\
-                        <div class="lity-loader">Loading...</div>\
-                        <div class="lity-container">\
-                            <div class="lity-content"></div>\
-                            <button class="lity-close" type="button" title="Close (Esc)" data-lity-close>×</button>\
-                         </div>\
-                     </div>\
-                 </div>\
-                ';
+    var _html = '\
+<div class="lity lity-loading" tabindex="-1">\
+    <div class="lity-wrap" data-lity-close>\
+        <div class="lity-loader">Loading...</div>\
+        <div class="lity-container">\
+            <div class="lity-content"></div>\
+            <button class="lity-close" type="button" title="Close (Esc)" data-lity-close>×</button>\
+        </div>\
+    </div>\
+</div>';
 
     function settings(settings, key, value) {
         if (arguments.length === 1) {
@@ -146,9 +146,7 @@
             target += '&output=embed';
         }
 
-        return '<div class="lity-iframe-container">\
-                    <iframe frameborder="0" allowfullscreen src="'+target+'"></iframe>\
-                </div>';
+        return '<div class="lity-iframe-container"><iframe frameborder="0" allowfullscreen src="'+target+'"></iframe></div>';
     }
 
     function inlineHandler(target) {

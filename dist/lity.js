@@ -1,4 +1,4 @@
-/*! Lity - v1.0.0 - 2015-03-31
+/*! Lity - v1.0.0 - 2015-04-02
 * http://sorgalla.com/lity/
 * Copyright (c) 2015 Jan Sorgalla; Licensed MIT */
 (function(window, factory) {
@@ -65,16 +65,16 @@
         return deferred.promise();
     }
 
-    var _html = '<div class="lity lity-loading" tabindex="-1">\
-                    <div class="lity-wrap" data-lity-close>\
-                        <div class="lity-loader">Loading...</div>\
-                        <div class="lity-container">\
-                            <div class="lity-content"></div>\
-                            <button class="lity-close" type="button" title="Close (Esc)" data-lity-close>×</button>\
-                         </div>\
-                     </div>\
-                 </div>\
-                ';
+    var _html = '\
+<div class="lity lity-loading" tabindex="-1">\
+    <div class="lity-wrap" data-lity-close>\
+        <div class="lity-loader">Loading...</div>\
+        <div class="lity-container">\
+            <div class="lity-content"></div>\
+            <button class="lity-close" type="button" title="Close (Esc)" data-lity-close>×</button>\
+        </div>\
+    </div>\
+</div>';
 
     function settings(settings, key, value) {
         if (arguments.length === 1) {
@@ -149,9 +149,7 @@
             target += '&output=embed';
         }
 
-        return '<div class="lity-iframe-container">\
-                    <iframe frameborder="0" allowfullscreen src="'+target+'"></iframe>\
-                </div>';
+        return '<div class="lity-iframe-container"><iframe frameborder="0" allowfullscreen src="'+target+'"></iframe></div>';
     }
 
     function inlineHandler(target) {
