@@ -4,6 +4,11 @@ Changelog
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org).
 
+1.1.2 - 2015-04-23
+------------------
+
+* Fixed: Fixed runtime options not set if main popup handler isn't called
+
 1.1.1 - 2015-04-02
 ------------------
 
