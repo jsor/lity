@@ -327,32 +327,26 @@
             return deferred.promise();
         }
 
-        function popup(eventOrTarget) {
-            var target, isEvent = eventOrTarget && !!eventOrTarget.preventDefault, opts;
-
-            if (!isEvent) {
-                target = eventOrTarget;
+        function popup(event) {
+            // If not an event, act as alias of popup.open
+            if (!event.preventDefault) {
+                return popup.open(event);
             }
 
-            if (!target) {
-                var el = $(this);
-                target = el.attr('data-lity-target') || el.attr('href') || el.attr('src');
-                opts = el.data('lity-options') || el.data('lity') || {};
-            }
+            var el = $(this);
+            var target = el.data('lity-target') || el.attr('href') || el.attr('src');
 
             if (!target) {
                 return;
             }
 
-            var options = $.extend({}, _options, opts);
+            var options = $.extend(
+                {},
+                _options,
+                el.data('lity-options') || el.data('lity')
+            );
 
-            if (open(target, options)) {
-                if (isEvent) {
-                    eventOrTarget.preventDefault();
-                }
-            }
-
-            return popup;
+            open(target, options) && event.preventDefault();
         }
 
         popup.handlers = $.proxy(settings, popup, _handlers);
