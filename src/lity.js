@@ -168,19 +168,18 @@
                     ;
                 });
             })
-        ;
+            ;
     }
 
     function lity(options) {
         var _options = $.extend({}, _defaultOptions),
             _handlers = $.extend({}, _defaultHandlers),
-            _currentOptions,
             _instance,
             _content,
             _ready = $.Deferred().resolve();
 
         function keyup(e) {
-            if (!!_currentOptions.esc && e.keyCode === 27) {
+            if (e.keyCode === 27) {
                 close()
             }
         }
@@ -229,10 +228,12 @@
             _ready.resolve();
         }
 
-        function init(handler, content) {
+        function init(handler, content, options) {
             _instance = $(_html).appendTo('body');
 
-            _win.one('keyup', keyup);
+            if (!!options.esc) {
+                _win.one('keyup', keyup);
+            }
 
             setTimeout(function() {
                 _instance
@@ -247,12 +248,12 @@
             }, 0);
         }
 
-        function open(target) {
+        function open(target, options) {
             var handler, content;
 
-            if (_currentOptions.handler && _handlers[_currentOptions.handler]) {
-                content = _handlers[_currentOptions.handler](target, instance, popup);
-                handler = _currentOptions.handler;
+            if (options.handler && _handlers[options.handler]) {
+                content = _handlers[options.handler](target, instance, popup);
+                handler = options.handler;
             } else {
                 var handlers = $.extend({}, _handlers), lateHandlers = {};
 
@@ -285,7 +286,7 @@
 
             if (content) {
                 _ready = $.Deferred();
-                $.when(close()).done($.proxy(init, null, handler, content));
+                $.when(close()).done($.proxy(init, null, handler, content, options));
             }
 
             return !!content;
@@ -343,9 +344,9 @@
                 return;
             }
 
-            _currentOptions = $.extend({}, _options, opts);
+            var options = $.extend({}, _options, opts);
 
-            if (open(target)) {
+            if (open(target, options)) {
                 if (isEvent) {
                     eventOrTarget.preventDefault();
                 }
@@ -358,7 +359,7 @@
         popup.options = $.proxy(settings, popup, _options);
 
         popup.open = function(target) {
-            open(target);
+            open(target, _options);
             return popup;
         };
 
