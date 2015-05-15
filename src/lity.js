@@ -16,14 +16,13 @@
     var _win = $(window);
 
     var _imageRegexp = /\.(png|jpg|jpeg|gif|tiff|bmp)(\?\S*)?$/i;
-    var _iframeRegexp = /^([a-z]+:)?\/\//i;
     var _youtubeIdRegex = /v=([^&]+)/;
     var _vimeoIdRegex = /\/([^\?&]+)$/;
 
     var _defaultHandlers = {
         image: imageHandler,
-        iframe: iframeHandler,
-        inline: inlineHandler
+        inline: inlineHandler,
+        iframe: iframeHandler
     };
 
     var _defaultOptions = {
@@ -125,30 +124,6 @@
         return deferred.promise();
     }
 
-    function iframeHandler(target) {
-        if (!_iframeRegexp.test(target)) {
-            return false;
-        }
-
-        var id;
-
-        if (target.indexOf('youtube.') > -1 && target.indexOf('/embed') < 0) {
-            id = _youtubeIdRegex.exec(target)[1];
-            target = protocol() + '//www.youtube.com/embed/' + id + '?autoplay=1';
-        }
-
-        if (target.indexOf('vimeo.') > -1 && target.indexOf('player.vimeo.') < 0) {
-            id = _vimeoIdRegex.exec(target.split('//')[1])[1];
-            target = protocol() + '//player.vimeo.com/video/' + id + '?autoplay=1';
-        }
-
-        if (target.indexOf('//maps.google.') > -1 && target.indexOf('output=embed') < 0) {
-            target += '&output=embed';
-        }
-
-        return '<div class="lity-iframe-container"><iframe frameborder="0" allowfullscreen src="'+target+'"></iframe></div>';
-    }
-
     function inlineHandler(target) {
         try {
             var el = $(target);
@@ -169,6 +144,26 @@
                 });
             })
             ;
+    }
+
+    function iframeHandler(target) {
+        var id;
+
+        if (target.indexOf('youtube.') > -1 && target.indexOf('/embed') < 0) {
+            id = _youtubeIdRegex.exec(target)[1];
+            target = protocol() + '//www.youtube.com/embed/' + id + '?autoplay=1';
+        }
+
+        if (target.indexOf('vimeo.') > -1 && target.indexOf('player.vimeo.') < 0) {
+            id = _vimeoIdRegex.exec(target.split('//')[1])[1];
+            target = protocol() + '//player.vimeo.com/video/' + id + '?autoplay=1';
+        }
+
+        if (target.indexOf('//maps.google.') > -1 && target.indexOf('output=embed') < 0) {
+            target += '&output=embed';
+        }
+
+        return '<div class="lity-iframe-container"><iframe frameborder="0" allowfullscreen src="'+target+'"></iframe></div>';
     }
 
     function lity(options) {
@@ -257,8 +252,8 @@
             } else {
                 var handlers = $.extend({}, _handlers), lateHandlers = {};
 
-                // Run iframe and inline handlers after all other handlers
-                $.each(['iframe', 'inline'], function(i, name) {
+                // Run inline and iframe handlers after all other handlers
+                $.each(['inline', 'iframe'], function(i, name) {
                     if (handlers[name]) {
                         lateHandlers[name] = handlers[name];
                     }
