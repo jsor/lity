@@ -11,6 +11,8 @@ It works with [jQuery](http://jquery.com) and [Zepto](http://zeptojs.com).
 Installation
 ------------
 
+All ready-to-use files are located in the [`dist/`](dist/) directory.
+
 Include the Lity javascript and css files and its dependencies in your HTML
 document:
 
@@ -20,8 +22,12 @@ document:
 <script src="dist/lity.js"></script>
 ```
 
+Lity can also be installed via Bower or [npm](https://www.npmjs.com/package/lity).
+
 Usage
 -----
+
+### Declarative
 
 Add the `data-lity` attribute to `<a>` elements for which you want the links to
 be opened in a lightbox:
@@ -37,6 +43,27 @@ be opened in a lightbox:
     Inline content
 </div>
 ```
+
+### Programmatic
+
+First create a lity instance:
+
+```javascript
+var lightbox = lity();
+```
+
+`lightbox` is now function which can be both used directly to open links in a
+lightbox or as an event handler:
+
+```javascript
+// Open a URL in a lightbox
+lightbox('https://farm9.staticflickr.com/8642/16455005578_0fdfc6c3da_b.jpg');
+
+// Bind as an event handler
+$(document).on('click', '[data-lightbox]`, lightbox);
+```
+
+If you want to close the currently opened lightbox, use `lightbox.close()`.
 
 License
 -------
