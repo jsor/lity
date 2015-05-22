@@ -60,7 +60,7 @@ lightbox or as an event handler:
 lightbox('https://farm9.staticflickr.com/8642/16455005578_0fdfc6c3da_b.jpg');
 
 // Bind as an event handler
-$(document).on('click', '[data-lightbox]`, lightbox);
+$(document).on('click', '[data-lightbox]', lightbox);
 ```
 
 If you want to close the currently opened lightbox, use `lightbox.close()`.
