@@ -72,15 +72,21 @@
 <div class="wrap">
     <h3>Installation</h3>
 
+    <p>All ready-to-use files are located in the <code>dist/</code> directory.</p>
+
     <p>Include the Lity javascript and css files and its dependencies in your HTML document:</p>
 
 <pre><code class="language-markup">&lt;link href="dist/lity.css" rel="stylesheet">
 &lt;script src="vendor/jquery.js">&lt;/script>
 &lt;script src="dist/lity.js">&lt;/script></code></pre>
+
+    <p>Lity can also be installed via Bower or <a href="https://www.npmjs.com/package/lity">npm</a>.</p>
 </div>
 
 <div class="wrap">
     <h3>Usage</h3>
+
+    <h4>Declarative</h4>
 
     <p>Add the <code>data-lity</code> attribute to <code>&lt;a></code> elements for which you want the links to
         be opened in a lightbox:</p>
@@ -94,6 +100,22 @@
 &lt;div id="inline" style="background:#fff" class="lity-hide">
 Inline content
 &lt;/div></code></pre>
+
+    <h4>Programmatic</h4>
+
+    <p>First create a lity instance:</p>
+
+<pre><code class="language-javascript">var lightbox = lity();</code></pre>
+
+    <p><code>lightbox</code> is now function which can be both used directly to open links in a lightbox or as an event handler:</p>
+
+    <pre><code class="language-javascript">// Open a URL in a lightbox
+lightbox('https://farm9.staticflickr.com/8642/16455005578_0fdfc6c3da_b.jpg');
+
+// Bind as an event handler
+$(document).on('click', '[data-lightbox]', lightbox);</code></pre>
+
+    <p>If you want to close the currently opened lightbox, use <code>lightbox.close()</code>.</p>
 </div>
 
 <div class="wrap wrap-center">

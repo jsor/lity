@@ -49,6 +49,13 @@ h3 {
     color: #4E443C;
 }
 
+h4 {
+    font-family: 'Arvo', serif;
+    font-weight: 700;
+    font-size: 20px;
+    color: #F14E32;
+}
+
 a {
   color: #0388A6;
 }
