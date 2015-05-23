@@ -52,12 +52,12 @@ First create a lity instance:
 var lightbox = lity();
 ```
 
-`lightbox` is now function which can be both used directly to open links in a
-lightbox or as an event handler:
+`lightbox` is now a function which can be either used directly to open links in
+a lightbox or as an event handler:
 
 ```javascript
 // Open a URL in a lightbox
-lightbox('https://farm9.staticflickr.com/8642/16455005578_0fdfc6c3da_b.jpg');
+lightbox('//www.youtube.com/watch?v=XSGBVzeBUbk');
 
 // Bind as an event handler
 $(document).on('click', '[data-lightbox]', lightbox);
