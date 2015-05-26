@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Lity - Test</title>
+
+    <link href="../../dist/lity.css" rel="stylesheet"/>
+
+    <style>
+        a:after {
+            content: attr(href);
+        }
+    </style>
+
+    <script src="../../vendor/jquery.js"></script>
+    <script src="../../dist/lity.js"></script>
+
+    <script>
+        $(document).on('click', 'a', function() {
+            return false;
+        });
+    </script>
+</head>
+<body>
+
+<h1>Image</h1>
+
+<ul>
+    <li>
+        <a href="https://farm9.staticflickr.com/8642/16455005578_0fdfc6c3da_b.jpg" data-lity></a>
+    </li>
+</ul>
+
+<h1>Inline</h1>
+
+<ul>
+    <li>
+        <a href="#inline" data-lity></a>
+    </li>
+</ul>
+
+<h1>iFrame</h1>
+
+<h2>Google Maps</h2>
+
+<ul>
+    <li>
+        <a href="//maps.google.com/maps?q=1600+Amphitheatre+Parkway,+Mountain+View,+CA" data-lity></a>
+    </li>
+</ul>
+
+<h2>Youtube</h2>
+
+<ul>
+    <li>
+        <a href="http://www.youtube.com/watch?v=XSGBVzeBUbk" data-lity></a>
+    </li>
+    <li>
+        <a href="https://www.youtube.com/watch?v=XSGBVzeBUbk" data-lity></a>
+    </li>
+    <li>
+        <a href="//www.youtube.com/watch?v=XSGBVzeBUbk" data-lity></a>
+    </li>
+    <li>
+        <a href="http://m.youtube.com/watch?v=XSGBVzeBUbk" data-lity></a>
+    </li>
+    <li>
+        <a href="https://m.youtube.com/watch?v=XSGBVzeBUbk" data-lity></a>
+    </li>
+    <li>
+        <a href="//m.youtube.com/watch?v=XSGBVzeBUbk" data-lity></a>
+    </li>
+
+    <li>
+        <a href="http://youtube.com/watch?v=XSGBVzeBUbk" data-lity></a>
+    </li>
+    <li>
+        <a href="https://youtube.com/watch?v=XSGBVzeBUbk" data-lity></a>
+    </li>
+    <li>
+        <a href="//youtube.com/watch?v=XSGBVzeBUbk" data-lity></a>
+    </li>
+
+    <li>
+        <a href="http://youtube.com/v/XSGBVzeBUbk" data-lity></a>
+    </li>
+    <li>
+        <a href="https://youtube.com/v/XSGBVzeBUbk" data-lity></a>
+    </li>
+    <li>
+        <a href="//youtube.com/v/XSGBVzeBUbk" data-lity></a>
+    </li>
+
+    <li>
+        <a href="http://youtu.be/XSGBVzeBUbk" data-lity></a>
+    </li>
+    <li>
+        <a href="https://youtu.be/XSGBVzeBUbk" data-lity></a>
+    </li>
+    <li>
+        <a href="//youtu.be/XSGBVzeBUbk" data-lity></a>
+    </li>
+</ul>
+
+<h2>Vimeo</h2>
+
+<ul>
+    <li>
+        <a href="//vimeo.com/1084537" data-lity></a>
+    </li>
+</ul>
+
+</body>
+</html>
