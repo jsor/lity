@@ -96,7 +96,7 @@
     }
 
     function appendQueryParams(url, query) {
-        return (url.indexOf('?') > -1 ? '&' : '?') + query;
+        return url + (url.indexOf('?') > -1 ? '&' : '?') + query;
     }
 
     function error(msg) {
