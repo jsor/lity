@@ -33,10 +33,10 @@
         var el = document.createElement('div');
 
         var transEndEventNames = {
-            WebkitTransition : 'webkitTransitionEnd',
-            MozTransition : 'transitionend',
-            OTransition : 'oTransitionEnd otransitionend',
-            transition : 'transitionend'
+            WebkitTransition: 'webkitTransitionEnd',
+            MozTransition: 'transitionend',
+            OTransition: 'oTransitionEnd otransitionend',
+            transition: 'transitionend'
         };
 
         for (var name in transEndEventNames) {
@@ -147,7 +147,7 @@
                     ;
                 });
             })
-            ;
+        ;
     }
 
     function iframeHandler(target) {
@@ -167,7 +167,7 @@
             target = appendQueryParams(target, 'output=embed');
         }
 
-        return '<div class="lity-iframe-container"><iframe frameborder="0" allowfullscreen src="'+target+'"></iframe></div>';
+        return '<div class="lity-iframe-container"><iframe frameborder="0" allowfullscreen src="' + target + '"></iframe></div>';
     }
 
     function lity(options) {
