@@ -166,7 +166,7 @@
             target = protocol() + '//player.vimeo.com/video/' + id + '?autoplay=1';
         }
 
-        if (target.indexOf('//maps.google.') > -1 && target.indexOf('output=embed') < 0) {
+        if (target.indexOf('//maps.google.') > -1 && target.indexOf('output=embed') < 0 && target.indexOf('/embed') < 0) {
             target = appendQueryParams(target, 'output=embed');
         }
 
