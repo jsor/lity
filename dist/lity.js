@@ -19,7 +19,7 @@
     var _win = $(window);
 
     var _imageRegexp = /\.(png|jpg|jpeg|gif|tiff|bmp)(\?\S*)?$/i;
-    var _youtubeIdRegex = /v=([^&]+)/;
+    var _youtubeRegex = /(youtube\.com|youtu\.be|youtube-nocookie\.com)\/(watch\?v=|v\/|u\/|embed\/?)?([\w-]{11})([&|\?]+list=([^&]+))?.*/i;
     var _vimeoIdRegex = /\/([^\?&]+)$/;
 
     var _defaultHandlers = {
@@ -158,23 +158,26 @@
     }
 
     function iframeHandler(target) {
-        var id;
+        var id, matches, url = target;
 
-        if (target.indexOf('youtube.') > -1 && target.indexOf('/embed') < 0) {
-            id = _youtubeIdRegex.exec(target)[1];
-            target = protocol() + '//www.youtube.com/embed/' + id + '?autoplay=1';
+        if (matches = _youtubeRegex.exec(target)) {
+            url = protocol() + '//www.youtube.com/embed/' + matches[3];
+
+            if (matches[5]) {
+                url = appendQueryParams(url, 'list=' + matches[5]);
+            }
         }
 
         if (target.indexOf('vimeo.') > -1 && target.indexOf('player.vimeo.') < 0) {
             id = _vimeoIdRegex.exec(target.split('//')[1])[1];
-            target = protocol() + '//player.vimeo.com/video/' + id + '?autoplay=1';
+            url = protocol() + '//player.vimeo.com/video/' + id + '?autoplay=1';
         }
 
         if (target.indexOf('//maps.google.') > -1 && target.indexOf('output=embed') < 0 && target.indexOf('/embed') < 0) {
-            target = appendQueryParams(target, 'output=embed');
+            url = appendQueryParams(target, 'output=embed');
         }
 
-        return '<div class="lity-iframe-container"><iframe frameborder="0" allowfullscreen src="' + target + '"></iframe></div>';
+        return '<div class="lity-iframe-container"><iframe frameborder="0" allowfullscreen src="' + url + '"></iframe></div>';
     }
 
     function lity(options) {
