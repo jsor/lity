@@ -95,6 +95,10 @@
         return 'file:' === window.location.protocol ? 'http:' : '';
     }
 
+    function appendQueryParams(url, query) {
+        return (url.indexOf('?') > -1 ? '&' : '?') + query;
+    }
+
     function error(msg) {
         return $('<span class="lity-error"/>').append(msg);
     }
@@ -160,7 +164,7 @@
         }
 
         if (target.indexOf('//maps.google.') > -1 && target.indexOf('output=embed') < 0) {
-            target += '&output=embed';
+            target = appendQueryParams(target, 'output=embed');
         }
 
         return '<div class="lity-iframe-container"><iframe frameborder="0" allowfullscreen src="'+target+'"></iframe></div>';

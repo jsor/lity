@@ -1,4 +1,4 @@
-/*! Lity - v1.2.0 - 2015-05-15
+/*! Lity - v1.2.0 - 2015-05-27
 * http://sorgalla.com/lity/
 * Copyright (c) 2015 Jan Sorgalla; Licensed MIT */
 (function(window, factory) {
@@ -98,6 +98,10 @@
         return 'file:' === window.location.protocol ? 'http:' : '';
     }
 
+    function appendQueryParams(url, query) {
+        return (url.indexOf('?') > -1 ? '&' : '?') + query;
+    }
+
     function error(msg) {
         return $('<span class="lity-error"/>').append(msg);
     }
@@ -163,7 +167,7 @@
         }
 
         if (target.indexOf('//maps.google.') > -1 && target.indexOf('output=embed') < 0) {
-            target += '&output=embed';
+            target = appendQueryParams(target, 'output=embed');
         }
 
         return '<div class="lity-iframe-container"><iframe frameborder="0" allowfullscreen src="'+target+'"></iframe></div>';
