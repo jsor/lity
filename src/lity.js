@@ -135,6 +135,10 @@
             return false;
         }
 
+        if (!el.length) {
+            return false;
+        }
+
         var placeholder = $('<span style="display:none !important" class="lity-inline-placeholder"/>');
 
         return el
