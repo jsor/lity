@@ -55,7 +55,7 @@
             deferred.resolve();
         } else {
             element.one(transitionEndEvent, deferred.resolve);
-            setTimeout(deferred.reject, 500);
+            setTimeout(deferred.resolve, 500);
         }
 
         return deferred.promise();
