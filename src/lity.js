@@ -18,6 +18,7 @@
     var _imageRegexp = /\.(png|jpg|jpeg|gif|tiff|bmp)(\?\S*)?$/i;
     var _youtubeRegex = /(youtube\.com|youtu\.be|youtube-nocookie\.com)\/(watch\?v=|v\/|u\/|embed\/?)?([\w-]{11})([&|\?]+list=([^&]+))?.*/i;
     var _vimeoIdRegex = /\/([^\?&]+)$/;
+    var _googlemapsRegex = /((maps|www)\.)?google\.([^\/\?]+)\/?((maps\/?)?\?)(.*)/i;
 
     var _defaultHandlers = {
         image: imageHandler,
@@ -171,8 +172,11 @@
             url = protocol() + '//player.vimeo.com/video/' + id + '?autoplay=1';
         }
 
-        if (target.indexOf('//maps.google.') > -1 && target.indexOf('output=embed') < 0 && target.indexOf('/embed') < 0) {
-            url = appendQueryParams(target, 'output=embed');
+        if (matches = _googlemapsRegex.exec(target)) {
+            url = appendQueryParams(
+                protocol() + '//www.google.' + matches[3] + '/maps?' + matches[6],
+                'output=' + (matches[6].indexOf('layer=c') > 0 ? 'svembed' : 'embed')
+            );
         }
 
         return '<div class="lity-iframe-container"><iframe frameborder="0" allowfullscreen src="' + url + '"></iframe></div>';
