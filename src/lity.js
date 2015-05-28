@@ -155,10 +155,11 @@
     }
 
     function iframeHandler(target) {
-        var id, matches, url = target;
+        var id, matches, nocookie, url = target;
 
         if (matches = _youtubeRegex.exec(target)) {
-            url = protocol() + '//www.youtube.com/embed/' + matches[3];
+            nocookie = matches[1].indexOf('nocookie') > -1 ? '-nocookie' : '';
+            url = protocol() + '//www.youtube' + nocookie + '.com/embed/' + matches[3];
 
             if (matches[5]) {
                 url = appendQueryParams(url, 'list=' + matches[5]);
