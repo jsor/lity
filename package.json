@@ -36,12 +36,7 @@
     "jquery-plugin",
     "ecosystem:jquery"
   ],
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "https://raw.github.com/jsor/lity/master/LICENSE"
-    }
-  ],
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/jsor/lity/issues"
   }
