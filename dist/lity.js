@@ -65,31 +65,22 @@
         return deferred.promise();
     }
 
-    var _html = '\
-<div class="lity lity-loading" tabindex="-1">\
-    <div class="lity-wrap" data-lity-close>\
-        <div class="lity-loader">Loading...</div>\
-        <div class="lity-container">\
-            <div class="lity-content"></div>\
-            <button class="lity-close" type="button" title="Close (Esc)" data-lity-close>×</button>\
-        </div>\
-    </div>\
-</div>';
+    var _html = '<div class="lity lity-loading" tabindex="-1"><div class="lity-wrap" data-lity-close><div class="lity-loader">Loading...</div><div class="lity-container"><div class="lity-content"></div><button class="lity-close" type="button" title="Close (Esc)" data-lity-close>×</button></div></div></div>';
 
-    function settings(settings, key, value) {
+    function settings(currSettings, key, value) {
         if (arguments.length === 1) {
-            return $.extend({}, settings);
+            return $.extend({}, currSettings);
         }
 
         if (typeof key === 'string') {
             if (typeof value === 'undefined') {
-                return typeof settings[key] === 'undefined' ?
+                return typeof currSettings[key] === 'undefined' ?
                     null :
-                    settings[key];
+                    currSettings[key];
             }
-            settings[key] = value;
+            currSettings[key] = value;
         } else {
-            $.extend(settings, key);
+            $.extend(currSettings, key);
         }
 
         return this;
@@ -133,8 +124,10 @@
     }
 
     function inlineHandler(target) {
+        var el;
+
         try {
-            var el = $(target);
+            el = $(target);
         } catch (e) {
             return false;
         }
@@ -161,7 +154,9 @@
     function iframeHandler(target) {
         var id, matches, nocookie, url = target;
 
-        if (matches = _youtubeRegex.exec(target)) {
+        matches = _youtubeRegex.exec(target);
+
+        if (matches) {
             nocookie = matches[1].indexOf('nocookie') > -1 ? '-nocookie' : '';
             url = protocol() + '//www.youtube' + nocookie + '.com/embed/' + matches[3];
 
@@ -177,7 +172,9 @@
             url = protocol() + '//player.vimeo.com/video/' + id + '?autoplay=1';
         }
 
-        if (matches = _googlemapsRegex.exec(target)) {
+        matches = _googlemapsRegex.exec(target);
+
+        if (matches) {
             url = appendQueryParams(
                 protocol() + '//www.google.' + matches[3] + '/maps?' + matches[6],
                 'output=' + (matches[6].indexOf('layer=c') > 0 ? 'svembed' : 'embed')
@@ -196,7 +193,7 @@
 
         function keyup(e) {
             if (e.keyCode === 27) {
-                close()
+                close();
             }
         }
 
@@ -255,7 +252,9 @@
                 _instance
                     .addClass('lity-opened lity-' + handler)
                     .on('click', '[data-lity-close]', function(e) {
-                        $(e.target).is('[data-lity-close]') && close();
+                        if ($(e.target).is('[data-lity-close]')) {
+                            close();
+                        }
                     })
                     .trigger('lity:open', [_instance, popup])
                 ;
@@ -297,7 +296,10 @@
                 };
 
                 $.each(handlers, call);
-                !handler && $.each(lateHandlers, call);
+
+                if (!handler) {
+                    $.each(lateHandlers, call);
+                }
             }
 
             if (content) {
@@ -321,9 +323,11 @@
                     .off('keyup', keyup)
                 ;
 
-                _content && _content
-                    .trigger('lity:close', [_instance, popup])
-                ;
+                if (_content) {
+                    _content
+                        .trigger('lity:close', [_instance, popup])
+                    ;
+                }
 
                 _instance
                     .removeClass('lity-opened')
@@ -362,7 +366,9 @@
                 el.data('lity-options') || el.data('lity')
             );
 
-            open(target, options) && event.preventDefault();
+            if (open(target, options)) {
+                event.preventDefault();
+            }
         }
 
         popup.handlers = $.proxy(settings, popup, _handlers);
