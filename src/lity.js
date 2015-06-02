@@ -165,6 +165,8 @@
             if (matches[5]) {
                 url = appendQueryParams(url, 'list=' + matches[5]);
             }
+
+            url = appendQueryParams(url, 'autoplay=1');
         }
 
         if (target.indexOf('vimeo.') > -1 && target.indexOf('player.vimeo.') < 0) {
