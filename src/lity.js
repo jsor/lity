@@ -27,7 +27,8 @@
     };
 
     var _defaultOptions = {
-        esc: true
+        esc: true,
+        handler: null
     };
 
     var transitionEndEvent = (function() {
