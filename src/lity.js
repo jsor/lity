@@ -263,6 +263,8 @@
 
         function open(target, options) {
             var handler, content;
+            
+            $(document).trigger('lity.open');
 
             if (options.handler && _handlers[options.handler]) {
                 content = _handlers[options.handler](target, instance, popup);
@@ -312,6 +314,8 @@
             if (!_instance) {
                 return;
             }
+            
+            $(document).trigger('lity.close');
 
             var deferred = $.Deferred();
 
