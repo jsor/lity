@@ -1,7 +1,7 @@
 @lity-z-index-base: 9990;
 @lity-shadow: 0 0 8px rgba(0, 0, 0, 0.6);
 @lity-close-size: 35px;
-@lity-close-text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.6);
+@lity-close-text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
 @lity-iframe-ratio: 9/16;  // Or 3/4
 
 .lity {
@@ -105,15 +105,7 @@
     width: 100%;
 }
 
-.lity-close {
-    z-index: @lity-z-index-base + 4;
-    width: @lity-close-size;
-    height: @lity-close-size;
-    line-height: @lity-close-size;
-    // Change to position: absolute to display close button inside content container
-    position: fixed;
-    right: 0;
-    top: 0;
+.lity-close-style() {
     text-decoration: none;
     text-align: center;
     padding: 0;
@@ -121,13 +113,40 @@
     font-style: normal;
     font-size: @lity-close-size;
     font-family: Arial, Baskerville, monospace;
+    line-height: @lity-close-size;
     text-shadow: @lity-close-text-shadow;
     border: 0;
-    background: transparent;
-    outline: none !important;
+    background: none;
+    outline: none;
     box-shadow: none;
+}
+
+.lity-close {
+    z-index: @lity-z-index-base + 4;
+    width: @lity-close-size;
+    height: @lity-close-size;
+
+    // Change to position: absolute to display close button inside content container
+    position: fixed;
+    right: 0;
+    top: 0;
+
     -webkit-appearance: none;
     cursor: pointer;
+
+    .lity-close-style();
+
+    &::-moz-focus-inner {
+        border: 0;
+        padding: 0;
+    }
+
+    &:hover,
+    &:focus,
+    &:active,
+    &:visited {
+        .lity-close-style();
+    }
 
     &:active {
         top: 1px;
