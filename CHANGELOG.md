@@ -4,6 +4,14 @@ Changelog
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org).
 
+1.3.0 - 2015-07-01
+------------------
+
+* Added: More robust support of YouTube URLs.
+* Added: More robust support of Google Maps URLs.
+* Fixed: Optimize close button styles (makes styling more robust for :hover,
+  :focus, :active and :visited states).
+
 1.2.0 - 2015-05-15
 ------------------
 
