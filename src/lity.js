@@ -16,7 +16,7 @@
     var _win = $(window);
 
     var _imageRegexp = /\.(png|jpg|jpeg|gif|tiff|bmp)(\?\S*)?$/i;
-    var _youtubeRegex = /(youtube\.com|youtu\.be|youtube-nocookie\.com)\/(watch\?v=|v\/|u\/|embed\/?)?([\w-]{11})([&|\?]+list=([^&]+))?.*/i;
+    var _youtubeRegex = /(youtube(-nocookie)?\.com|youtu\.be)\/(watch\?v=|v\/|u\/|embed\/?)?([\w-]{11})([&|\?]+list=([^&]+))?.*/i;
     var _vimeoIdRegex = /\/([^\?&]+)$/;
     var _googlemapsRegex = /((maps|www)\.)?google\.([^\/\?]+)\/?((maps\/?)?\?)(.*)/i;
 
@@ -150,16 +150,15 @@
     }
 
     function iframeHandler(target) {
-        var id, matches, nocookie, url = target;
+        var id, matches, url = target;
 
         matches = _youtubeRegex.exec(target);
 
         if (matches) {
-            nocookie = matches[1].indexOf('nocookie') > -1 ? '-nocookie' : '';
-            url = protocol() + '//www.youtube' + nocookie + '.com/embed/' + matches[3];
+            url = protocol() + '//www.youtube' + (matches[2] || '') + '.com/embed/' + matches[4];
 
-            if (matches[5]) {
-                url = appendQueryParams(url, 'list=' + matches[5]);
+            if (matches[6]) {
+                url = appendQueryParams(url, 'list=' + matches[6]);
             }
 
             url = appendQueryParams(url, 'autoplay=1');
