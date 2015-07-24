@@ -80,11 +80,18 @@
     max-width: 100%;
     max-height: 100%;
     outline: none !important;
-    opacity: 1;
-    transition: opacity @lity-transition-duration @lity-transition-timing-function;
+}
 
-    .lity-loading & {
-        opacity: 0;
+.lity-content {
+    z-index: @lity-z-index-base + 3;
+    width: 100%;
+
+    transform: scale(1);
+    transition: transform @lity-transition-duration @lity-transition-timing-function;
+
+    .lity-loading &,
+    .lity-closed & {
+        transform: scale(0.8);
     }
 
     &:after {
@@ -100,11 +107,6 @@
         z-index: -1;
         box-shadow: @lity-shadow;
     }
-}
-
-.lity-content {
-    z-index: @lity-z-index-base + 3;
-    width: 100%;
 }
 
 .lity-close-style() {
