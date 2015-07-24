@@ -1,4 +1,4 @@
-/*! Lity - v1.3.0 - 2015-07-01
+/*! Lity - v1.3.0 - 2015-07-24
 * http://sorgalla.com/lity/
 * Copyright (c) 2015 Jan Sorgalla; Licensed MIT */
 (function(window, factory) {
@@ -142,7 +142,7 @@
         return el
             .after(placeholder)
             .on('lity:ready', function(e, instance) {
-                instance.one('lity:close', function() {
+                instance.one('lity:remove', function() {
                     placeholder
                         .before(el.addClass('lity-hide'))
                         .remove()
@@ -324,22 +324,19 @@
                     .off('keyup', keyup)
                 ;
 
-                if (_content) {
-                    _content
-                        .trigger('lity:close', [_instance, popup])
-                    ;
-                }
+                _content.trigger('lity:close', [_instance, popup]);
 
                 _instance
                     .removeClass('lity-opened')
                     .addClass('lity-closed')
                 ;
 
-                var instance = _instance;
+                var instance = _instance, content = _content;
                 _instance = null;
                 _content = null;
 
-                transitionEnd(instance).always(function() {
+                transitionEnd(content.add(instance)).always(function() {
+                    content.trigger('lity:remove', [instance, popup]);
                     instance.remove();
                     deferred.resolve();
                 });
