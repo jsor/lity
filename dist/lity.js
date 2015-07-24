@@ -20,7 +20,7 @@
 
     var _imageRegexp = /\.(png|jpg|jpeg|gif|tiff|bmp)(\?\S*)?$/i;
     var _youtubeRegex = /(youtube(-nocookie)?\.com|youtu\.be)\/(watch\?v=|v\/|u\/|embed\/?)?([\w-]{11})([&|\?]+list=([^&]+))?.*/i;
-    var _vimeoIdRegex = /\/([^\?&]+)$/;
+    var _vimeoRegex =  /(vimeo(pro)?.com)\/(?:[^\d]+)?(\d+)(?:.*)/;
     var _googlemapsRegex = /((maps|www)\.)?google\.([^\/\?]+)\/?((maps\/?)?\?)(.*)/i;
 
     var _defaultHandlers = {
@@ -153,7 +153,7 @@
     }
 
     function iframeHandler(target) {
-        var id, matches, url = target;
+        var matches, url = target;
 
         matches = _youtubeRegex.exec(target);
 
@@ -167,9 +167,10 @@
             url = appendQueryParams(url, 'autoplay=1');
         }
 
-        if (target.indexOf('vimeo.') > -1 && target.indexOf('player.vimeo.') < 0) {
-            id = _vimeoIdRegex.exec(target.split('//')[1])[1];
-            url = protocol() + '//player.vimeo.com/video/' + id + '?autoplay=1';
+        matches = _vimeoRegex.exec(target);
+
+        if (matches) {
+            url = protocol() + '//player.vimeo.com/video/' + matches[3] + '?autoplay=1';
         }
 
         matches = _googlemapsRegex.exec(target);
