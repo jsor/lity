@@ -13,9 +13,9 @@
   background: rgba(0, 0, 0, 0.9);
   outline: none !important;
   opacity: 0;
-  -webkit-transition: opacity 0.2s ease;
-       -o-transition: opacity 0.2s ease;
-          transition: opacity 0.2s ease;
+  -webkit-transition: opacity 0.3s ease;
+       -o-transition: opacity 0.3s ease;
+          transition: opacity 0.3s ease;
 }
 .lity.lity-opened {
   opacity: 1;
@@ -56,9 +56,9 @@
   font-size: 14px;
   font-family: Arial, Helvetica, sans-serif;
   opacity: 0;
-  -webkit-transition: opacity 0.2s ease;
-       -o-transition: opacity 0.2s ease;
-          transition: opacity 0.2s ease;
+  -webkit-transition: opacity 0.3s ease;
+       -o-transition: opacity 0.3s ease;
+          transition: opacity 0.3s ease;
 }
 .lity-loading .lity-loader {
   opacity: 1;
@@ -74,9 +74,9 @@
   max-height: 100%;
   outline: none !important;
   opacity: 1;
-  -webkit-transition: opacity 0.2s ease;
-       -o-transition: opacity 0.2s ease;
-          transition: opacity 0.2s ease;
+  -webkit-transition: opacity 0.3s ease;
+       -o-transition: opacity 0.3s ease;
+          transition: opacity 0.3s ease;
 }
 .lity-loading .lity-container {
   opacity: 0;

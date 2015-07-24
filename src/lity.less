@@ -3,6 +3,8 @@
 @lity-close-size: 35px;
 @lity-close-text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
 @lity-iframe-ratio: 9/16;  // Or 3/4
+@lity-transition-timing-function: ease;
+@lity-transition-duration: .3s;
 
 .lity {
     z-index: @lity-z-index-base;
@@ -16,7 +18,7 @@
     background: rgba(0, 0, 0, 0.9);
     outline: none !important;
     opacity: 0;
-    transition: opacity 0.2s ease;
+    transition: opacity @lity-transition-duration @lity-transition-timing-function;
 
     &.lity-opened {
         opacity: 1;
@@ -61,7 +63,7 @@
     font-size: 14px;
     font-family: Arial, Helvetica, sans-serif;
     opacity: 0;
-    transition: opacity 0.2s ease;
+    transition: opacity @lity-transition-duration @lity-transition-timing-function;
 
     .lity-loading & {
         opacity: 1;
@@ -79,7 +81,7 @@
     max-height: 100%;
     outline: none !important;
     opacity: 1;
-    transition: opacity 0.2s ease;
+    transition: opacity @lity-transition-duration @lity-transition-timing-function;
 
     .lity-loading & {
         opacity: 0;
