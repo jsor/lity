@@ -14,6 +14,8 @@
     var document = window.document;
 
     var _win = $(window);
+    var _htmlEl = $('html');
+    var _instanceCount = 0;
 
     var _imageRegexp = /\.(png|jpg|jpeg|gif|tiff|bmp)(\?\S*)?$/i;
     var _youtubeRegex = /(youtube(-nocookie)?\.com|youtu\.be)\/(watch\?v=|v\/|u\/|embed\/?)?([\w-]{11})([&|\?]+list=([^&]+))?.*/i;
@@ -30,6 +32,10 @@
         esc: true,
         handler: null
     };
+
+    function globalToggle() {
+        _htmlEl[_instanceCount > 0 ? 'addClass' : 'removeClass']('lity-active');
+    }
 
     var transitionEndEvent = (function() {
         var el = document.createElement('div');
@@ -240,6 +246,9 @@
         }
 
         function init(handler, content, options) {
+            _instanceCount++;
+            globalToggle();
+
             _instance = $(_html).appendTo('body');
 
             if (!!options.esc) {
@@ -316,6 +325,9 @@
             var deferred = $.Deferred();
 
             _ready.done(function() {
+                _instanceCount--;
+                globalToggle();
+
                 _win
                     .off('resize', resize)
                     .off('keyup', keyup)
