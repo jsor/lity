@@ -9,7 +9,7 @@ This project adheres to [Semantic Versioning](http://semver.org).
 
 * Added: More robust support of YouTube URLs.
 * Added: More robust support of Google Maps URLs.
-* Fixed: Optimize close button styles (makes styling more robust for :hover,
+* Fixed: Optimized close button styles (makes styling more robust for :hover,
   :focus, :active and :visited states).
 
 1.2.0 - 2015-05-15
