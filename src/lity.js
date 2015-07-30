@@ -14,7 +14,7 @@
     var document = window.document;
 
     var _win = $(window);
-    var _htmlEl = $('html');
+    var _html = $('html');
     var _instanceCount = 0;
 
     var _imageRegexp = /\.(png|jpg|jpeg|gif|tiff|bmp)(\?\S*)?$/i;
@@ -30,11 +30,12 @@
 
     var _defaultOptions = {
         esc: true,
-        handler: null
+        handler: null,
+        template: '<div class="lity" tabindex="-1"><div class="lity-wrap" data-lity-close><div class="lity-loader">Loading...</div><div class="lity-container"><div class="lity-content"></div><button class="lity-close" type="button" title="Close (Esc)" data-lity-close>×</button></div></div></div>'
     };
 
     function globalToggle() {
-        _htmlEl[_instanceCount > 0 ? 'addClass' : 'removeClass']('lity-active');
+        _html[_instanceCount > 0 ? 'addClass' : 'removeClass']('lity-active');
     }
 
     var transitionEndEvent = (function() {
@@ -68,8 +69,6 @@
 
         return deferred.promise();
     }
-
-    var _html = '<div class="lity lity-loading" tabindex="-1"><div class="lity-wrap" data-lity-close><div class="lity-loader">Loading...</div><div class="lity-container"><div class="lity-content"></div><button class="lity-close" type="button" title="Close (Esc)" data-lity-close>×</button></div></div></div>';
 
     function settings(currSettings, key, value) {
         if (arguments.length === 1) {
@@ -249,7 +248,9 @@
             _instanceCount++;
             globalToggle();
 
-            _instance = $(_html).appendTo('body');
+            _instance = $(options.template)
+                .addClass('lity-loading')
+                .appendTo('body');
 
             if (!!options.esc) {
                 _win.one('keyup', keyup);
