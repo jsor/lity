@@ -191,7 +191,7 @@
     }
 
     function lity(options) {
-        var _options = $.extend({}, _defaultOptions),
+        var _options = {},
             _handlers = {},
             _instance,
             _content,
@@ -373,6 +373,7 @@
 
             var options = $.extend(
                 {},
+                _defaultOptions,
                 _options,
                 el.data('lity-options') || el.data('lity')
             );
@@ -386,7 +387,7 @@
         popup.options = $.proxy(settings, popup, _options);
 
         popup.open = function(target) {
-            open(target, _options);
+            open(target, $.extend({}, _defaultOptions, _options));
             return popup;
         };
 
