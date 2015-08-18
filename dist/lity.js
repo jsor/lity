@@ -1,4 +1,4 @@
-/*! Lity - v1.4.0 - 2015-07-30
+/*! Lity - v1.4.0 - 2015-08-18
 * http://sorgalla.com/lity/
 * Copyright (c) 2015 Jan Sorgalla; Licensed MIT */
 (function(window, factory) {
@@ -192,7 +192,7 @@
 
     function lity(options) {
         var _options = $.extend({}, _defaultOptions),
-            _handlers = $.extend({}, _defaultHandlers),
+            _handlers = {},
             _instance,
             _content,
             _ready = $.Deferred().resolve();
@@ -275,13 +275,13 @@
         }
 
         function open(target, options) {
-            var handler, content;
+            var handler, content, handlers = $.extend({}, _defaultHandlers, _handlers);
 
-            if (options.handler && _handlers[options.handler]) {
-                content = _handlers[options.handler](target, instance, popup);
+            if (options.handler && handlers[options.handler]) {
+                content = handlers[options.handler](target, instance, popup);
                 handler = options.handler;
             } else {
-                var handlers = $.extend({}, _handlers), lateHandlers = {};
+                var lateHandlers = {};
 
                 // Run inline and iframe handlers after all other handlers
                 $.each(['inline', 'iframe'], function(i, name) {
