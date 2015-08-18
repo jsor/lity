@@ -4,6 +4,14 @@ Changelog
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org).
 
+1.4.1 - 2015-08-18
+------------------
+
+* Fixed: Ensure options set with lity.options() and instance.options() are used
+  correctly.
+* Fixed: Ensure handlers set with lity.handlers() and instance.handlers() are
+  used correctly.
+
 1.4.0 - 2015-07-30
 ------------------
 
