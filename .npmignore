@@ -4,3 +4,4 @@ vendor/
 bower.json
 Gruntfile.js
 index.html
+.*
