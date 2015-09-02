@@ -65,6 +65,72 @@ $(document).on('click', '[data-lightbox]', lightbox);
 
 If you want to close the currently opened lightbox, use `lightbox.close()`.
 
+Events
+------
+
+* [lity:open](#lityopen)
+* [lity:ready](#lityready)
+* [lity:close](#lityready)
+* [lity:remove](#lityremove)
+* [lity:resize](#lityresize)
+
+### lity:open
+
+Triggered before the lightbox is opened.
+
+#### Example
+
+```javascript
+$(document).on('lity:open', function(event, lightbox) {
+});
+```
+
+### lity:ready
+
+Triggered when the lightbox is ready.
+
+#### Example
+
+```javascript
+$(document).on('lity:ready', function(event, lightbox) {
+});
+```
+
+### lity:close
+
+Triggered before the lightbox is closed.
+
+#### Example
+
+```javascript
+$(document).on('lity:close', function(event, lightbox) {
+});
+```
+
+### lity:remove
+
+Triggered when the closing animation is finished and the lightbox is removed
+from the DOM.
+
+#### Example
+
+```javascript
+$(document).on('lity:remove', function(event, lightbox) {
+});
+```
+
+### lity:resize
+
+Triggered when the lightbox is resized, usually when the user resizes the
+window.
+
+#### Example
+
+```javascript
+$(document).on('lity:resize', function(event, lightbox) {
+});
+```
+
 License
 -------
 
