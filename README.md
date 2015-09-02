@@ -70,7 +70,7 @@ Events
 
 * [lity:open](#lityopen)
 * [lity:ready](#lityready)
-* [lity:close](#lityready)
+* [lity:close](#lityclose)
 * [lity:remove](#lityremove)
 * [lity:resize](#lityresize)
 
