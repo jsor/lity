@@ -18,8 +18,8 @@
     var _instanceCount = 0;
 
     var _imageRegexp = /\.(png|jpg|jpeg|gif|tiff|bmp)(\?\S*)?$/i;
-    var _youtubeRegex = /(youtube(-nocookie)?\.com|youtu\.be)\/(watch\?v=|v\/|u\/|embed\/?)?([\w-]{11})([&|\?]+list=([^&]+))?.*/i;
-    var _vimeoRegex =  /(vimeo(pro)?.com)\/(?:[^\d]+)?(\d+)(?:.*)/;
+    var _youtubeRegex = /(youtube(-nocookie)?\.com|youtu\.be)\/(watch\?v=|v\/|u\/|embed\/?)?([\w-]{11})(.*)?/i;
+    var _vimeoRegex =  /(vimeo(pro)?.com)\/(?:[^\d]+)?(\d+)\??(.*)?$/;
     var _googlemapsRegex = /((maps|www)\.)?google\.([^\/\?]+)\/?((maps\/?)?\?)(.*)/i;
 
     var _defaultHandlers = {
@@ -93,8 +93,24 @@
         return 'file:' === window.location.protocol ? 'http:' : '';
     }
 
-    function appendQueryParams(url, query) {
-        return url + (url.indexOf('?') > -1 ? '&' : '?') + query;
+    function parseQueryParams(params){
+        var pairs = decodeURI(params).split('&');
+        var obj = {}, p;
+
+        for (var i = 0, n = pairs.length; i < n; i++) {
+            if (!pairs[i]) {
+                continue;
+            }
+
+            p = pairs[i].split('=');
+            obj[p[0]] = p[1];
+        }
+
+        return obj;
+    }
+
+    function appendQueryParams(url, params) {
+        return url + (url.indexOf('?') > -1 ? '&' : '?') + $.param(params);
     }
 
     function error(msg) {
@@ -160,19 +176,29 @@
         matches = _youtubeRegex.exec(target);
 
         if (matches) {
-            url = protocol() + '//www.youtube' + (matches[2] || '') + '.com/embed/' + matches[4];
-
-            if (matches[6]) {
-                url = appendQueryParams(url, 'list=' + matches[6]);
-            }
-
-            url = appendQueryParams(url, 'autoplay=1');
+            url = appendQueryParams(
+                protocol() + '//www.youtube' + (matches[2] || '') + '.com/embed/' + matches[4],
+                $.extend(
+                    {
+                        autoplay: 1
+                    },
+                    parseQueryParams(matches[5] || '')
+                )
+            );
         }
 
         matches = _vimeoRegex.exec(target);
 
         if (matches) {
-            url = protocol() + '//player.vimeo.com/video/' + matches[3] + '?autoplay=1';
+            url = appendQueryParams(
+                protocol() + '//player.vimeo.com/video/' + matches[3],
+                $.extend(
+                    {
+                        autoplay: 1
+                    },
+                    parseQueryParams(matches[4] || '')
+                )
+            );
         }
 
         matches = _googlemapsRegex.exec(target);
@@ -180,7 +206,9 @@
         if (matches) {
             url = appendQueryParams(
                 protocol() + '//www.google.' + matches[3] + '/maps?' + matches[6],
-                'output=' + (matches[6].indexOf('layer=c') > 0 ? 'svembed' : 'embed')
+                {
+                    output: matches[6].indexOf('layer=c') > 0 ? 'svembed' : 'embed'
+                }
             );
         }
 
