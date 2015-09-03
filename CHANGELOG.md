@@ -4,6 +4,12 @@ Changelog
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org).
 
+1.4.2 - 2015-09-03
+------------------
+
+* Fixed: YouTube/Vimeo URL parameters like `autoplay` are now passed correctly
+  to the embed URLS.
+
 1.4.1 - 2015-08-18
 ------------------
 
