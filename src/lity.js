@@ -17,7 +17,7 @@
     var _html = $('html');
     var _instanceCount = 0;
 
-    var _imageRegexp = /\.(png|jpg|jpeg|gif|tiff|bmp|svg)(\?\S*)?$/i;
+    var _imageRegexp = /\.(png|jpe?g|gif|svg|webp|bmp|ico|tiff?)(\?\S*)?$/i;
     var _youtubeRegex = /(youtube(-nocookie)?\.com|youtu\.be)\/(watch\?v=|v\/|u\/|embed\/?)?([\w-]{11})(.*)?/i;
     var _vimeoRegex =  /(vimeo(pro)?.com)\/(?:[^\d]+)?(\d+)\??(.*)?$/;
     var _googlemapsRegex = /((maps|www)\.)?google\.([^\/\?]+)\/?((maps\/?)?\?)(.*)/i;
