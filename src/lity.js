@@ -8,7 +8,7 @@
     } else {
         window.lity = factory(window, window.jQuery || window.Zepto);
     }
-}(window, function(window, $) {
+}(typeof window !== "undefined" ? window : this, function(window, $) {
     'use strict';
 
     var document = window.document;
