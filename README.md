@@ -44,6 +44,13 @@ be opened in a lightbox:
 </div>
 ```
 
+If you want to open another URI than defined in the `href` attribute, just add
+a `data-lity-target` with the URI:
+
+```html
+<a href="/image.html" data-lity data-lity-target="/image-preview.jpg">Image</a>
+```
+
 ### Programmatic
 
 First create a lity instance:
