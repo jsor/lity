@@ -303,7 +303,7 @@
             var handler, content, handlers = $.extend({}, _defaultHandlers, _handlers);
 
             if (options.handler && handlers[options.handler]) {
-                content = handlers[options.handler](target, instance, popup);
+                content = handlers[options.handler](target, popup);
                 handler = options.handler;
             } else {
                 var lateHandlers = {};
