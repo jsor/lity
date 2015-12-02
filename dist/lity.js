@@ -1,4 +1,4 @@
-/*! Lity - v1.5.0 - 2015-09-22
+/*! Lity - v1.5.0 - 2015-12-02
 * http://sorgalla.com/lity/
 * Copyright (c) 2015 Jan Sorgalla; Licensed MIT */
 (function(window, factory) {
@@ -11,7 +11,7 @@
     } else {
         window.lity = factory(window, window.jQuery || window.Zepto);
     }
-}(window, function(window, $) {
+}(typeof window !== "undefined" ? window : this, function(window, $) {
     'use strict';
 
     var document = window.document;
@@ -306,7 +306,7 @@
             var handler, content, handlers = $.extend({}, _defaultHandlers, _handlers);
 
             if (options.handler && handlers[options.handler]) {
-                content = handlers[options.handler](target, instance, popup);
+                content = handlers[options.handler](target, popup);
                 handler = options.handler;
             } else {
                 var lateHandlers = {};
