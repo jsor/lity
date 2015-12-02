@@ -1,4 +1,4 @@
-/*! Lity - v1.5.0 - 2015-12-02
+/*! Lity - v1.5.1 - 2015-12-02
 * http://sorgalla.com/lity/
 * Copyright (c) 2015 Jan Sorgalla; Licensed MIT */
 (function(window, factory) {
@@ -427,7 +427,7 @@
         return popup.options(options);
     }
 
-    lity.version = '1.5.0';
+    lity.version = '1.5.1';
     lity.handlers = $.proxy(settings, lity, _defaultHandlers);
     lity.options = $.proxy(settings, lity, _defaultOptions);
 

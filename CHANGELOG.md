@@ -4,6 +4,12 @@ Changelog
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org).
 
+1.5.1 - 2015-12-02
+------------------
+
+* Fixed: Better window instance detection, falls back to `this` if undefined
+* Fixed: Fix wrong argument when calling configured handler
+
 1.5.0 - 2015-09-22
 ------------------
 
