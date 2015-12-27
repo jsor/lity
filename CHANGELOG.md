@@ -4,6 +4,11 @@ Changelog
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org).
 
+1.5.2 - 2015-12-27
+------------------
+
+* Added: cursor: pointer; --> to all tags with attribute "data-lity"
+
 1.5.1 - 2015-12-02
 ------------------
 
