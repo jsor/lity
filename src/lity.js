@@ -430,5 +430,7 @@
 
     $(document).on('click', '[data-lity]', lity());
 
+    $('[data-lity]').css({'cursor': 'pointer'});
+
     return lity;
 }));
