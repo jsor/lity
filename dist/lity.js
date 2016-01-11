@@ -236,11 +236,11 @@
 
             _content
                 .css('max-height', Math.floor(height) + 'px')
-                .trigger('lity:resize', [_instance, popup])
+                .trigger('lity:resize', [_instance])
             ;
         }
 
-        function ready(content) {
+        function ready(el, content) {
             if (!_instance) {
                 return;
             }
@@ -269,13 +269,13 @@
 
             _content
                 .removeClass('lity-hide')
-                .trigger('lity:ready', [_instance, popup])
+                .trigger('lity:ready', [_instance, el])
             ;
 
             _ready.resolve();
         }
 
-        function init(handler, content, options) {
+        function init(handler, content, options, el) {
             _instanceCount++;
             globalToggle();
 
@@ -295,14 +295,14 @@
                             close();
                         }
                     })
-                    .trigger('lity:open', [_instance, popup])
+                    .trigger('lity:open', [_instance, el])
                 ;
 
-                $.when(content).always(ready);
+                $.when(content).always($.proxy(ready, null, el));
             }, 0);
         }
 
-        function open(target, options) {
+        function open(target, options, el) {
             var handler, content, handlers = $.extend({}, _defaultHandlers, _handlers);
 
             options = $.extend(
@@ -350,7 +350,7 @@
 
             if (content) {
                 _ready = $.Deferred();
-                $.when(close()).done($.proxy(init, null, handler, content, options));
+                $.when(close()).done($.proxy(init, null, handler, content, options, el));
             }
 
             return !!content;
@@ -372,7 +372,7 @@
                     .off('keyup', keyup)
                 ;
 
-                _content.trigger('lity:close', [_instance, popup]);
+                _content.trigger('lity:close', [_instance]);
 
                 _instance
                     .removeClass('lity-opened')
@@ -384,7 +384,7 @@
                 _content = null;
 
                 transitionEnd(content.add(instance)).always(function() {
-                    content.trigger('lity:remove', [instance, popup]);
+                    content.trigger('lity:remove', [instance]);
                     instance.remove();
                     deferred.resolve();
                 });
@@ -408,7 +408,7 @@
 
             var options = el.data('lity-options') || el.data('lity');
 
-            if (open(target, options)) {
+            if (open(target, options, el)) {
                 event.preventDefault();
             }
         }
@@ -416,8 +416,8 @@
         popup.handlers = $.proxy(settings, popup, _handlers);
         popup.options = $.proxy(settings, popup, _options);
 
-        popup.open = function(target, options) {
-            open(target, options);
+        popup.open = function(target, options, el) {
+            open(target, options, el);
             return popup;
         };
 

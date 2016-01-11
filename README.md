@@ -88,9 +88,12 @@ Triggered before the lightbox is opened.
 #### Example
 
 ```javascript
-$(document).on('lity:open', function(event, lightbox) {
+$(document).on('lity:open', function(event, lightbox, trigger) {
 });
 ```
+
+**Note**: The `trigger` argument might be undefined if the lightbox has been
+opened progammatically and not by a click event handler.
 
 ### lity:ready
 
@@ -99,9 +102,12 @@ Triggered when the lightbox is ready.
 #### Example
 
 ```javascript
-$(document).on('lity:ready', function(event, lightbox) {
+$(document).on('lity:ready', function(event, lightbox, trigger) {
 });
 ```
+
+**Note**: The `trigger` argument might be undefined if the lightbox has been
+opened progammatically and not by a click event handler.
 
 ### lity:close
 
