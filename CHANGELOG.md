@@ -4,6 +4,13 @@ Changelog
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org).
 
+1.6.0 - 2016-01-11
+------------------
+
+* Added: The triggering element is now passed as third argument to `lity:open`
+  and `lity:ready` event handlers. Note, that the argument might be undefined if
+  the lightbox has been opened programmatically.
+
 1.5.1 - 2015-12-02
 ------------------
 
