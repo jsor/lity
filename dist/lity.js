@@ -1,6 +1,6 @@
-/*! Lity - v1.5.1 - 2015-12-02
+/*! Lity - v1.5.1 - 2016-01-11
 * http://sorgalla.com/lity/
-* Copyright (c) 2015 Jan Sorgalla; Licensed MIT */
+* Copyright (c) 2016 Jan Sorgalla; Licensed MIT */
 (function(window, factory) {
     if (typeof define === 'function' && define.amd) {
         define(['jquery'], function($) {
@@ -305,6 +305,13 @@
         function open(target, options) {
             var handler, content, handlers = $.extend({}, _defaultHandlers, _handlers);
 
+            options = $.extend(
+                {},
+                _defaultOptions,
+                _options,
+                options
+            );
+
             if (options.handler && handlers[options.handler]) {
                 content = handlers[options.handler](target, popup);
                 handler = options.handler;
@@ -399,12 +406,7 @@
                 return;
             }
 
-            var options = $.extend(
-                {},
-                _defaultOptions,
-                _options,
-                el.data('lity-options') || el.data('lity')
-            );
+            var options = el.data('lity-options') || el.data('lity');
 
             if (open(target, options)) {
                 event.preventDefault();
@@ -414,8 +416,8 @@
         popup.handlers = $.proxy(settings, popup, _handlers);
         popup.options = $.proxy(settings, popup, _options);
 
-        popup.open = function(target) {
-            open(target, $.extend({}, _defaultOptions, _options));
+        popup.open = function(target, options) {
+            open(target, options);
             return popup;
         };
 
