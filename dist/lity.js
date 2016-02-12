@@ -1,4 +1,4 @@
-/*! Lity - v1.6.1 - 2016-02-05
+/*! Lity - v1.6.2 - 2016-02-12
 * http://sorgalla.com/lity/
 * Copyright (c) 2016 Jan Sorgalla; Licensed MIT */
 (function(window, factory) {
@@ -20,7 +20,7 @@
     var _html = $('html');
     var _instanceCount = 0;
 
-    var _imageRegexp = /\.(png|jpe?g|gif|svg|webp|bmp|ico|tiff?)(\?\S*)?$/i;
+    var _imageRegexp = /(^data:image\/)|(\.(png|jpe?g|gif|svg|webp|bmp|ico|tiff?)(\?\S*)?$)/i;
     var _youtubeRegex = /(youtube(-nocookie)?\.com|youtu\.be)\/(watch\?v=|v\/|u\/|embed\/?)?([\w-]{11})(.*)?/i;
     var _vimeoRegex =  /(vimeo(pro)?.com)\/(?:[^\d]+)?(\d+)\??(.*)?$/;
     var _googlemapsRegex = /((maps|www)\.)?google\.([^\/\?]+)\/?((maps\/?)?\?)(.*)/i;
@@ -429,7 +429,7 @@
         return popup.options(options);
     }
 
-    lity.version = '1.6.1';
+    lity.version = '1.6.2';
     lity.handlers = $.proxy(settings, lity, _defaultHandlers);
     lity.options = $.proxy(settings, lity, _defaultOptions);
 
