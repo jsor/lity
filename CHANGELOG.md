@@ -4,6 +4,12 @@ Changelog
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org).
 
+1.6.3 - 2016-03-10
+------------------
+
+* Fixed: Some YouTube player controls were missing when loaded through http (all
+  embeds are now always loaded with https protocols).
+
 1.6.2 - 2016-02-12
 ------------------
 
