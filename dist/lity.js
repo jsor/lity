@@ -1,4 +1,4 @@
-/*! Lity - v1.6.3 - 2016-03-10
+/*! Lity - v1.6.3 - 2016-03-16
 * http://sorgalla.com/lity/
 * Copyright (c) 2016 Jan Sorgalla; Licensed MIT */
 (function(window, factory) {
@@ -272,6 +272,8 @@
         }
 
         function init(handler, content, options, el) {
+            _ready = $.Deferred();
+
             _instanceCount++;
             globalToggle();
 
@@ -280,7 +282,7 @@
                 .appendTo('body');
 
             if (!!options.esc) {
-                _win.one('keyup', keyup);
+                _win.on('keyup', keyup);
             }
 
             setTimeout(function() {
@@ -345,7 +347,6 @@
             }
 
             if (content) {
-                _ready = $.Deferred();
                 $.when(close()).done($.proxy(init, null, handler, content, options, el));
             }
 
@@ -405,6 +406,7 @@
             var options = el.data('lity-options') || el.data('lity');
 
             if (open(target, options, el)) {
+                el.blur();
                 event.preventDefault();
             }
         }
