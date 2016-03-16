@@ -269,6 +269,8 @@
         }
 
         function init(handler, content, options, el) {
+            _ready = $.Deferred();
+
             _instanceCount++;
             globalToggle();
 
@@ -342,7 +344,6 @@
             }
 
             if (content) {
-                _ready = $.Deferred();
                 $.when(close()).done($.proxy(init, null, handler, content, options, el));
             }
 
@@ -402,6 +403,7 @@
             var options = el.data('lity-options') || el.data('lity');
 
             if (open(target, options, el)) {
+                el.blur();
                 event.preventDefault();
             }
         }
