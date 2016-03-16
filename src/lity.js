@@ -277,7 +277,7 @@
                 .appendTo('body');
 
             if (!!options.esc) {
-                _win.one('keyup', keyup);
+                _win.on('keyup', keyup);
             }
 
             setTimeout(function() {
