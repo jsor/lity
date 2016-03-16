@@ -4,6 +4,13 @@ Changelog
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org).
 
+1.6.4 - 2016-03-16
+------------------
+
+* Fixed: Fix weird lightbox state when hitting enter while lightbox is opened. 
+  The triggering element is then still focused, broadcasting additional click 
+  events.
+
 1.6.3 - 2016-03-10
 ------------------
 
