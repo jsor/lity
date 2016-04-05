@@ -7,7 +7,7 @@ This project adheres to [Semantic Versioning](http://semver.org).
 1.6.5 - 2016-04-05
 ------------------
 
-* Fixed: Use &times; instead of × for close symbol (thanks @fourroses666).
+* Fixed: Use `&times;` instead of `×` for close symbol (thanks @fourroses666).
 
 1.6.4 - 2016-03-16
 ------------------
