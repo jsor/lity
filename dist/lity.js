@@ -1,4 +1,4 @@
-/*! Lity - v1.6.4 - 2016-03-16
+/*! Lity - v1.6.5 - 2016-04-05
 * http://sorgalla.com/lity/
 * Copyright (c) 2016 Jan Sorgalla; Licensed MIT */
 (function(window, factory) {
@@ -34,7 +34,7 @@
     var _defaultOptions = {
         esc: true,
         handler: null,
-        template: '<div class="lity" tabindex="-1"><div class="lity-wrap" data-lity-close><div class="lity-loader">Loading...</div><div class="lity-container"><div class="lity-content"></div><button class="lity-close" type="button" title="Close (Esc)" data-lity-close>&times;</button></div></div></div>'
+        template: '<div class="lity" tabindex="-1"><div class="lity-wrap" data-lity-close><div class="lity-loader">Loading...</div><div class="lity-container"><div class="lity-content"></div><button class="lity-close" type="button" title="Close (Esc)" data-lity-close>×</button></div></div></div>'
     };
 
     function globalToggle() {
@@ -427,7 +427,7 @@
         return popup.options(options);
     }
 
-    lity.version = '1.6.4';
+    lity.version = '1.6.5';
     lity.handlers = $.proxy(settings, lity, _defaultHandlers);
     lity.options = $.proxy(settings, lity, _defaultOptions);
 
