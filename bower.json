@@ -4,7 +4,10 @@
     "Jan Sorgalla <jsorgalla@gmail.com>"
   ],
   "description": "Lightweight responsive lightbox.",
-  "main": "dist/lity.min.js",
+  "main": [
+    "dist/lity.min.js",
+    "dist/lity.min.css"
+  ],
   "moduleType": [
     "amd",
     "globals",
