@@ -1,6 +1,6 @@
-/*! Lity - v1.6.6 - 2016-04-22
+/*! Lity - v1.6.6 - 2016-04-26
 * http://sorgalla.com/lity/
-* Copyright (c) 2016 Jan Sorgalla; Licensed MIT */
+* Copyright (c) 2015-2016 Jan Sorgalla; Licensed MIT */
 (function(window, factory) {
     if (typeof define === 'function' && define.amd) {
         define(['jquery'], function($) {
