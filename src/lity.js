@@ -12,7 +12,7 @@
     'use strict';
 
     var document = window.document;
-
+    
     var _win = $(window);
     var _html = $('html');
     var _instanceCount = 0;
@@ -31,9 +31,20 @@
     var _defaultOptions = {
         esc: true,
         handler: null,
-        template: '<div class="lity" tabindex="-1"><div class="lity-wrap" data-lity-close><div class="lity-loader">Loading...</div><div class="lity-container"><div class="lity-content"></div><button class="lity-close" type="button" title="Close (Esc)" data-lity-close>×</button></div></div></div>'
+        template: '<div class="lity" tabindex="-1"><div class="lity-wrap" data-lity-close><div class="lity-loader">Loading...</div><div class="lity-container"><button data-lity-btn="prev" class="lity-prev btn">Previous</button><div class="lity-content"></div><button data-lity-btn="next" class="lity-next btn">Next</button><button class="lity-close" type="button" title="Close (Esc)" data-lity-close>×</button></div></div></div>'
     };
-
+    var prevSlide,nextSlide;
+    function initNav(){
+        var nav = document.querySelectorAll('[data-lity-btn]');
+        function progressSlide(e){
+            var btnvalue = e.target.getAttribute('data-lity-btn');
+            if(btnvalue === 'next' && nextSlide !== false){nextSlide.click()}
+            if(btnvalue === 'prev' && prevSlide !== false){prevSlide.click()}
+        }
+        for ( var i = 0; i < nav.length; i++ ){
+        nav[i].addEventListener('click', progressSlide,false);
+        };
+    }
     function globalToggle() {
         _html[_instanceCount > 0 ? 'addClass' : 'removeClass']('lity-active');
     }
@@ -277,7 +288,7 @@
             _instance = $(options.template)
                 .addClass('lity-loading')
                 .appendTo('body');
-
+            initNav();
             if (!!options.esc) {
                 _win.on('keyup', keyup);
             }
@@ -286,6 +297,7 @@
                 _instance
                     .addClass('lity-opened lity-' + handler)
                     .on('click', '[data-lity-close]', function(e) {
+                        
                         if ($(e.target).is('[data-lity-close]')) {
                             close();
                         }
@@ -299,7 +311,10 @@
 
         function open(target, options, el) {
             var handler, content, handlers = $.extend({}, _defaultHandlers, _handlers);
-
+            
+            //update prev next
+            prevSlide = (el.context.parentElement.previousElementSibling != null)?el.context.parentElement.previousElementSibling.firstElementChild:false;
+            nextSlide = (el.context.parentElement.nextElementSibling != null)?el.context.parentElement.nextElementSibling.firstElementChild:false;
             options = $.extend(
                 {},
                 _defaultOptions,
@@ -388,14 +403,14 @@
         }
 
         function popup(event) {
+
             // If not an event, act as alias of popup.open
             if (!event.preventDefault) {
                 return popup.open(event);
             }
-
+            //el reffers to the image element
             var el = $(this);
             var target = el.data('lity-target') || el.attr('href') || el.attr('src');
-
             if (!target) {
                 return;
             }
