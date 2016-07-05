@@ -29,9 +29,9 @@
     };
 
     var _defaultOptions = {
-        esc: true,
         handler: null,
-        template: '<div class="lity" tabindex="-1"><div class="lity-wrap" data-lity-close><div class="lity-loader">Loading...</div><div class="lity-container"><div class="lity-content"></div><button class="lity-close" type="button" title="Close (Esc)" data-lity-close>×</button></div></div></div>'
+        esc: true,
+        template: '<div class="lity" tabindex="-1"><div class="lity-wrap" data-lity-close><div class="lity-loader">Loading...</div><div class="lity-container"><div class="lity-content" role="dialog" aria-label="Dialog Window (Press escape to close)"></div><button class="lity-close" type="button" title="Close (Press escape to close)" data-lity-close>×</button></div></div></div>'
     };
 
     function globalToggle() {
@@ -217,6 +217,7 @@
     function lity(options) {
         var _options = {},
             _handlers = {},
+            _el,
             _instance,
             _content,
             _ready = $.Deferred().resolve();
@@ -282,9 +283,16 @@
             _instanceCount++;
             globalToggle();
 
+            _el = el;
             _instance = $(options.template)
                 .addClass('lity-loading')
                 .appendTo('body')
+            ;
+
+            _instance
+                .find('[role="dialog"]')
+                .attr('tabindex', '-1')
+                .focus()
             ;
 
             if (!!options.esc) {
@@ -379,6 +387,10 @@
                     .off('keyup', keyup)
                 ;
 
+                if (_el) {
+                    _el.focus();
+                }
+
                 _content.trigger('lity:close', [_instance]);
 
                 _instance
@@ -388,6 +400,7 @@
 
                 var instance = _instance, content = _content;
 
+                _el = null;
                 _instance = null;
                 _content = null;
 
@@ -419,7 +432,6 @@
             var options = el.data('lity-options') || el.data('lity');
 
             if (open(target, options, el)) {
-                el.blur();
                 event.preventDefault();
             }
         }
