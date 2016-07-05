@@ -80,10 +80,11 @@
 
         if (typeof key === 'string') {
             if (typeof value === 'undefined') {
-                return typeof currSettings[key] === 'undefined' ?
-                    null :
-                    currSettings[key];
+                return typeof currSettings[key] === 'undefined'
+                    ? null
+                    : currSettings[key];
             }
+
             currSettings[key] = value;
         } else {
             $.extend(currSettings, key);
@@ -121,7 +122,7 @@
             return false;
         }
 
-        var img = $('<img src="' + target + '">');
+        var img = $('<img src="' + target + '"/>');
         var deferred = $.Deferred();
         var failed = function() {
             deferred.reject(error('Failed loading image'));
@@ -159,12 +160,14 @@
         return el
             .after(placeholder)
             .on('lity:ready', function(e, instance) {
-                instance.one('lity:remove', function() {
-                    placeholder
-                        .before(el.addClass('lity-hide'))
-                        .remove()
-                    ;
-                });
+                instance
+                    .one('lity:remove', function() {
+                        placeholder
+                            .before(el.addClass('lity-hide'))
+                            .remove()
+                        ;
+                    })
+                ;
             })
         ;
     }
@@ -211,7 +214,7 @@
             );
         }
 
-        return '<div class="lity-iframe-container"><iframe frameborder="0" allowfullscreen src="' + url + '"></iframe></div>';
+        return '<div class="lity-iframe-container"><iframe frameborder="0" allowfullscreen src="' + url + '"/></div>';
     }
 
     function lity(options) {
@@ -228,7 +231,9 @@
         }
 
         function resize() {
-            var height = document.documentElement.clientHeight ? document.documentElement.clientHeight : Math.round(_win.height());
+            var height = document.documentElement.clientHeight
+                ? document.documentElement.clientHeight
+                : Math.round(_win.height());
 
             _content
                 .css('max-height', Math.floor(height) + 'px')
@@ -250,9 +255,12 @@
                 .find('.lity-loader')
                 .each(function() {
                     var el = $(this);
-                    transitionEnd(el).always(function() {
-                        el.remove();
-                    });
+
+                    transitionEnd(el)
+                        .always(function() {
+                            el.remove();
+                        })
+                    ;
                 })
             ;
 
@@ -279,7 +287,8 @@
 
             _instance = $(options.template)
                 .addClass('lity-loading')
-                .appendTo('body');
+                .appendTo('body')
+            ;
 
             if (!!options.esc) {
                 _win.on('keyup', keyup);
@@ -296,7 +305,9 @@
                     .trigger('lity:open', [_instance, el])
                 ;
 
-                $.when(content).always($.proxy(ready, null, el));
+                $.when(content)
+                    .always($.proxy(ready, null, el))
+                ;
             }, 0);
         }
 
@@ -347,7 +358,9 @@
             }
 
             if (content) {
-                $.when(close()).done($.proxy(init, null, handler, content, options, el));
+                $.when(close())
+                    .done($.proxy(init, null, handler, content, options, el))
+                ;
             }
 
             return !!content;
@@ -377,14 +390,17 @@
                 ;
 
                 var instance = _instance, content = _content;
+
                 _instance = null;
                 _content = null;
 
-                transitionEnd(content.add(instance)).always(function() {
-                    content.trigger('lity:remove', [instance]);
-                    instance.remove();
-                    deferred.resolve();
-                });
+                transitionEnd(content.add(instance))
+                    .always(function() {
+                        content.trigger('lity:remove', [instance]);
+                        instance.remove();
+                        deferred.resolve();
+                    })
+                ;
             });
 
             return deferred.promise();
