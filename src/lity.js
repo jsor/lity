@@ -28,10 +28,12 @@
         iframe: iframeHandler
     };
 
+    var focusableElementsSelector = 'a[href],area[href],input:not([disabled]),select:not([disabled]),textarea:not([disabled]),button:not([disabled]),iframe,object,embed,[contenteditable],[tabindex]:not([tabindex^="-"])';
+
     var _defaultOptions = {
         handler: null,
         esc: true,
-        template: '<div class="lity" tabindex="-1"><div class="lity-wrap" data-lity-close><div class="lity-loader">Loading...</div><div class="lity-container"><div class="lity-content" role="dialog" aria-label="Dialog Window (Press escape to close)"></div><button class="lity-close" type="button" title="Close (Press escape to close)" data-lity-close>×</button></div></div></div>'
+        template: '<div class="lity"><div class="lity-wrap" data-lity-close><div class="lity-loader">Loading...</div><div class="lity-container"><div class="lity-content" role="dialog" aria-label="Dialog Window (Press escape to close)"></div><button class="lity-close" type="button" title="Close (Press escape to close)" data-lity-close>×</button></div></div></div>'
     };
 
     function globalToggle() {
@@ -271,6 +273,12 @@
 
             _content
                 .removeClass('lity-hide')
+                .find(focusableElementsSelector)
+                .first()
+                .focus()
+            ;
+
+            _content
                 .trigger('lity:ready', [_instance, el])
             ;
 
@@ -291,6 +299,7 @@
 
             _instance
                 .find('[role="dialog"]')
+                .attr('aria-hidden', 'false')
                 .attr('tabindex', '-1')
                 .focus()
             ;
