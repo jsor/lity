@@ -1,4 +1,4 @@
-/*! Lity - v1.6.6 - 2016-07-06
+/*! Lity - v1.6.6 - 2016-07-08
 * http://sorgalla.com/lity/
 * Copyright (c) 2015-2016 Jan Sorgalla; Licensed MIT */
 .lity {
@@ -14,8 +14,8 @@
   outline: none !important;
   opacity: 0;
   -webkit-transition: opacity 0.3s ease;
-       -o-transition: opacity 0.3s ease;
-          transition: opacity 0.3s ease;
+  -o-transition: opacity 0.3s ease;
+  transition: opacity 0.3s ease;
 }
 .lity.lity-opened {
   opacity: 1;
@@ -57,8 +57,8 @@
   font-family: Arial, Helvetica, sans-serif;
   opacity: 0;
   -webkit-transition: opacity 0.3s ease;
-       -o-transition: opacity 0.3s ease;
-          transition: opacity 0.3s ease;
+  -o-transition: opacity 0.3s ease;
+  transition: opacity 0.3s ease;
 }
 .lity-loading .lity-loader {
   opacity: 1;
@@ -82,8 +82,10 @@
        -o-transform: scale(1);
           transform: scale(1);
   -webkit-transition: -webkit-transform 0.3s ease;
-       -o-transition: -o-transform 0.3s ease;
-          transition: transform 0.3s ease;
+  transition: -webkit-transform 0.3s ease;
+  -o-transition: transform 0.3s ease, -o-transform 0.3s ease;
+  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, -webkit-transform 0.3s ease, -o-transform 0.3s ease;
 }
 .lity-loading .lity-content,
 .lity-closed .lity-content {

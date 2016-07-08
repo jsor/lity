@@ -29,17 +29,21 @@ module.exports = function(grunt) {
                 dest: 'dist/<%= pkg.name %>.min.css'
             }
         },
-        autoprefixer: {
+        postcss: {
             options: {
-                browsers: [
-                    'Android 2.3',
-                    'Android >= 4',
-                    'Chrome >= 20',
-                    'Firefox >= 24',
-                    'Explorer >= 8',
-                    'iOS >= 6',
-                    'Opera >= 12',
-                    'Safari >= 6'
+                processors: [
+                    require('autoprefixer')({
+                        browsers: [
+                            'Android 2.3',
+                            'Android >= 4',
+                            'Chrome >= 20',
+                            'Firefox >= 24',
+                            'Explorer >= 8',
+                            'iOS >= 6',
+                            'Opera >= 12',
+                            'Safari >= 6'
+                        ]
+                    })
                 ]
             },
             src: {
@@ -109,12 +113,12 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-replace');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-less');
-    grunt.loadNpmTasks('grunt-autoprefixer');
+    grunt.loadNpmTasks('grunt-postcss');
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-watch');
 
-    grunt.registerTask('dist-css', ['clean:css', 'less', 'autoprefixer']);
+    grunt.registerTask('dist-css', ['clean:css', 'less', 'postcss']);
     grunt.registerTask('dist-js', ['clean:js', 'concat', 'uglify', 'replace']);
     grunt.registerTask('default', ['dist-css', 'dist-js']);
 };
