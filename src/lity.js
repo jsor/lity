@@ -33,7 +33,7 @@
     var _defaultOptions = {
         handler: null,
         esc: true,
-        template: '<div class="lity"><div class="lity-wrap" data-lity-close><div class="lity-loader">Loading...</div><div class="lity-container"><div class="lity-content" role="dialog" aria-label="Dialog Window (Press escape to close)"></div><button class="lity-close" type="button" title="Close (Press escape to close)" data-lity-close>×</button></div></div></div>'
+        template: '<div class="lity"><div class="lity-wrap" data-lity-close><div class="lity-loader">Loading...</div><div class="lity-container"><div class="lity-content" role="dialog" aria-label="Dialog Window (Press escape to close)"></div><button class="lity-close" type="button" aria-label="Close (Press escape to close)" data-lity-close>×</button></div></div></div>'
     };
 
     function globalToggle() {
