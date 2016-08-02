@@ -31,7 +31,7 @@
             iframe: iframeHandler
         },
         esc: true,
-        template: '<div class="lity"><div class="lity-wrap" data-lity-close><div class="lity-loader">Loading...</div><div class="lity-container"><div class="lity-content" role="dialog" aria-label="Dialog Window (Press escape to close)"></div><button class="lity-close" type="button" aria-label="Close (Press escape to close)" data-lity-close>&times;</button></div></div></div>'
+        template: '<div class="lity" role="dialog" aria-label="Dialog Window (Press escape to close)" tabindex="-1"><div class="lity-wrap" data-lity-close role="document"><div class="lity-loader" aria-hidden="true">Loading...</div><div class="lity-container"><div class="lity-content"></div><button class="lity-close" type="button" aria-label="Close (Press escape to close)" data-lity-close>&times;</button></div></div></div>'
     };
 
     var _imageRegexp = /(^data:image\/)|(\.(png|jpe?g|gif|svg|webp|bmp|ico|tiff?)(\?\S*)?$)/i;
@@ -410,19 +410,13 @@
         element
             .addClass('lity-loading lity-opened lity-' + result.handler)
             .appendTo('body')
+            .focus()
             .on('click', '[data-lity-close]', function(e) {
                 if ($(e.target).is('[data-lity-close]')) {
                     self.close();
                 }
             })
             .trigger('lity:open', [self])
-        ;
-
-        element
-            .find('[role="dialog"]')
-            .attr('aria-hidden', 'false')
-            .attr('tabindex', '-1')
-            .focus()
         ;
 
         registerInstance(self);
