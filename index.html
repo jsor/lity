@@ -109,19 +109,15 @@ Inline content
 
     <h4>Programmatic</h4>
 
-    <p>First create a lity instance:</p>
-
-<pre><code class="language-javascript">var lightbox = lity();</code></pre>
-
-    <p><code>lightbox</code> is now a function which can be either used directly to open links in a lightbox or as an event handler:</p>
+    <p>Use the global <code>lity</code> function to open URLs (or HTML) in a lightbox or as an event handler.</p>
 
     <pre><code class="language-javascript">// Open a URL in a lightbox
-lightbox('//www.youtube.com/watch?v=XSGBVzeBUbk');
+var lightbox = lity('//www.youtube.com/watch?v=XSGBVzeBUbk');
 
 // Bind as an event handler
-$(document).on('click', '[data-lightbox]', lightbox);</code></pre>
+$(document).on('click', '[data-lightbox]', lity);</code></pre>
 
-    <p>If you want to close the currently opened lightbox, use <code>lightbox.close()</code>.</p>
+    <p>If you want to close the opened lightbox, use <code>lightbox.close()</code>.</p>
 </div>
 
 <div class="wrap wrap-center">
