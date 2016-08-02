@@ -259,8 +259,6 @@
     }
 
     function removeInstance(instanceToRemove) {
-        var cleanInstances = [];
-
         if (1 === _instances.length) {
             _html.removeClass('lity-active');
 
@@ -272,15 +270,9 @@
             ;
         }
 
-        $.each(_instances, function(i, instance) {
-            if (instanceToRemove === instance) {
-                return;
-            }
-
-            cleanInstances.push(instance);
+        _instances = $.grep(_instances, function(instance) {
+            return instanceToRemove !== instance;
         });
-
-        _instances = cleanInstances;
     }
 
     function currentInstance() {
