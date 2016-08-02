@@ -21,6 +21,9 @@
     var _html = $('html');
     var _instances = [];
 
+    var _attrAriaHidden = 'aria-hidden';
+    var _dataAriaHidden = 'lity-' + _attrAriaHidden;
+
     var _focusableElementsSelector = 'a[href],area[href],input:not([disabled]),select:not([disabled]),textarea:not([disabled]),button:not([disabled]),iframe,object,embed,[contenteditable],[tabindex]:not([tabindex^="-"])';
 
     var _defaultOptions = {
@@ -257,9 +260,30 @@
                 })
             ;
         }
+
+        $('body > *').not(instanceToRegister.element())
+            .addClass('lity-hidden')
+            .each(function() {
+                var el = $(this);
+
+                if (undefined !== el.data(_dataAriaHidden)) {
+                    return;
+                }
+
+                el.data(_dataAriaHidden, el.attr(_attrAriaHidden) || null);
+            })
+            .attr(_attrAriaHidden, 'true')
+        ;
     }
 
     function removeInstance(instanceToRemove) {
+        var show;
+
+        instanceToRemove
+            .element()
+            .attr(_attrAriaHidden, 'true')
+        ;
+
         if (1 === _instances.length) {
             _html.removeClass('lity-active');
 
@@ -274,6 +298,27 @@
         _instances = $.grep(_instances, function(instance) {
             return instanceToRemove !== instance;
         });
+
+        if (!!_instances.length) {
+            show = _instances[0].element();
+        } else {
+            show = $('.lity-hidden');
+        }
+
+        show
+            .removeClass('lity-hidden')
+            .each(function() {
+                var el = $(this), oldAttr = el.data(_dataAriaHidden);
+
+                if (!oldAttr) {
+                    el.removeAttr(_attrAriaHidden);
+                } else {
+                    el.attr(_attrAriaHidden, oldAttr);
+                }
+
+                el.removeData(_dataAriaHidden);
+            })
+        ;
     }
 
     function currentInstance() {
@@ -398,6 +443,7 @@
         result = factory(target, self, options.handlers, options.handler);
 
         element
+            .attr(_attrAriaHidden, 'false')
             .addClass('lity-loading lity-opened lity-' + result.handler)
             .appendTo('body')
             .focus()
