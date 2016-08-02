@@ -241,10 +241,8 @@
     }
 
     function resize() {
-        var height = winHeight();
-
         $.each(_instances, function(i, instance) {
-            instance.resize(height);
+            instance.resize();
         });
     }
 
@@ -349,13 +347,13 @@
         self.options  = $.proxy(settings, self, options);
         self.handlers = $.proxy(settings, self, options.handlers);
 
-        self.resize = function(height) {
+        self.resize = function() {
             if (!isReady || isClosed) {
                 return;
             }
 
             content
-                .css('max-height', (height || winHeight()) + 'px')
+                .css('max-height', winHeight() + 'px')
                 .trigger('lity:resize', [self])
             ;
         };
