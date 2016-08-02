@@ -360,7 +360,7 @@
             }
 
             content
-                .css('max-height', Math.floor(height || winHeight()) + 'px')
+                .css('max-height', (height || winHeight()) + 'px')
                 .trigger('lity:resize', [self])
             ;
         };
@@ -429,7 +429,9 @@
         ;
 
         function ready(result) {
-            content = $(result);
+            content = $(result)
+                .css('max-height', winHeight() + 'px')
+            ;
 
             element
                 .find('.lity-loader')
@@ -458,8 +460,6 @@
             ;
 
             isReady = true;
-
-            self.resize();
 
             content
                 .trigger('lity:ready', [self])
