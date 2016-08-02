@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Lity - Stacked Test</title>
+
+    <link href="../../dist/lity.css" rel="stylesheet"/>
+
+    <script src="../../vendor/jquery.js"></script>
+    <script src="../../dist/lity.js"></script>
+</head>
+<body>
+
+<h1>Stacked</h1>
+
+<a href="#main" data-lity>Main</a>
+<a href="#stacked" data-lity>Stacked</a>
+
+<div id="main" class="lity-hide" style="background:#fff;padding:40px;">
+    <h2>Main</h2>
+    <p><a href="#stacked" data-lity>Stacked</a></p>
+</div>
+
+<div id="stacked" class="lity-hide" style="background:#fff;padding:40px;">
+    <h2>Stacked</h2>
+    <p><a href="#main" data-lity>Main</a></p>
+</div>
+
+</body>
+</html>

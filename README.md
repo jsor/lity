@@ -4,7 +4,7 @@ Lity
 Lity is a ultra-lightweight and responsive lightbox plugin which supports
 images, iframes and inline content out of the box.
 
-Minified and gzipped, its total footprint weights about 2kB.
+Minified and gzipped, its total footprint weights about 3kB.
 
 It works with [jQuery](http://jquery.com) and [Zepto](http://zeptojs.com)
 (requires the [callbacks](https://github.com/madrobby/zepto/blob/master/src/callbacks.js)
@@ -38,9 +38,9 @@ be opened in a lightbox:
 ```html
 <a href="https://farm9.staticflickr.com/8642/16455005578_0fdfc6c3da_b.jpg" data-lity>Image</a>
 <a href="#inline" data-lity>Inline</a>
-<a href="//www.youtube.com/watch?v=XSGBVzeBUbk" data-lity>iFrame Youtube</a>
-<a href="//vimeo.com/1084537" data-lity>iFrame Vimeo</a>
-<a href="//maps.google.com/maps?q=1600+Amphitheatre+Parkway,+Mountain+View,+CA" data-lity>Google Maps</a>
+<a href="https://www.youtube.com/watch?v=XSGBVzeBUbk" data-lity>iFrame Youtube</a>
+<a href="https://vimeo.com/1084537" data-lity>iFrame Vimeo</a>
+<a href="https://maps.google.com/maps?q=1600+Amphitheatre+Parkway,+Mountain+View,+CA" data-lity>Google Maps</a>
 
 <div id="inline" style="background:#fff" class="lity-hide">
     Inline content
@@ -56,27 +56,103 @@ a `data-lity-target` with the URI:
 
 ### Programmatic
 
-First create a lity instance:
+The `lity` function can be either used directly to open URLs (or HTML) in a
+lightbox or as an event handler.
 
-```javascript
-var lightbox = lity();
+```
+Lity lity(string target, [Object options, [, HTMLElement|$ opener]])
 ```
 
-`lightbox` is now a function which can be either used directly to open links in
-a lightbox or as an event handler:
+#### Arguments
+
+* `target`: The URL or HTML to open.
+* `options`: Options as an object of key-value pairs.
+* `opener`: The element which triggered opening the lightbox (if used as a event
+   handler, this is automatically set to the element which triggered the event).
+
+#### Return value
+
+A [`Lity`](#the-lity-instance) instance.
+
+#### Example
 
 ```javascript
-// Open a URL in a lightbox
-lightbox('//www.youtube.com/watch?v=XSGBVzeBUbk');
+// Open a URL or HTML in a lightbox
+lity('https://www.youtube.com/watch?v=XSGBVzeBUbk');
+lity('<p>Some content to show...</p>');
 
 // Bind as an event handler
-$(document).on('click', '[data-lightbox]', lightbox);
+$(document).on('click', '[data-my-lightbox]', lity);
 ```
 
-If you want to close the currently opened lightbox, use `lightbox.close()`.
+The Lity instance
+-----------------
+
+If you open a lightbox programmatically, the `lity` function returns a `Lity`
+instance you can use to interact with the lightbox.
+
+The `Lity` instance is also passed as the second argument to the 
+[event handlers](#events).
+
+```javascript
+var instance = lity('https://www.youtube.com/watch?v=XSGBVzeBUbk');
+```
+
+### API
+
+* [Lity.close](#lityclose)
+* [Lity.element](#lityelement)
+* [Lity.opener](#lityopener)
+* [Lity.options](#lityoptions)
+
+#### Lity.close
+
+Closes the lightbox and returns a promise which resolves once the closing
+animation is finished.
+
+```javascript
+instance.close().then(function() {
+    console.log('Lightbox closed');
+});
+```
+
+#### Lity.element
+
+Returns the root HTML element.
+
+```javascript
+var element = instance.element();
+```
+
+#### Lity.opener
+
+Returns the HTML element which triggered opening the lightbox.
+
+```javascript
+var opener = instance.opener();
+```
+
+**Note**: The value might be undefined if the lightbox has been opened
+programmatically and not by a click event handler and no opener argument was
+provided.
+
+#### Lity.options
+
+Sets or returns options of the instance.
+
+```javascript
+var all = instance.options();
+var esc = instance.options('esc');
+instance.options('esc', false);
+```
 
 Events
 ------
+
+All events receive the [`Lity`](#the-lity-instance) instance as the second
+argument.
+
+### Available events
 
 * [lity:open](#lityopen)
 * [lity:ready](#lityready)
@@ -84,66 +160,55 @@ Events
 * [lity:remove](#lityremove)
 * [lity:resize](#lityresize)
 
-### lity:open
+#### lity:open
 
 Triggered before the lightbox is opened.
 
-#### Example
-
 ```javascript
-$(document).on('lity:open', function(event, lightbox, trigger) {
+$(document).on('lity:open', function(event, instance) {
+    console.log('Lightbox opened');
 });
 ```
 
-**Note**: The `trigger` argument might be undefined if the lightbox has been
-opened progammatically and not by a click event handler.
-
-### lity:ready
+#### lity:ready
 
 Triggered when the lightbox is ready.
 
-#### Example
-
 ```javascript
-$(document).on('lity:ready', function(event, lightbox, trigger) {
+$(document).on('lity:ready', function(event, instance) {
+    console.log('Lightbox ready');
 });
 ```
 
-**Note**: The `trigger` argument might be undefined if the lightbox has been
-opened progammatically and not by a click event handler.
-
-### lity:close
+#### lity:close
 
 Triggered before the lightbox is closed.
 
-#### Example
-
 ```javascript
-$(document).on('lity:close', function(event, lightbox) {
+$(document).on('lity:close', function(event, instance) {
+    console.log('Lightbox closed');
 });
 ```
 
-### lity:remove
+#### lity:remove
 
-Triggered when the closing animation is finished and the lightbox is removed
-from the DOM.
-
-#### Example
+Triggered when the closing animation is finished and just before the lightbox
+is removed from the DOM.
 
 ```javascript
-$(document).on('lity:remove', function(event, lightbox) {
+$(document).on('lity:remove', function(event, instance) {
+    console.log('Lightbox removed');
 });
 ```
 
-### lity:resize
+#### lity:resize
 
-Triggered when the lightbox is resized, usually when the user resizes the
+Triggered when the instance is resized, usually when the user resizes the
 window.
 
-#### Example
-
 ```javascript
-$(document).on('lity:resize', function(event, lightbox) {
+$(document).on('lity:resize', function(event, instance) {
+    console.log('Lightbox resized');
 });
 ```
 
