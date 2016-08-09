@@ -3,7 +3,7 @@ Upgrade from 1.x to 2.x
 
 If you have only used the declarative way of using Lity, everything should work
 as before. The only major breaking change happened for the programmatic setup
-of lightboxes.
+of lightboxes and the event handler signatures.
 
 The `lity` function
 -------------------
