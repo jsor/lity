@@ -236,9 +236,27 @@
             return;
         }
 
+        // ESC key
         if (e.keyCode === 27) {
-            e.preventDefault();
             current.close();
+        }
+
+        // TAB key
+        if (e.keyCode === 9) {
+            handleTabKey(e, current);
+        }
+    }
+
+    function handleTabKey(e, instance) {
+        var focusableElements = instance.element().find(_focusableElementsSelector);
+        var focusedIndex = focusableElements.index(document.activeElement);
+
+        if (e.shiftKey && focusedIndex <= 0) {
+            focusableElements.get(focusableElements.length - 1).focus();
+            e.preventDefault();
+        } else if (!e.shiftKey && focusedIndex === focusableElements.length - 1) {
+            focusableElements.get(0).focus();
+            e.preventDefault();
         }
     }
 
