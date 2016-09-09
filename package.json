@@ -1,7 +1,7 @@
 {
   "name": "lity",
   "title": "Lity",
-  "description": "Lightweight responsive lightbox.",
+  "description": "Lightweight accessible and responsive lightbox.",
   "author": {
     "name": "Jan Sorgalla",
     "url": "http://sorgalla.com"
@@ -33,6 +33,9 @@
     "popup",
     "lightweight",
     "responsive",
+    "accessible",
+    "accessibility",
+    "a11y",
     "jquery",
     "jquery-plugin",
     "ecosystem:jquery"

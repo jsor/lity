@@ -3,7 +3,7 @@
   "authors": [
     "Jan Sorgalla <jsorgalla@gmail.com>"
   ],
-  "description": "Lightweight responsive lightbox.",
+  "description": "Lightweight accessible and responsive lightbox.",
   "main": [
     "dist/lity.min.js",
     "dist/lity.min.css"
@@ -22,6 +22,9 @@
     "popup",
     "lightweight",
     "responsive",
+    "accessible",
+    "accessibility",
+    "a11y",
     "jquery",
     "jquery-plugin",
     "ecosystem:jquery"

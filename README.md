@@ -1,8 +1,8 @@
 Lity
 ====
 
-Lity is a ultra-lightweight and responsive lightbox plugin which supports
-images, iframes and inline content out of the box.
+Lity is a ultra-lightweight, accessible and responsive lightbox plugin which
+supports images, iframes and inline content out of the box.
 
 Minified and gzipped, its total footprint weights about 3kB.
 
