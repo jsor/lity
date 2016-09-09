@@ -14,3 +14,5 @@ upgrading from 1.x.
     longer a function returned but a `Lity` instance.
   * All custom events triggered by Lity receive now one parameter: a `Lity`
     instance.
+  * There are now dedicated youtube, vimeo and googlemaps handlers extracted
+    from the iframe handler.

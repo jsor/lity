@@ -31,6 +31,9 @@
         handlers: {
             image: imageHandler,
             inline: inlineHandler,
+            youtube: youtubeHandler,
+            vimeo: vimeoHandler,
+            googlemaps: googlemapsHandler,
             iframe: iframeHandler
         },
         template: '<div class="lity" role="dialog" aria-label="Dialog Window (Press escape to close)" tabindex="-1"><div class="lity-wrap" data-lity-close role="document"><div class="lity-loader" aria-hidden="true">Loading...</div><div class="lity-container"><div class="lity-content"></div><button class="lity-close" type="button" aria-label="Close (Press escape to close)" data-lity-close>&times;</button></div></div></div>'
@@ -178,13 +181,15 @@
         ;
     }
 
-    function iframeHandler(target) {
-        var matches, url = target;
+    function youtubeHandler(target) {
+        var matches = _youtubeRegex.exec(target);
 
-        matches = _youtubeRegex.exec(target);
+        if (!matches) {
+            return false;
+        }
 
-        if (matches) {
-            url = appendQueryParams(
+        return iframeHandler(
+            appendQueryParams(
                 'https://www.youtube' + (matches[2] || '') + '.com/embed/' + matches[4],
                 $.extend(
                     {
@@ -192,13 +197,19 @@
                     },
                     parseQueryParams(matches[5] || '')
                 )
-            );
+            )
+        );
+    }
+
+    function vimeoHandler(target) {
+        var matches = _vimeoRegex.exec(target);
+
+        if (!matches) {
+            return false;
         }
 
-        matches = _vimeoRegex.exec(target);
-
-        if (matches) {
-            url = appendQueryParams(
+        return iframeHandler(
+            appendQueryParams(
                 'https://player.vimeo.com/video/' + matches[3],
                 $.extend(
                     {
@@ -206,21 +217,29 @@
                     },
                     parseQueryParams(matches[4] || '')
                 )
-            );
+            )
+        );
+    }
+
+    function googlemapsHandler(target) {
+        var matches = _googlemapsRegex.exec(target);
+
+        if (!matches) {
+            return false;
         }
 
-        matches = _googlemapsRegex.exec(target);
-
-        if (matches) {
-            url = appendQueryParams(
+        return iframeHandler(
+            appendQueryParams(
                 'https://www.google.' + matches[3] + '/maps?' + matches[6],
                 {
                     output: matches[6].indexOf('layer=c') > 0 ? 'svembed' : 'embed'
                 }
-            );
-        }
+            )
+        );
+    }
 
-        return '<div class="lity-iframe-container"><iframe frameborder="0" allowfullscreen src="' + url + '"/></div>';
+    function iframeHandler(target) {
+        return '<div class="lity-iframe-container"><iframe frameborder="0" allowfullscreen src="' + target + '"/></div>';
     }
 
     function winHeight() {

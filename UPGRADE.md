@@ -47,3 +47,21 @@ $(document).on('lity:open', function(event, instance) {
     var trigger = instance.opener();
 });
 ```
+
+Handlers
+--------
+
+If you configured links for the specific iframe handler, be aware that YouTube,
+Vimeo and Google Maps URLs are now handled by their dedicated handlers.
+
+### Old (1.x)
+
+```html
+<a href="http://www.youtube.com/watch?v=XSGBVzeBUbk" data-lity="{&quot;handler&quot;: &quot;iframe&quot;}">Video</a>
+```
+
+### New (2.x)
+
+```html
+<a href="http://www.youtube.com/watch?v=XSGBVzeBUbk" data-lity="{&quot;handler&quot;: &quot;youtube&quot;}">Video</a>
+```
