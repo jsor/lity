@@ -30,7 +30,6 @@
             inline: inlineHandler,
             iframe: iframeHandler
         },
-        esc: true,
         template: '<div class="lity" role="dialog" aria-label="Dialog Window (Press escape to close)" tabindex="-1"><div class="lity-wrap" data-lity-close role="document"><div class="lity-loader" aria-hidden="true">Loading...</div><div class="lity-container"><div class="lity-content"></div><button class="lity-close" type="button" aria-label="Close (Press escape to close)" data-lity-close>&times;</button></div></div></div>'
     };
 
@@ -234,7 +233,7 @@
             return;
         }
 
-        if (e.keyCode === 27 && !!current.options('esc')) {
+        if (e.keyCode === 27) {
             e.preventDefault();
             current.close();
         }
