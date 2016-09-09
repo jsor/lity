@@ -118,10 +118,6 @@
     }
 
     function imageHandler(target) {
-        if (!_imageRegexp.test(target)) {
-            return false;
-        }
-
         var img = $('<img src="' + target + '"/>');
         var deferred = _deferred();
         var failed = function() {
@@ -141,6 +137,10 @@
 
         return deferred.promise();
     }
+
+    imageHandler.test = function(target) {
+        return _imageRegexp.test(target);
+    };
 
     function inlineHandler(target, instance) {
         var el, placeholder, hasHideClass;
@@ -378,13 +378,20 @@
                 currentHandlers[name] = handlers[name];
             });
 
-            $.each(currentHandlers, function(name, callback) {
+            $.each(currentHandlers, function(name, currentHandler) {
                 // Handler might be "removed" by setting callback to null
-                if (!callback) {
+                if (!currentHandler) {
                     return true;
                 }
 
-                content = callback(target, instance);
+                if (
+                    currentHandler.test &&
+                    !currentHandler.test(target, instance)
+                ) {
+                    return true;
+                }
+
+                content = currentHandler(target, instance);
 
                 if (false !== content) {
                     handler = name;
