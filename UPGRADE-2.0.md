@@ -1,4 +1,4 @@
-Upgrade from 1.x to 2.x
+Upgrade from 1.x to 2.0
 =======================
 
 If you have only used the declarative way of using Lity, everything should work
