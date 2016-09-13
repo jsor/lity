@@ -3,7 +3,7 @@
   "authors": [
     "Jan Sorgalla <jsorgalla@gmail.com>"
   ],
-  "description": "Lightweight accessible and responsive lightbox.",
+  "description": "Lightweight, accessible and responsive lightbox.",
   "main": [
     "dist/lity.min.js",
     "dist/lity.min.css"
