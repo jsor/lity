@@ -526,12 +526,6 @@
                 .append(content)
             ;
 
-            content
-                .find(_focusableElementsSelector)
-                .first()
-                .focus()
-            ;
-
             isReady = true;
 
             content

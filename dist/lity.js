@@ -1,4 +1,4 @@
-/*! Lity - v2.0.0 - 2016-09-14
+/*! Lity - v2.0.0 - 2016-09-19
 * http://sorgalla.com/lity/
 * Copyright (c) 2015-2016 Jan Sorgalla; Licensed MIT */
 (function(window, factory) {
@@ -527,12 +527,6 @@
                 .find('.lity-content')
                 .empty()
                 .append(content)
-            ;
-
-            content
-                .find(_focusableElementsSelector)
-                .first()
-                .focus()
             ;
 
             isReady = true;
