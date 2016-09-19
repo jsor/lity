@@ -1,4 +1,4 @@
-/*! Lity - v2.0.0 - 2016-09-19
+/*! Lity - v2.1.0 - 2016-09-19
 * http://sorgalla.com/lity/
 * Copyright (c) 2015-2016 Jan Sorgalla; Licensed MIT */
 (function(window, factory) {
@@ -96,8 +96,8 @@
         return this;
     }
 
-    function parseQueryParams(params){
-        var pairs = decodeURI(params).split('&');
+    function parseQueryParams(params) {
+        var pairs = decodeURI(params.split('#')[0]).split('&');
         var obj = {}, p;
 
         for (var i = 0, n = pairs.length; i < n; i++) {
@@ -114,6 +114,20 @@
 
     function appendQueryParams(url, params) {
         return url + (url.indexOf('?') > -1 ? '&' : '?') + $.param(params);
+    }
+
+    function transferHash(originalUrl, newUrl) {
+        var pos = originalUrl.indexOf('#');
+
+        if (-1 === pos) {
+            return newUrl;
+        }
+
+        if (pos > 0) {
+            originalUrl = originalUrl.substr(pos);
+        }
+
+        return newUrl + originalUrl;
     }
 
     function error(msg) {
@@ -190,13 +204,16 @@
         }
 
         return iframeHandler(
-            appendQueryParams(
-                'https://www.youtube' + (matches[2] || '') + '.com/embed/' + matches[4],
-                $.extend(
-                    {
-                        autoplay: 1
-                    },
-                    parseQueryParams(matches[5] || '')
+            transferHash(
+                target,
+                appendQueryParams(
+                    'https://www.youtube' + (matches[2] || '') + '.com/embed/' + matches[4],
+                    $.extend(
+                        {
+                            autoplay: 1
+                        },
+                        parseQueryParams(matches[5] || '')
+                    )
                 )
             )
         );
@@ -210,13 +227,16 @@
         }
 
         return iframeHandler(
-            appendQueryParams(
-                'https://player.vimeo.com/video/' + matches[3],
-                $.extend(
-                    {
-                        autoplay: 1
-                    },
-                    parseQueryParams(matches[4] || '')
+            transferHash(
+                target,
+                appendQueryParams(
+                    'https://player.vimeo.com/video/' + matches[3],
+                    $.extend(
+                        {
+                            autoplay: 1
+                        },
+                        parseQueryParams(matches[4] || '')
+                    )
                 )
             )
         );
@@ -230,11 +250,14 @@
         }
 
         return iframeHandler(
-            appendQueryParams(
-                'https://www.google.' + matches[3] + '/maps?' + matches[6],
-                {
-                    output: matches[6].indexOf('layer=c') > 0 ? 'svembed' : 'embed'
-                }
+            transferHash(
+                target,
+                appendQueryParams(
+                    'https://www.google.' + matches[3] + '/maps?' + matches[6],
+                    {
+                        output: matches[6].indexOf('layer=c') > 0 ? 'svembed' : 'embed'
+                    }
+                )
             )
         );
     }
@@ -563,7 +586,7 @@
         }
     }
 
-    lity.version  = '2.0.0';
+    lity.version  = '2.1.0';
     lity.options  = $.proxy(settings, lity, _defaultOptions);
     lity.handlers = $.proxy(settings, lity, _defaultOptions.handlers);
     lity.current  = currentInstance;
