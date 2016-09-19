@@ -120,8 +120,9 @@
         return $('<span class="lity-error"/>').append(msg);
     }
 
-    function imageHandler(target) {
-        var img = $('<img src="' + target + '"/>');
+    function imageHandler(target, instance) {
+        var desc = (instance.opener() && instance.opener().data('lity-desc')) || 'Image with no description';
+        var img = $('<img src="' + target + '" alt="' + desc + '"/>');
         var deferred = _deferred();
         var failed = function() {
             deferred.reject(error('Failed loading image'));
