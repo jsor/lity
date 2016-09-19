@@ -4,6 +4,17 @@ Changelog for 2.x
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org).
 
+2.1.0 - 2016-09-19
+------------------
+
+  * Images in ligtboxes now have an `alt` attribute set. The content is
+    configurable through the `data-lity-desc` attribute on the opener element.
+  * Initial focus is now set on the dialog element, not on the first focusable
+    element inside the content. This prevents inline content scrolled down if
+    the first focusable element is at the bottom of the content.
+  * The global click event is now namespaced as `click.lity` for easier
+    unbinding.
+
 2.0.0 - 2016-09-09
 ------------------
 
