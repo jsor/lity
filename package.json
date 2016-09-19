@@ -7,7 +7,7 @@
     "url": "http://sorgalla.com"
   },
   "homepage": "http://sorgalla.com/lity/",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "main": "dist/lity.js",
   "peerDependencies": {
     "jquery": ">=1.7"

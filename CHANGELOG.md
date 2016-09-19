@@ -4,6 +4,13 @@ Changelog for 2.x
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org).
 
+2.1.1 - 2016-09-19
+------------------
+
+  * Correctly transfer hashes for generated YouTube, Vimeo and Google Maps
+    URLs. For example when linking to a specific video start time, eg.
+    https://vimeo.com/1084537#t=1m15s.
+
 2.1.0 - 2016-09-19
 ------------------
 
