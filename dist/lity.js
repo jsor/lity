@@ -1,4 +1,4 @@
-/*! Lity - v2.1.1 - 2016-09-22
+/*! Lity - v2.1.1 - 2016-09-23
 * http://sorgalla.com/lity/
 * Copyright (c) 2015-2016 Jan Sorgalla; Licensed MIT */
 (function(window, factory) {
@@ -44,7 +44,7 @@
     var _youtubeRegex = /(youtube(-nocookie)?\.com|youtu\.be)\/(watch\?v=|v\/|u\/|embed\/?)?([\w-]{11})(.*)?/i;
     var _vimeoRegex =  /(vimeo(pro)?.com)\/(?:[^\d]+)?(\d+)\??(.*)?$/;
     var _googlemapsRegex = /((maps|www)\.)?google\.([^\/\?]+)\/?((maps\/?)?\?)(.*)/i;
-    var _facebookRegex = /(facebook\.com)\/([a-z0-9_-]*)\/videos\/([0-9]*)(.*)?$/i; // TODO:
+    var _facebookRegex = /(facebook\.com)\/([a-z0-9_-]*)\/videos\/([0-9]*)(.*)?$/i;
 
     var _transitionEndEvent = (function() {
         var el = document.createElement('div');
@@ -246,7 +246,6 @@
 
     function facebookHandler(target) {
         var matches = _facebookRegex.exec(target);
-        console.log(matches);
 
         if (!matches) {
             return false;
