@@ -1,4 +1,4 @@
-/*! Lity - v2.1.1 - 2016-09-23
+/*! Lity - v2.1.1 - 2016-09-27
 * http://sorgalla.com/lity/
 * Copyright (c) 2015-2016 Jan Sorgalla; Licensed MIT */
 (function(window, factory) {
@@ -255,7 +255,7 @@
             transferHash(
                 target,
                 appendQueryParams(
-                    'https://www.facebook.com/video/embed?video_id=' + matches[3],
+                    'https://www.facebook.com/plugins/video.php?href=' + target,
                     $.extend(
                         {
                             autoplay: 1

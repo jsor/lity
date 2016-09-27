@@ -252,7 +252,7 @@
             transferHash(
                 target,
                 appendQueryParams(
-                    'https://www.facebook.com/video/embed?video_id=' + matches[3],
+                    'https://www.facebook.com/plugins/video.php?href=' + target,
                     $.extend(
                         {
                             autoplay: 1
