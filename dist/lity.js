@@ -1,4 +1,4 @@
-/*! Lity - v2.1.0 - 2016-09-19
+/*! Lity - v2.1.1 - 2016-10-05
 * http://sorgalla.com/lity/
 * Copyright (c) 2015-2016 Jan Sorgalla; Licensed MIT */
 (function(window, factory) {
@@ -34,6 +34,7 @@
             youtube: youtubeHandler,
             vimeo: vimeoHandler,
             googlemaps: googlemapsHandler,
+            facebookvideo: facebookvideoHandler,
             iframe: iframeHandler
         },
         template: '<div class="lity" role="dialog" aria-label="Dialog Window (Press escape to close)" tabindex="-1"><div class="lity-wrap" data-lity-close role="document"><div class="lity-loader" aria-hidden="true">Loading...</div><div class="lity-container"><div class="lity-content"></div><button class="lity-close" type="button" aria-label="Close (Press escape to close)" data-lity-close>&times;</button></div></div></div>'
@@ -43,6 +44,7 @@
     var _youtubeRegex = /(youtube(-nocookie)?\.com|youtu\.be)\/(watch\?v=|v\/|u\/|embed\/?)?([\w-]{11})(.*)?/i;
     var _vimeoRegex =  /(vimeo(pro)?.com)\/(?:[^\d]+)?(\d+)\??(.*)?$/;
     var _googlemapsRegex = /((maps|www)\.)?google\.([^\/\?]+)\/?((maps\/?)?\?)(.*)/i;
+    var _facebookvideoRegex = /(facebook\.com)\/([a-z0-9_-]*)\/videos\/([0-9]*)(.*)?$/i;
 
     var _transitionEndEvent = (function() {
         var el = document.createElement('div');
@@ -231,6 +233,29 @@
                 target,
                 appendQueryParams(
                     'https://player.vimeo.com/video/' + matches[3],
+                    $.extend(
+                        {
+                            autoplay: 1
+                        },
+                        parseQueryParams(matches[4] || '')
+                    )
+                )
+            )
+        );
+    }
+
+    function facebookvideoHandler(target) {
+        var matches = _facebookvideoRegex.exec(target);
+
+        if (!matches) {
+            return false;
+        }
+
+        return iframeHandler(
+            transferHash(
+                target,
+                appendQueryParams(
+                    'https://www.facebook.com/plugins/video.php?href=' + target,
                     $.extend(
                         {
                             autoplay: 1
@@ -586,7 +611,7 @@
         }
     }
 
-    lity.version  = '2.1.0';
+    lity.version  = '2.1.1';
     lity.options  = $.proxy(settings, lity, _defaultOptions);
     lity.handlers = $.proxy(settings, lity, _defaultOptions.handlers);
     lity.current  = currentInstance;
