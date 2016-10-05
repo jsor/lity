@@ -96,6 +96,12 @@
     }
 
     function parseQueryParams(params) {
+        var pos = params.indexOf('?');
+
+        if (pos > -1) {
+            params = params.substr(pos + 1);
+        }
+
         var pairs = decodeURI(params.split('#')[0]).split('&');
         var obj = {}, p;
 
@@ -112,7 +118,26 @@
     }
 
     function appendQueryParams(url, params) {
-        return url + (url.indexOf('?') > -1 ? '&' : '?') + $.param(params);
+        if (!params) {
+            return url;
+        }
+
+        if ('string' === $.type(params)) {
+            params = parseQueryParams(params);
+        }
+
+        if (url.indexOf('?') > -1) {
+            var split = url.split('?');
+            url = split.shift();
+
+            params = $.extend(
+                {},
+                parseQueryParams(split[0]),
+                params
+            )
+        }
+
+        return url + '?' + $.param(params);
     }
 
     function transferHash(originalUrl, newUrl) {
@@ -127,6 +152,20 @@
         }
 
         return newUrl + originalUrl;
+    }
+
+    function iframe(iframeUrl, instance, queryParams, hashUrl) {
+        instance && instance.element().addClass('lity-iframe');
+
+        if (queryParams) {
+            iframeUrl = appendQueryParams(iframeUrl, queryParams);
+        }
+
+        if (hashUrl) {
+            iframeUrl = transferHash(hashUrl, iframeUrl);
+        }
+
+        return '<div class="lity-iframe-container"><iframe frameborder="0" allowfullscreen src="' + iframeUrl + '"/></div>';
     }
 
     function error(msg) {
@@ -195,97 +234,70 @@
         ;
     }
 
-    function youtubeHandler(target) {
+    function youtubeHandler(target, instance) {
         var matches = _youtubeRegex.exec(target);
 
         if (!matches) {
             return false;
         }
 
-        return iframeHandler(
-            transferHash(
-                target,
-                appendQueryParams(
-                    'https://www.youtube' + (matches[2] || '') + '.com/embed/' + matches[4],
-                    $.extend(
-                        {
-                            autoplay: 1
-                        },
-                        parseQueryParams(matches[5] || '')
-                    )
-                )
-            )
+        return iframe(
+            'https://www.youtube' + (matches[2] || '') + '.com/embed/' + matches[4] + '?autoplay=1',
+            instance,
+            matches[5],
+            target
         );
     }
 
-    function vimeoHandler(target) {
+    function vimeoHandler(target, instance) {
         var matches = _vimeoRegex.exec(target);
 
         if (!matches) {
             return false;
         }
 
-        return iframeHandler(
-            transferHash(
-                target,
-                appendQueryParams(
-                    'https://player.vimeo.com/video/' + matches[3],
-                    $.extend(
-                        {
-                            autoplay: 1
-                        },
-                        parseQueryParams(matches[4] || '')
-                    )
-                )
-            )
+        return iframe(
+            'https://player.vimeo.com/video/' + matches[3] + '?autoplay=1',
+            instance,
+            matches[4],
+            target
         );
     }
 
-    function facebookvideoHandler(target) {
+    function facebookvideoHandler(target, instance) {
         var matches = _facebookvideoRegex.exec(target);
 
         if (!matches) {
             return false;
         }
 
-        return iframeHandler(
-            transferHash(
-                target,
-                appendQueryParams(
-                    'https://www.facebook.com/plugins/video.php?href=' + target,
-                    $.extend(
-                        {
-                            autoplay: 1
-                        },
-                        parseQueryParams(matches[4] || '')
-                    )
-                )
-            )
+        return iframe(
+            'https://www.facebook.com/plugins/video.php?href=' + target + '&autoplay=1',
+            instance,
+            matches[4],
+            target
         );
     }
 
-    function googlemapsHandler(target) {
+    function googlemapsHandler(target, instance) {
         var matches = _googlemapsRegex.exec(target);
 
         if (!matches) {
             return false;
         }
 
-        return iframeHandler(
-            transferHash(
-                target,
-                appendQueryParams(
-                    'https://www.google.' + matches[3] + '/maps?' + matches[6],
-                    {
-                        output: matches[6].indexOf('layer=c') > 0 ? 'svembed' : 'embed'
-                    }
-                )
-            )
+        return iframe(
+            'https://www.google.' + matches[3] + '/maps?' + matches[6],
+            instance,
+            {
+                output: matches[6].indexOf('layer=c') > 0 ? 'svembed' : 'embed'
+            },
+            target
         );
     }
 
-    function iframeHandler(target) {
-        return '<div class="lity-iframe-container"><iframe frameborder="0" allowfullscreen src="' + target + '"/></div>';
+    function iframeHandler(target, instance) {
+        return iframe(target, instance);
     }
 
     function winHeight() {
@@ -612,6 +624,7 @@
     lity.options  = $.proxy(settings, lity, _defaultOptions);
     lity.handlers = $.proxy(settings, lity, _defaultOptions.handlers);
     lity.current  = currentInstance;
+    lity.iframe   = iframe;
 
     $(document).on('click.lity', '[data-lity]', lity);
 
