@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Lity - Instagram Tests</title>
+
+    <!-- Core -->
+    <link href="../../../dist/lity.css" rel="stylesheet"/>
+    <script src="../../../vendor/jquery.js"></script>
+    <script src="../../../dist/lity.js"></script>
+
+    <!-- Instagram Plugin -->
+    <link href="../../../dist/plugins/instagram/instagram.css" rel="stylesheet"/>
+    <script src="../../../dist/plugins/instagram/instagram.js"></script>
+
+    <script>
+        $(function() {
+            $('a').each(function() {
+                var el = $(this), href = el.attr('href');
+
+                if (href.length > 97) {
+                    href = href.substr(0, 97) + '...';
+                }
+
+                el.text(href);
+            })
+        });
+    </script>
+</head>
+<body style="background: #fff">
+
+<h1>Instagram</h1>
+
+<ul>
+    <li>
+        <a href="https://www.instagram.com/p/BKwZEocjgsE/" data-lity></a>
+    </li>
+    <li>
+        <a href="https://www.instagram.com/p/BKwZEocjgsE/" data-lity></a>
+    </li>
+    <li>
+        <a href="//www.instagram.com/p/BKwZEocjgsE/" data-lity></a>
+    </li>
+    <li>
+        <a href="https://www.instagr.am/p/BKwZEocjgsE/" data-lity></a>
+    </li>
+    <li>
+        <a href="https://www.instagr.am/p/BKwZEocjgsE/" data-lity></a>
+    </li>
+    <li>
+        <a href="//www.instagr.am/p/BKwZEocjgsE/" data-lity></a>
+    </li>
+</ul>
+
+</body>
+</html>

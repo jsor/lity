@@ -17,16 +17,27 @@ module.exports = function(grunt) {
             options: {
                 banner: '<%= banner %>'
             },
-            src: {
+            core: {
                 src: 'src/lity.less',
                 dest: 'dist/<%= pkg.name %>.css'
             },
-            min: {
+            core_min: {
                 options: {
                     compress: true
                 },
                 src: 'src/lity.less',
                 dest: 'dist/<%= pkg.name %>.min.css'
+            },
+            instagram: {
+                src: 'src/plugins/instagram/instagram.less',
+                dest: 'dist/plugins/instagram/instagram.css'
+            },
+            instagram_min: {
+                options: {
+                    compress: true
+                },
+                src: 'src/plugins/instagram/instagram.less',
+                dest: 'dist/plugins/instagram/instagram.min.css'
             }
         },
         postcss: {
@@ -67,18 +78,26 @@ module.exports = function(grunt) {
                 banner: '<%= banner %>',
                 stripBanners: true
             },
-            src: {
+            core: {
                 src: 'src/lity.js',
                 dest: 'dist/<%= pkg.name %>.js'
+            },
+            instagram: {
+                src: 'src/plugins/instagram/instagram.js',
+                dest: 'dist/plugins/instagram/instagram.js'
             }
         },
         uglify: {
             options: {
                 banner: '<%= banner %>'
             },
-            min: {
+            core: {
                 src: 'src/lity.js',
                 dest: 'dist/<%= pkg.name %>.min.js'
+            },
+            instagram: {
+                src: 'src/plugins/instagram/instagram.js',
+                dest: 'dist/plugins/instagram/instagram.min.js'
             }
         },
         replace: {
@@ -100,11 +119,11 @@ module.exports = function(grunt) {
         },
         watch: {
             css: {
-                files: 'src/*.less',
+                files: 'src/**/*.less',
                 tasks: ['dist-css']
             },
             js: {
-                files: 'src/*.js',
+                files: 'src/**/*.js',
                 tasks: ['dist-js']
             }
         }
