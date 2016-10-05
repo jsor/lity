@@ -31,7 +31,7 @@
             youtube: youtubeHandler,
             vimeo: vimeoHandler,
             googlemaps: googlemapsHandler,
-            facebook: facebookHandler,
+            facebookvideo: facebookvideoHandler,
             iframe: iframeHandler
         },
         template: '<div class="lity" role="dialog" aria-label="Dialog Window (Press escape to close)" tabindex="-1"><div class="lity-wrap" data-lity-close role="document"><div class="lity-loader" aria-hidden="true">Loading...</div><div class="lity-container"><div class="lity-content"></div><button class="lity-close" type="button" aria-label="Close (Press escape to close)" data-lity-close>&times;</button></div></div></div>'
@@ -41,7 +41,7 @@
     var _youtubeRegex = /(youtube(-nocookie)?\.com|youtu\.be)\/(watch\?v=|v\/|u\/|embed\/?)?([\w-]{11})(.*)?/i;
     var _vimeoRegex =  /(vimeo(pro)?.com)\/(?:[^\d]+)?(\d+)\??(.*)?$/;
     var _googlemapsRegex = /((maps|www)\.)?google\.([^\/\?]+)\/?((maps\/?)?\?)(.*)/i;
-    var _facebookRegex = /(facebook\.com)\/([a-z0-9_-]*)\/videos\/([0-9]*)(.*)?$/i;
+    var _facebookvideoRegex = /(facebook\.com)\/([a-z0-9_-]*)\/videos\/([0-9]*)(.*)?$/i;
 
     var _transitionEndEvent = (function() {
         var el = document.createElement('div');
@@ -241,8 +241,8 @@
         );
     }
 
-    function facebookHandler(target) {
-        var matches = _facebookRegex.exec(target);
+    function facebookvideoHandler(target) {
+        var matches = _facebookvideoRegex.exec(target);
 
         if (!matches) {
             return false;

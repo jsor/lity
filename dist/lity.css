@@ -1,4 +1,4 @@
-/*! Lity - v2.1.1 - 2016-09-26
+/*! Lity - v2.1.1 - 2016-10-05
 * http://sorgalla.com/lity/
 * Copyright (c) 2015-2016 Jan Sorgalla; Licensed MIT */
 .lity {
@@ -169,7 +169,7 @@
 .lity-iframe .lity-container,
 .lity-youtube .lity-container,
 .lity-vimeo .lity-container,
-.lity-facebook .lity-container,
+.lity-facebookvideo .lity-container,
 .lity-googlemaps .lity-container {
   width: 100%;
   max-width: 964px;
