@@ -17,27 +17,24 @@ module.exports = function(grunt) {
             options: {
                 banner: '<%= banner %>'
             },
-            core: {
-                src: 'src/lity.less',
-                dest: 'dist/<%= pkg.name %>.css'
+            src: {
+                expand: true,
+                cwd: 'src/',
+                src: ['**/*.less'],
+                dest: 'dist/',
+                ext: '.css',
+                extDot: 'first'
             },
-            core_min: {
+            min: {
                 options: {
                     compress: true
                 },
-                src: 'src/lity.less',
-                dest: 'dist/<%= pkg.name %>.min.css'
-            },
-            instagram: {
-                src: 'src/plugins/instagram/instagram.less',
-                dest: 'dist/plugins/instagram/instagram.css'
-            },
-            instagram_min: {
-                options: {
-                    compress: true
-                },
-                src: 'src/plugins/instagram/instagram.less',
-                dest: 'dist/plugins/instagram/instagram.min.css'
+                expand: true,
+                cwd: 'src/',
+                src: ['**/*.less'],
+                dest: 'dist/',
+                ext: '.min.css',
+                extDot: 'first'
             }
         },
         postcss: {
@@ -59,8 +56,8 @@ module.exports = function(grunt) {
             },
             src: {
                 expand: true,
-                flatten: true,
-                src: ['dist/*.css', '!dist/*.min.css'],
+                cwd: 'dist/',
+                src: ['**/*.css', '!**/*.min.css'],
                 dest: 'dist/'
             },
             min: {
@@ -68,8 +65,8 @@ module.exports = function(grunt) {
                     cascade: false
                 },
                 expand: true,
-                flatten: true,
-                src: 'dist/*.min.css',
+                cwd: 'dist/',
+                src: '**/*.min.css',
                 dest: 'dist/'
             }
         },
@@ -78,26 +75,24 @@ module.exports = function(grunt) {
                 banner: '<%= banner %>',
                 stripBanners: true
             },
-            core: {
-                src: 'src/lity.js',
-                dest: 'dist/<%= pkg.name %>.js'
-            },
-            instagram: {
-                src: 'src/plugins/instagram/instagram.js',
-                dest: 'dist/plugins/instagram/instagram.js'
+            js: {
+                expand: true,
+                cwd: 'src/',
+                src: '**/*.js',
+                dest: 'dist/'
             }
         },
         uglify: {
             options: {
                 banner: '<%= banner %>'
             },
-            core: {
-                src: 'src/lity.js',
-                dest: 'dist/<%= pkg.name %>.min.js'
-            },
-            instagram: {
-                src: 'src/plugins/instagram/instagram.js',
-                dest: 'dist/plugins/instagram/instagram.min.js'
+            js: {
+                expand: true,
+                cwd: 'src/',
+                src: '**/*.js',
+                dest: 'dist/',
+                ext: '.min.js',
+                extDot: 'first'
             }
         },
         replace: {
