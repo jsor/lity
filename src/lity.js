@@ -490,6 +490,10 @@
             return opener;
         };
 
+        self.content = function() {
+            return content;
+        };
+
         self.options  = $.proxy(settings, self, options);
         self.handlers = $.proxy(settings, self, options.handlers);
 

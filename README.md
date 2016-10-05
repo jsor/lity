@@ -103,6 +103,7 @@ var instance = lity('https://www.youtube.com/watch?v=XSGBVzeBUbk');
 * [Lity.close](#lityclose)
 * [Lity.element](#lityelement)
 * [Lity.opener](#lityopener)
+* [Lity.content](#litycontent)
 * [Lity.options](#lityoptions)
 
 #### Lity.close
@@ -135,6 +136,16 @@ var opener = instance.opener();
 **Note**: The value might be undefined if the lightbox has been opened
 programmatically and not by a click event handler and no opener argument was
 provided.
+
+#### Lity.content
+
+Returns the content HTML element.
+
+```javascript
+var content = instance.content();
+```
+
+**Note**: The value is undefined while the content is loading.
 
 #### Lity.options
 
