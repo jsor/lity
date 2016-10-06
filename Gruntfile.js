@@ -13,6 +13,48 @@ module.exports = function(grunt) {
             css: ['dist/*.css'],
             js: ['dist/*.js']
         },
+        concat: {
+            options: {
+                banner: '<%= banner %>',
+                stripBanners: true
+            },
+            js: {
+                expand: true,
+                cwd: 'src/',
+                src: '**/*.js',
+                dest: 'dist/'
+            }
+        },
+        uglify: {
+            options: {
+                banner: '<%= banner %>'
+            },
+            js: {
+                expand: true,
+                cwd: 'src/',
+                src: '**/*.js',
+                dest: 'dist/',
+                ext: '.min.js',
+                extDot: 'first'
+            }
+        },
+        replace: {
+            dist: {
+                options: {
+                    variables: {
+                        VERSION: '<%= pkg.version %>',
+                        DATE: '<%= grunt.template.today("yyyy-mm-dd") %>'
+                    },
+                    prefix: '@'
+                },
+                files: [
+                    {
+                        src: ['dist/*.js'],
+                        dest: './'
+                    }
+                ]
+            }
+        },
         less: {
             options: {
                 banner: '<%= banner %>'
@@ -68,48 +110,6 @@ module.exports = function(grunt) {
                 cwd: 'dist/',
                 src: '**/*.min.css',
                 dest: 'dist/'
-            }
-        },
-        concat: {
-            options: {
-                banner: '<%= banner %>',
-                stripBanners: true
-            },
-            js: {
-                expand: true,
-                cwd: 'src/',
-                src: '**/*.js',
-                dest: 'dist/'
-            }
-        },
-        uglify: {
-            options: {
-                banner: '<%= banner %>'
-            },
-            js: {
-                expand: true,
-                cwd: 'src/',
-                src: '**/*.js',
-                dest: 'dist/',
-                ext: '.min.js',
-                extDot: 'first'
-            }
-        },
-        replace: {
-            dist: {
-                options: {
-                    variables: {
-                        VERSION: '<%= pkg.version %>',
-                        DATE: '<%= grunt.template.today("yyyy-mm-dd") %>'
-                    },
-                    prefix: '@'
-                },
-                files: [
-                    {
-                        src: ['dist/*.js'],
-                        dest: './'
-                    }
-                ]
             }
         },
         watch: {
