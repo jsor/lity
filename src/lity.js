@@ -271,6 +271,10 @@
             return false;
         }
 
+        if (0 !== target.indexOf('http')) {
+            target = 'https:' + target;
+        }
+
         return iframe(
             'https://www.facebook.com/plugins/video.php?href=' + target + '&autoplay=1',
             instance,
@@ -520,7 +524,7 @@
             var deferred = _deferred();
 
             // We return focus only if the current focus is inside this instance
-            if (activeElement && $.contains(element, document.activeElement)) {
+            if (activeElement && $.contains(element[0], document.activeElement)) {
                 activeElement.focus();
             }
 

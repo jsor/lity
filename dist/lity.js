@@ -1,4 +1,4 @@
-/*! Lity - v2.1.1 - 2016-10-07
+/*! Lity - v2.2.0 - 2016-10-08
 * http://sorgalla.com/lity/
 * Copyright (c) 2015-2016 Jan Sorgalla; Licensed MIT */
 (function(window, factory) {
@@ -274,6 +274,10 @@
             return false;
         }
 
+        if (0 !== target.indexOf('http')) {
+            target = 'https:' + target;
+        }
+
         return iframe(
             'https://www.facebook.com/plugins/video.php?href=' + target + '&autoplay=1',
             instance,
@@ -523,7 +527,7 @@
             var deferred = _deferred();
 
             // We return focus only if the current focus is inside this instance
-            if (activeElement && $.contains(element, document.activeElement)) {
+            if (activeElement && $.contains(element[0], document.activeElement)) {
                 activeElement.focus();
             }
 
@@ -627,7 +631,7 @@
         }
     }
 
-    lity.version  = '2.1.1';
+    lity.version  = '2.2.0';
     lity.options  = $.proxy(settings, lity, _defaultOptions);
     lity.handlers = $.proxy(settings, lity, _defaultOptions.handlers);
     lity.current  = currentInstance;

@@ -4,6 +4,12 @@ Changelog for 2.x
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org).
 
+2.2.0 - 2016-10-08
+------------------
+
+  * Add support for Facebook Video URL's (#63, thanks @iamandrewluca).
+  * Fix compatibility with Zepto and note requirement of the data module.
+
 2.1.1 - 2016-09-19
 ------------------
 
