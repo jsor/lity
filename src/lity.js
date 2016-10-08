@@ -504,7 +504,7 @@
             var deferred = _deferred();
 
             // We return focus only if the current focus is inside this instance
-            if (activeElement && $.contains(element, document.activeElement)) {
+            if (activeElement && $.contains(element[0], document.activeElement)) {
                 activeElement.focus();
             }
 
