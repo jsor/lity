@@ -251,6 +251,10 @@
             return false;
         }
 
+        if (0 !== target.indexOf('http')) {
+            target = 'https:' + target;
+        }
+
         return iframeHandler(
             transferHash(
                 target,
