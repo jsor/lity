@@ -82,7 +82,7 @@ module.exports = function(grunt) {
         postcss: {
             options: {
                 processors: [
-                    require('autoprefixer')({
+                    require('postcss-cssnext')({
                         browsers: [
                             'Android 2.3',
                             'Android >= 4',
