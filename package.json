@@ -16,12 +16,13 @@
     "grunt": "^1.0.1",
     "grunt-contrib-clean": "^1.0.0",
     "grunt-contrib-concat": "^1.0.1",
-    "grunt-contrib-less": "^1.4.0",
     "grunt-contrib-uglify": "^2.0.0",
     "grunt-contrib-watch": "^1.0.0",
+    "grunt-cssnano": "^2.1.0",
     "grunt-postcss": "^0.8.0",
     "grunt-replace": "^1.0.1",
-    "postcss-cssnext": "^2.8.0"
+    "postcss-cssnext": "^2.8.0",
+    "postcss-remove-root": "0.0.2"
   },
   "repository": {
     "type": "git",
@@ -43,5 +44,8 @@
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/jsor/lity/issues"
+  },
+  "dependencies": {
+    "stylefmt": "^4.3.1"
   }
 }

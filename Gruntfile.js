@@ -10,8 +10,8 @@ module.exports = function(grunt) {
             '* Copyright (c) 2015-<%= grunt.template.today("yyyy") %> <%= pkg.author.name %>;' +
             ' Licensed <%= pkg.license %> */\n',
         clean: {
-            css: ['dist/*.css'],
-            js: ['dist/*.js']
+            css: ['dist/**/*.css'],
+            js: ['dist/**/*.js']
         },
         concat: {
             options: {
@@ -23,6 +23,12 @@ module.exports = function(grunt) {
                 cwd: 'src/',
                 src: '**/*.js',
                 dest: 'dist/'
+            },
+            css: {
+                expand: true,
+                cwd: 'src/',
+                src: '**/*.css',
+                dest: 'dist/'
             }
         },
         uglify: {
@@ -31,7 +37,7 @@ module.exports = function(grunt) {
             },
             js: {
                 expand: true,
-                cwd: 'src/',
+                cwd: 'dist/',
                 src: '**/*.js',
                 dest: 'dist/',
                 ext: '.min.js',
@@ -39,7 +45,7 @@ module.exports = function(grunt) {
             }
         },
         replace: {
-            dist: {
+            js: {
                 options: {
                     variables: {
                         VERSION: '<%= pkg.version %>',
@@ -53,30 +59,6 @@ module.exports = function(grunt) {
                         dest: './'
                     }
                 ]
-            }
-        },
-        less: {
-            options: {
-                banner: '<%= banner %>'
-            },
-            src: {
-                expand: true,
-                cwd: 'src/',
-                src: ['**/*.less'],
-                dest: 'dist/',
-                ext: '.css',
-                extDot: 'first'
-            },
-            min: {
-                options: {
-                    compress: true
-                },
-                expand: true,
-                cwd: 'src/',
-                src: ['**/*.less'],
-                dest: 'dist/',
-                ext: '.min.css',
-                extDot: 'first'
             }
         },
         postcss: {
@@ -93,28 +75,34 @@ module.exports = function(grunt) {
                             'Opera >= 12',
                             'Safari >= 6'
                         ]
-                    })
+                    }),
+                    require('postcss-remove-root'),
+                    require('stylefmt')
                 ]
             },
-            src: {
+            css: {
                 expand: true,
                 cwd: 'dist/',
-                src: ['**/*.css', '!**/*.min.css'],
+                src: '**/*.css',
                 dest: 'dist/'
-            },
+            }
+        },
+        cssnano: {
             min: {
                 options: {
-                    cascade: false
+                    discardComments: true
                 },
                 expand: true,
                 cwd: 'dist/',
-                src: '**/*.min.css',
-                dest: 'dist/'
+                src: '**/*.css',
+                dest: 'dist/',
+                ext: '.min.css',
+                extDot: 'first'
             }
         },
         watch: {
             css: {
-                files: 'src/**/*.less',
+                files: 'src/**/*.css',
                 tasks: ['dist-css']
             },
             js: {
@@ -126,13 +114,13 @@ module.exports = function(grunt) {
 
     grunt.loadNpmTasks('grunt-replace');
     grunt.loadNpmTasks('grunt-contrib-clean');
-    grunt.loadNpmTasks('grunt-contrib-less');
-    grunt.loadNpmTasks('grunt-postcss');
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-uglify');
+    grunt.loadNpmTasks('grunt-postcss');
+    grunt.loadNpmTasks('grunt-cssnano');
     grunt.loadNpmTasks('grunt-contrib-watch');
 
-    grunt.registerTask('dist-css', ['clean:css', 'less', 'postcss']);
-    grunt.registerTask('dist-js', ['clean:js', 'concat', 'uglify', 'replace']);
+    grunt.registerTask('dist-css', ['clean:css', 'concat:css', 'postcss', 'cssnano']);
+    grunt.registerTask('dist-js', ['clean:js', 'concat:js', 'uglify', 'replace']);
     grunt.registerTask('default', ['dist-css', 'dist-js']);
 };

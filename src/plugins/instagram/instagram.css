@@ -1,0 +1,12 @@
+:root {
+    --lity-instagram-width: 612;
+}
+
+.lity-instagram .lity-container {
+    width: 100%;
+    max-width: calc(var(--lity-instagram-width) * 1px);
+}
+
+.lity-instagram .lity-iframe-container {
+    padding-top: calc(((var(--lity-instagram-width) + 80) / var(--lity-instagram-width)) * 100%);
+}
