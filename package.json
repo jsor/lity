@@ -22,7 +22,8 @@
     "grunt-postcss": "^0.8.0",
     "grunt-replace": "^1.0.1",
     "postcss-cssnext": "^2.8.0",
-    "postcss-remove-root": "0.0.2"
+    "postcss-remove-root": "0.0.2",
+    "stylefmt": "^4.3.1"
   },
   "repository": {
     "type": "git",
@@ -44,8 +45,5 @@
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/jsor/lity/issues"
-  },
-  "dependencies": {
-    "stylefmt": "^4.3.1"
   }
 }
