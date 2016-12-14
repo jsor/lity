@@ -515,7 +515,12 @@
                     $.contains(element[0], document.activeElement)
                 )
             ) {
-                activeElement.focus();
+                try {
+                    activeElement.focus();
+                } catch (e) {
+                    // Ignore exceptions, eg. for SVG elements which can't be
+                    // focused in IE11
+                }
             }
 
             content.trigger('lity:close', [self]);
