@@ -1,4 +1,4 @@
-/*! Lity - v3.0.0-dev - 2016-11-21
+/*! Lity - v3.0.0-dev - 2016-12-14
 * http://sorgalla.com/lity/
 * Copyright (c) 2015-2016 Jan Sorgalla; Licensed MIT */
 (function(window, factory) {
@@ -534,7 +534,12 @@
                     $.contains(element[0], document.activeElement)
                 )
             ) {
-                activeElement.focus();
+                try {
+                    activeElement.focus();
+                } catch (e) {
+                    // Ignore exceptions, eg. for SVG elements which can't be
+                    // focused in IE11
+                }
             }
 
             content.trigger('lity:close', [self]);

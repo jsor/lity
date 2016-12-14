@@ -1,4 +1,4 @@
-/*! Lity - v3.0.0-dev - 2016-11-21
+/*! Lity - v3.0.0-dev - 2016-12-14
 * http://sorgalla.com/lity/
 * Copyright (c) 2015-2016 Jan Sorgalla; Licensed MIT */
 
@@ -11,7 +11,7 @@
   left: 0;
   white-space: nowrap;
   background: #0b0b0b;
-  background: rgba(0, 0, 0, 0.9);
+  background: rgba(0, 0, 0, .9);
   outline: none !important;
   opacity: 0;
   -webkit-transition: opacity .3s ease;
@@ -117,8 +117,8 @@
   width: auto;
   height: auto;
   z-index: -1;
-  -webkit-box-shadow: 0 0 8px rgba(0, 0, 0, 0.6);
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.6);
+  -webkit-box-shadow: 0 0 8px rgba(0, 0, 0, .6);
+  box-shadow: 0 0 8px rgba(0, 0, 0, .6);
 }
 
 .lity-close {
@@ -140,7 +140,7 @@
   font-size: 35px;
   font-family: Arial, Baskerville, monospace;
   line-height: 35px;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, .6);
   border: 0;
   background: none;
   outline: none;
@@ -165,7 +165,7 @@
   font-size: 35px;
   font-family: Arial, Baskerville, monospace;
   line-height: 35px;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, .6);
   border: 0;
   background: none;
   outline: none;
@@ -211,8 +211,8 @@
   left: 0;
   width: 100%;
   height: 100%;
-  -webkit-box-shadow: 0 0 8px rgba(0, 0, 0, 0.6);
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.6);
+  -webkit-box-shadow: 0 0 8px rgba(0, 0, 0, .6);
+  box-shadow: 0 0 8px rgba(0, 0, 0, .6);
   background: #000;
 }
 
