@@ -4,6 +4,12 @@ Changelog for 2.x
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org).
 
+2.2.2 - 2016-12-14
+------------------
+
+  * Fix `focus()` not always available on active element, eg. for SVG elements
+    in IE11 (#86).
+
 2.2.1 - 2016-11-21
 ------------------
 
