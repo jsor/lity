@@ -1,6 +1,6 @@
-/*! Lity - v3.0.0-dev - 2016-12-14
+/*! Lity - v3.0.0-dev - 2017-03-14
 * http://sorgalla.com/lity/
-* Copyright (c) 2015-2016 Jan Sorgalla; Licensed MIT */
+* Copyright (c) 2015-2017 Jan Sorgalla; Licensed MIT */
 (function(window, factory) {
     if (typeof define === 'function' && define.amd) {
         define(['jquery'], function($) {
@@ -158,6 +158,8 @@
     }
 
     function iframe(iframeUrl, instance, queryParams, hashUrl) {
+        var desc = (instance.opener() && instance.opener().data('lity-desc')) || '';
+        var descTmpl = desc !== '' ? '<div class="lity-description">' + desc + '</div>' : '';
         instance && instance.element().addClass('lity-iframe');
 
         if (queryParams) {
@@ -168,7 +170,7 @@
             iframeUrl = transferHash(hashUrl, iframeUrl);
         }
 
-        return '<div class="lity-iframe-container"><iframe frameborder="0" allowfullscreen src="' + iframeUrl + '"/></div>';
+        return '<div class="lity-iframe-container"><iframe frameborder="0" allowfullscreen src="' + iframeUrl + '"/>' + descTmpl + '</div>';
     }
 
     function error(msg) {

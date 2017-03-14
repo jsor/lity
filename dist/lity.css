@@ -1,6 +1,6 @@
-/*! Lity - v3.0.0-dev - 2016-12-14
+/*! Lity - v3.0.0-dev - 2017-03-14
 * http://sorgalla.com/lity/
-* Copyright (c) 2015-2016 Jan Sorgalla; Licensed MIT */
+* Copyright (c) 2015-2017 Jan Sorgalla; Licensed MIT */
 
 .lity {
   z-index: 9990;
@@ -96,6 +96,11 @@
   -o-transition: -o-transform .3s ease;
   transition: transform .3s ease;
   transition: transform .3s ease, -webkit-transform .3s ease, -o-transform .3s ease;
+}
+
+.lity-description {
+  font-size: 14px;
+  margin-top: 1em;
 }
 
 .lity-loading .lity-content,

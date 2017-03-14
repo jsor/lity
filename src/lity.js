@@ -155,6 +155,8 @@
     }
 
     function iframe(iframeUrl, instance, queryParams, hashUrl) {
+        var desc = (instance.opener() && instance.opener().data('lity-desc')) || '';
+        var descTmpl = desc !== '' ? '<div class="lity-description">' + desc + '</div>' : '';
         instance && instance.element().addClass('lity-iframe');
 
         if (queryParams) {
@@ -165,7 +167,7 @@
             iframeUrl = transferHash(hashUrl, iframeUrl);
         }
 
-        return '<div class="lity-iframe-container"><iframe frameborder="0" allowfullscreen src="' + iframeUrl + '"/></div>';
+        return '<div class="lity-iframe-container"><iframe frameborder="0" allowfullscreen src="' + iframeUrl + '"/>' + descTmpl + '</div>';
     }
 
     function error(msg) {
