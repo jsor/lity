@@ -108,6 +108,11 @@
     transition: transform var(--lity-transition-duration) var(--lity-transition-timing-function);
 }
 
+.lity-description {
+   font-size: 14px;
+   margin-top: 1em;
+}
+
 .lity-loading .lity-content,
 .lity-closed .lity-content {
     transform: scale(0.8);
