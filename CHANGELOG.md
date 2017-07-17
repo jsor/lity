@@ -4,6 +4,12 @@ Changelog for 2.x
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org).
 
+2.3.0 - 2017-07-17
+------------------
+
+  * Add `esc` option. Setting this option to `false` prevents the lightbox from
+    being closed when pressing the ESC key.
+
 2.2.2 - 2016-12-14
 ------------------
 
