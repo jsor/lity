@@ -142,9 +142,13 @@ provided.
 Sets or returns options of the instance.
 
 ```javascript
-var all = instance.options();
+var allOptions = instance.options();
+
 var template = instance.options('template');
 instance.options('template', '<div>...</div>');
+
+var closeOnEsc = instance.options('esc');
+instance.options('esc', false);
 ```
 
 Events

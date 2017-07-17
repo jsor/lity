@@ -1,6 +1,6 @@
-/*! Lity - v2.2.2 - 2016-12-14
+/*! Lity - v2.2.2 - 2017-07-17
 * http://sorgalla.com/lity/
-* Copyright (c) 2015-2016 Jan Sorgalla; Licensed MIT */
+* Copyright (c) 2015-2017 Jan Sorgalla; Licensed MIT */
 (function(window, factory) {
     if (typeof define === 'function' && define.amd) {
         define(['jquery'], function($) {
@@ -27,6 +27,7 @@
     var _focusableElementsSelector = 'a[href],area[href],input:not([disabled]),select:not([disabled]),textarea:not([disabled]),button:not([disabled]),iframe,object,embed,[contenteditable],[tabindex]:not([tabindex^="-"])';
 
     var _defaultOptions = {
+        esc: true,
         handler: null,
         handlers: {
             image: imageHandler,
@@ -309,7 +310,7 @@
         }
 
         // ESC key
-        if (e.keyCode === 27) {
+        if (e.keyCode === 27 && !!current.options('esc')) {
             current.close();
         }
 
