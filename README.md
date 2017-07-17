@@ -153,9 +153,13 @@ var content = instance.content();
 Sets or returns options of the instance.
 
 ```javascript
-var all = instance.options();
+var allOptions = instance.options();
+
 var template = instance.options('template');
 instance.options('template', '<div>...</div>');
+
+var closeOnEsc = instance.options('esc');
+instance.options('esc', false);
 ```
 
 Events
@@ -227,5 +231,5 @@ $(document).on('lity:resize', function(event, instance) {
 License
 -------
 
-Copyright (c) 2015-2016 Jan Sorgalla.
+Copyright (c) 2015-2017 Jan Sorgalla.
 Released under the [MIT](LICENSE?raw=1) license.
