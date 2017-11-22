@@ -6,22 +6,6 @@
     --lity-iframe-ratio: 9/16;  /* Or 3/4 */
     --lity-transition-timing-function: ease;
     --lity-transition-duration: .3s;
-
-    --lity-close-style: {
-        text-decoration: none;
-        text-align: center;
-        padding: 0;
-        color: #fff;
-        font-style: normal;
-        font-size: var(--lity-close-size);
-        font-family: Arial, Baskerville, monospace;
-        line-height: var(--lity-close-size);
-        text-shadow: var(--lity-close-text-shadow);
-        border: 0;
-        background: none;
-        outline: none;
-        box-shadow: none;
-    }
 }
 
 .lity {
@@ -127,7 +111,11 @@
      box-shadow: var(--lity-shadow);
  }
 
-.lity-close {
+.lity-close,
+.lity-close:hover,
+.lity-close:focus,
+.lity-close:active,
+.lity-close:visited {
     z-index: calc(var(--lity-z-index-base) + 4);
     width: var(--lity-close-size);
     height: var(--lity-close-size);
@@ -140,20 +128,25 @@
     -webkit-appearance: none;
     cursor: pointer;
 
-    @apply --lity-close-style;
+    text-decoration: none;
+    text-align: center;
+    padding: 0;
+    color: #fff;
+    font-style: normal;
+    font-size: var(--lity-close-size);
+    font-family: Arial, Baskerville, monospace;
+    line-height: var(--lity-close-size);
+    text-shadow: var(--lity-close-text-shadow);
+    border: 0;
+    background: none;
+    outline: none;
+    box-shadow: none;
 }
 
 .lity-close::-moz-focus-inner {
      border: 0;
      padding: 0;
  }
-
-.lity-close:hover,
-.lity-close:focus,
-.lity-close:active,
-.lity-close:visited {
-    @apply --lity-close-style;
-}
 
 .lity-close:active {
      top: 1px;
