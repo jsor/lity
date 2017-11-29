@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Lity - Imgur Tests</title>
+
+    <!-- Core -->
+    <link href="../../../dist/lity.css" rel="stylesheet"/>
+    <script src="../../../vendor/jquery.js"></script>
+    <script src="../../../dist/lity.js"></script>
+
+    <!-- Imgur Plugin -->
+    <script src="../../../dist/plugins/imgur/imgur.js"></script>
+
+    <script>
+        $(function() {
+            $('a').each(function() {
+                var el = $(this), href = el.attr('href');
+
+                if (href.length > 97) {
+                    href = href.substr(0, 97) + '...';
+                }
+
+                el.text(href);
+            })
+        });
+    </script>
+</head>
+<body style="background: #fff">
+
+<h1>Instagram</h1>
+
+<ul>
+    <li>
+        <a href="https://imgur.com/jYsmn1V.gif" data-lity></a>
+    </li>
+    <li>
+        <a href="https://imgur.com/jYsmn1V" data-lity></a>
+    </li>
+    <li>
+      <a href="https://imgur.com/gallery/PLqof" data-lity></a>
+    </li>
+</ul>
+
+</body>
+</html>

@@ -11,7 +11,7 @@
 }(typeof window !== "undefined" ? window : this, function(lity) {
   'use strict';
 
-  var _regex = /(imgur\.com)\/([a-zA-Z0-9_\-]+)\/?\??(.*)?/i;
+  var _regex = /(imgur\.com)(\/gallery)?\/([a-zA-Z0-9_\-]+)\/?\??(.*)?/i;
 
   lity.handlers('imgur', function(target, instance) {
       var matches = _regex.exec(target);
@@ -19,7 +19,18 @@
       if (!matches) {
           return false;
       }
+      if (matches[2] === "/gallery"){
+        var head = document.getElementsByTagName("head")[0];
+        var s = document.createElement("script");
+        s.src = "//s.imgur.com/min/embed.js";
+        head.appendChild(s);
+        return lity.handlers().inline(
+          '<blockquote class="imgur-embed-pub" lang="en" data-id="a/' + matches[3] + 
+          '"><a href="//imgur.com/' + matches[3] + '"></a></blockquote>',
+          instance
+        )
+      }
       
-      return lity.handlers().image('https://www.imgur.com/' + matches[2] + '.jpg', instance)
+      return lity.handlers().image('https://www.imgur.com/' + matches[3] + '.jpg', instance)
   });
 }));
