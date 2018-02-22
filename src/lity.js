@@ -97,6 +97,9 @@
     }
 
     function parseQueryParams(params) {
+        // Remove ? character in params
+        params = params.replace('?', '');
+
         var pos = params.indexOf('?');
 
         if (pos > -1) {
