@@ -1,6 +1,6 @@
-/*! Lity - v3.0.0-dev - 2017-07-17
+/*! Lity - v3.0.0-dev - 2018-04-20
 * http://sorgalla.com/lity/
-* Copyright (c) 2015-2017 Jan Sorgalla; Licensed MIT */
+* Copyright (c) 2015-2018 Jan Sorgalla; Licensed MIT */
 
 .lity {
   z-index: 9990;
@@ -121,7 +121,11 @@
   box-shadow: 0 0 8px rgba(0, 0, 0, .6);
 }
 
-.lity-close {
+.lity-close,
+.lity-close:hover,
+.lity-close:focus,
+.lity-close:active,
+.lity-close:visited {
   z-index: 9994;
   width: 35px;
   height: 35px;
@@ -151,26 +155,6 @@
 .lity-close::-moz-focus-inner {
   border: 0;
   padding: 0;
-}
-
-.lity-close:hover,
-.lity-close:focus,
-.lity-close:active,
-.lity-close:visited {
-  text-decoration: none;
-  text-align: center;
-  padding: 0;
-  color: #fff;
-  font-style: normal;
-  font-size: 35px;
-  font-family: Arial, Baskerville, monospace;
-  line-height: 35px;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, .6);
-  border: 0;
-  background: none;
-  outline: none;
-  -webkit-box-shadow: none;
-  box-shadow: none;
 }
 
 .lity-close:active {
