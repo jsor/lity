@@ -7,10 +7,10 @@ supports images, iframes and inline content out of the box.
 Minified and gzipped, its total footprint weights about 3kB.
 
 It requires [jQuery](https://jquery.com) or [Zepto](http://zeptojs.com)
-(with the [callbacks](https://github.com/madrobby/zepto/blob/master/src/callbacks.js),
-[deferred](https://github.com/madrobby/zepto/blob/master/src/deferred.js) and
-[data](https://github.com/madrobby/zepto/blob/master/src/data.js)
-modules).
+(with the [callbacks](https://github.com/madrobby/zepto/blob/master/src/callbacks.js), 
+[data](https://github.com/madrobby/zepto/blob/master/src/data.js), 
+[deferred](https://github.com/madrobby/zepto/blob/master/src/deferred.js) and 
+[event](https://github.com/madrobby/zepto/blob/master/src/event.js) modules).
 
 Installation
 ------------
