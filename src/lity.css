@@ -139,7 +139,6 @@
     text-shadow: var(--lity-close-text-shadow);
     border: 0;
     background: none;
-    outline: none;
     box-shadow: none;
 }
 
