@@ -8,6 +8,11 @@
     --lity-transition-duration: .3s;
 }
 
+.lity-active,
+.lity-active body {
+    overflow: hidden;
+}
+
 .lity {
     z-index: var(--lity-z-index-base);
     position: fixed;
