@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Lity - Dailymotion Tests</title>
+
+    <!-- Core -->
+    <link href="../../../dist/lity.css" rel="stylesheet"/>
+    <script src="../../../vendor/jquery.js"></script>
+    <script src="../../../dist/lity.js"></script>
+
+    <!-- Dailymotion Plugin -->
+    <script src="../../../dist/plugins/dailymotion/dailymotion.js"></script>
+
+    <script>
+        $(function() {
+            $('a').each(function() {
+                var el = $(this), href = el.attr('href');
+
+                if (href.length > 97) {
+                    href = href.substr(0, 97) + '...';
+                }
+
+                el.text(href);
+            })
+        });
+    </script>
+</head>
+<body style="background: #fff">
+
+<h1>Dailymotion</h1>
+
+<ul>
+    <li>
+        <a href="https://www.dailymotion.com/video/x5msdxi" data-lity></a>
+    </li>
+    <li>
+        <a href="https://www.dailymotion.com/embed/video/x5msdxi" data-lity></a>
+    </li>
+    <li>
+        <a href="//www.dailymotion.com/video/x5msdxi" data-lity></a>
+    </li>
+    <li>
+        <a href="http://www.dailymotion.com/video/x5msdxi" data-lity></a>
+    </li>
+    <li>
+        <a href="https://www.dailymotion.com/norahjones" data-lity></a>
+    </li>
+</ul>
+
+</body>
+</html>
