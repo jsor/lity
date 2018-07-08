@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Lity - Youtube Tests</title>
+
+    <!-- Core -->
+    <link href="../../../dist/lity.css" rel="stylesheet"/>
+    <script src="../../../vendor/jquery.js"></script>
+    <script src="../../../dist/lity.js"></script>
+
+    <!-- Youtube Plugin -->
+    <script src="../../../dist/plugins/youtube/youtube.js"></script>
+
+    <script>
+        $(function() {
+            $('a').each(function() {
+                var el = $(this), href = el.attr('href');
+
+                if (href.length > 97) {
+                    href = href.substr(0, 97) + '...';
+                }
+
+                el.text(href);
+            })
+        });
+    </script>
+</head>
+<body style="background: #fff">
+
+<h1>Youtube</h1>
+
+<ul>
+    <li>
+        <a href="https://www.youtube.com/watch?v=PePvbhy-qGY" data-lity></a>
+    </li>
+    <li>
+        <a href="https://www.youtube.com/watch?v=PePvbhy-qGY&amp;rel=0&amp;controls=0" data-lity></a>
+    </li>
+    <li>
+        <a href="//www.youtube.com/watch?v=PePvbhy-qGY" data-lity></a>
+    </li>
+    <li>
+        <a href="https://youtu.be/PePvbhy-qGY" data-lity></a>
+    </li>
+	<li>
+        <a href="https://www.youtube.com/embed/PePvbhy-qGY" data-lity></a>
+    </li>
+	<li>
+        <a href="https://www.youtube-nocookie.com/embed/PePvbhy-qGY" data-lity></a>
+    </li>
+</ul>
+
+</body>
+</html>
