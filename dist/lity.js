@@ -569,7 +569,7 @@
         }
     }
 
-    lity.version  = '@VERSION';
+    lity.version  = '3.0.0-dev';
     lity.options  = $.proxy(settings, lity, _defaultOptions);
     lity.handlers = $.proxy(settings, lity, _defaultOptions.handlers);
     lity.current  = currentInstance;
