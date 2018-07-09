@@ -14,9 +14,9 @@
 }(typeof window !== "undefined" ? window : this, function(lity) {
     'use strict';
 
-    var _regex = /(instagr\.am|instagram\.com)\/p\/([a-zA-Z0-9_\-]+)\/?\??(.*)?/i;
+    var _regex = /(vimeo(pro)?\.com)\/(?:[^\d]+)?(\d+)\??(.*)?$/;
 
-    lity.handlers('instagram', function(target, instance) {
+    lity.handlers('vimeo', function(target, instance) {
         var matches = _regex.exec(target);
 
         if (!matches) {
@@ -24,9 +24,9 @@
         }
 
         return lity.iframe(
-            'https://www.instagram.com/p/' + matches[2] + '/embed/',
+            'https://player.vimeo.com/video/' + matches[3] + '?autoplay=1',
             instance,
-            matches[3],
+            matches[4],
             target
         );
     });

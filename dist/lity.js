@@ -1,4 +1,4 @@
-/*! Lity - v3.0.0-dev - 2018-04-20
+/*! Lity - v3.0.0-dev - 2018-07-09
 * http://sorgalla.com/lity/
 * Copyright (c) 2015-2018 Jan Sorgalla; Licensed MIT */
 (function(window, factory) {
@@ -32,20 +32,12 @@
         handlers: {
             image: imageHandler,
             inline: inlineHandler,
-            youtube: youtubeHandler,
-            vimeo: vimeoHandler,
-            googlemaps: googlemapsHandler,
-            facebookvideo: facebookvideoHandler,
             iframe: iframeHandler
         },
         template: '<div class="lity" role="dialog" aria-label="Dialog Window (Press escape to close)" tabindex="-1"><div class="lity-wrap" data-lity-close role="document"><div class="lity-loader" aria-hidden="true">Loading...</div><div class="lity-container"><div class="lity-content"></div><button class="lity-close" type="button" aria-label="Close (Press escape to close)" data-lity-close>&times;</button></div></div></div>'
     };
 
     var _imageRegexp = /(^data:image\/)|(\.(png|jpe?g|gif|svg|webp|bmp|ico|tiff?)(\?\S*)?$)/i;
-    var _youtubeRegex = /(youtube(-nocookie)?\.com|youtu\.be)\/(watch\?v=|v\/|u\/|embed\/?)?([\w-]{11})(.*)?/i;
-    var _vimeoRegex =  /(vimeo(pro)?\.com)\/(?:[^\d]+)?(\d+)\??(.*)?$/;
-    var _googlemapsRegex = /((maps|www)\.)?google\.([^\/\?]+)\/?((maps\/?)?\?)(.*)/i;
-    var _facebookvideoRegex = /(facebook\.com)\/([a-z0-9_-]*)\/videos\/([0-9]*)(.*)?$/i;
 
     var _transitionEndEvent = (function() {
         var el = document.createElement('div');
@@ -236,72 +228,6 @@
             .removeClass('lity-hide')
             .after(placeholder)
         ;
-    }
-
-    function youtubeHandler(target, instance) {
-        var matches = _youtubeRegex.exec(target);
-
-        if (!matches) {
-            return false;
-        }
-
-        return iframe(
-            'https://www.youtube' + (matches[2] || '') + '.com/embed/' + matches[4] + '?autoplay=1',
-            instance,
-            matches[5],
-            target
-        );
-    }
-
-    function vimeoHandler(target, instance) {
-        var matches = _vimeoRegex.exec(target);
-
-        if (!matches) {
-            return false;
-        }
-
-        return iframe(
-            'https://player.vimeo.com/video/' + matches[3] + '?autoplay=1',
-            instance,
-            matches[4],
-            target
-        );
-    }
-
-    function facebookvideoHandler(target, instance) {
-        var matches = _facebookvideoRegex.exec(target);
-
-        if (!matches) {
-            return false;
-        }
-
-        if (0 !== target.indexOf('http')) {
-            target = 'https:' + target;
-        }
-
-        return iframe(
-            'https://www.facebook.com/plugins/video.php?href=' + target + '&autoplay=1',
-            instance,
-            matches[4],
-            target
-        );
-    }
-
-    function googlemapsHandler(target, instance) {
-        var matches = _googlemapsRegex.exec(target);
-
-        if (!matches) {
-            return false;
-        }
-
-        return iframe(
-            'https://www.google.' + matches[3] + '/maps?' + matches[6],
-            instance,
-            {
-                output: matches[6].indexOf('layer=c') > 0 ? 'svembed' : 'embed'
-            },
-            target
-        );
     }
 
     function iframeHandler(target, instance) {

@@ -14,9 +14,9 @@
 }(typeof window !== "undefined" ? window : this, function(lity) {
     'use strict';
 
-    var _regex = /(instagr\.am|instagram\.com)\/p\/([a-zA-Z0-9_\-]+)\/?\??(.*)?/i;
+    var _regex = /((maps|www)\.)?google\.([^\/\?]+)\/?((maps\/?)?\?)(.*)/i;
 
-    lity.handlers('instagram', function(target, instance) {
+    lity.handlers('googlemaps', function(target, instance) {
         var matches = _regex.exec(target);
 
         if (!matches) {
@@ -24,9 +24,11 @@
         }
 
         return lity.iframe(
-            'https://www.instagram.com/p/' + matches[2] + '/embed/',
+            'https://www.google.' + matches[3] + '/maps?' + matches[6],
             instance,
-            matches[3],
+            {
+                output: matches[6].indexOf('layer=c') > 0 ? 'svembed' : 'embed'
+            },
             target
         );
     });

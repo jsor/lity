@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Lity - Vimeo Tests</title>
+
+    <!-- Core -->
+    <link href="../../../dist/lity.css" rel="stylesheet"/>
+    <script src="../../../vendor/jquery.js"></script>
+    <script src="../../../dist/lity.js"></script>
+
+    <!-- Vimeo Plugin -->
+    <script src="../../../dist/plugins/vimeo/vimeo.js"></script>
+
+    <script>
+        $(function() {
+            $('a').each(function() {
+                var el = $(this), href = el.attr('href');
+
+                if (href.length > 97) {
+                    href = href.substr(0, 97) + '...';
+                }
+
+                el.text(href);
+            })
+        });
+    </script>
+</head>
+<body style="background: #fff">
+
+<h1>Vimeo</h1>
+
+<ul>
+    <li>
+        <a href="https://vimeo.com/275609523" data-lity></a>
+    </li>
+    <li>
+        <a href="https://vimeo.com/275609523?color=5c5a5a&title=0&byline=0" data-lity></a>
+    </li>
+    <li>
+        <a href="//vimeo.com/275609523" data-lity></a>
+    </li>
+    <li>
+        <a href="https://www.vimeo.com/275609523" data-lity></a>
+    </li>
+	<li>
+        <a href="https://player.vimeo.com/video/275609523?color=5c5a5a&title=0&byline=0" data-lity></a>
+    </li>
+	<li>
+        <a href="https://vimeo.com/channels/staffpicks/275609523" data-lity></a>
+    </li>
+</ul>
+
+</body>
+</html>
