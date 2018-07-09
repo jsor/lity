@@ -21,7 +21,7 @@
         }
 
         return lity.iframe(
-			'https://www.youtube' + (matches[2] || '') + '.com/embed/' + matches[4] + '?autoplay=1',
+            'https://www.youtube' + (matches[2] || '') + '.com/embed/' + matches[4] + '?autoplay=1',
             instance,
             matches[5],
             target

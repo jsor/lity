@@ -21,7 +21,7 @@
         }
 
         return lity.iframe(
-			'https://player.vimeo.com/video/' + matches[3] + '?autoplay=1',
+            'https://player.vimeo.com/video/' + matches[3] + '?autoplay=1',
             instance,
             matches[4],
             target

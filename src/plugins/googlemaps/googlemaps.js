@@ -21,7 +21,7 @@
         }
 
         return lity.iframe(
-			'https://www.google.' + matches[3] + '/maps?' + matches[6],
+            'https://www.google.' + matches[3] + '/maps?' + matches[6],
             instance,
             {
                 output: matches[6].indexOf('layer=c') > 0 ? 'svembed' : 'embed'

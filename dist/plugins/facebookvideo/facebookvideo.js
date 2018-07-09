@@ -1,4 +1,4 @@
-/*! Lity - v3.0.0-dev - 2018-04-20
+/*! Lity - v3.0.0-dev - 2018-07-09
 * http://sorgalla.com/lity/
 * Copyright (c) 2015-2018 Jan Sorgalla; Licensed MIT */
 (function(window, factory) {
@@ -23,12 +23,12 @@
             return false;
         }
 
-		if (0 !== target.indexOf('http')) {
+        if (0 !== target.indexOf('http')) {
             target = 'https:' + target;
         }
 
         return lity.iframe(
-			'https://www.facebook.com/plugins/video.php?href=' + target + '&autoplay=1',
+            'https://www.facebook.com/plugins/video.php?href=' + target + '&autoplay=1',
             instance,
             matches[4],
             target

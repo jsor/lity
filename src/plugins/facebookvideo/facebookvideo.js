@@ -20,12 +20,12 @@
             return false;
         }
 
-		if (0 !== target.indexOf('http')) {
+        if (0 !== target.indexOf('http')) {
             target = 'https:' + target;
         }
 
         return lity.iframe(
-			'https://www.facebook.com/plugins/video.php?href=' + target + '&autoplay=1',
+            'https://www.facebook.com/plugins/video.php?href=' + target + '&autoplay=1',
             instance,
             matches[4],
             target
