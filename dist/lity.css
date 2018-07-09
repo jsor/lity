@@ -2,6 +2,11 @@
 * http://sorgalla.com/lity/
 * Copyright (c) 2015-2018 Jan Sorgalla; Licensed MIT */
 
+.lity-active,
+.lity-active body {
+    overflow: hidden;
+}
+
 .lity {
   z-index: 9990;
   position: fixed;
