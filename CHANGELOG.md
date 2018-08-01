@@ -65,3 +65,10 @@ information about upgrading from 1.x.
     instance.
   * There are now dedicated youtube, vimeo and googlemaps handlers extracted
     from the iframe handler.
+
+---
+
+Older versions
+--------------
+
+  * The changelog for Lity 1.x can be found [here](https://github.com/jsor/lity/blob/1.x/CHANGELOG.md).
