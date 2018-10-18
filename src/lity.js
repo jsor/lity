@@ -184,6 +184,12 @@
             .on('error', failed)
         ;
 
+        if (instance.options('href')) {
+            img.off('click').on('click', function() {
+                window.open(instance.options('href'), '_blank');
+            });
+        }
+
         return deferred.promise();
     }
 
