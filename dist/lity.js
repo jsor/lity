@@ -1,4 +1,4 @@
-/*! Lity - v2.3.1 - 2019-08-10
+/*! Lity - v2.4.0 - 2019-08-10
 * http://sorgalla.com/lity/
 * Copyright (c) 2015-2019 Jan Sorgalla; Licensed MIT */
 (function(window, factory) {
@@ -627,7 +627,7 @@
         }
     }
 
-    lity.version  = '2.3.1';
+    lity.version  = '2.4.0';
     lity.options  = $.proxy(settings, lity, _defaultOptions);
     lity.handlers = $.proxy(settings, lity, _defaultOptions.handlers);
     lity.current  = currentInstance;
