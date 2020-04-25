@@ -220,5 +220,5 @@ $(document).on('lity:resize', function(event, instance) {
 License
 -------
 
-Copyright (c) 2015-2017 Jan Sorgalla.
+Copyright (c) 2015-2020 Jan Sorgalla.
 Released under the [MIT](LICENSE?raw=1) license.
