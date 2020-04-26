@@ -4,6 +4,11 @@ Changelog for 2.x
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org).
 
+2.4.1 - 2020-04-26
+------------------
+
+  * Compatibility with jQuery 3.5.0 (#240).
+
 2.4.0 - 2019-08-10
 ------------------
 
