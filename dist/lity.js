@@ -1,4 +1,4 @@
-/*! Lity - v3.0.0-dev - 2020-04-26
+/*! Lity - v3.0.0-dev - 2020-06-15
 * http://sorgalla.com/lity/
 * Copyright (c) 2015-2020 Jan Sorgalla; Licensed MIT */
 (function(window, factory) {
@@ -161,7 +161,7 @@
             iframeUrl = transferHash(hashUrl, iframeUrl);
         }
 
-        return '<div class="lity-iframe-container"><iframe frameborder="0" allowfullscreen allow="autoplay; fullscreen" src="' + iframeUrl + '"/></div>';
+        return '<div class="lity-iframe-container"><iframe frameborder="0" allowfullscreen allow="autoplay; fullscreen" src="' + iframeUrl + '"></iframe></div>';
     }
 
     function error(msg) {
