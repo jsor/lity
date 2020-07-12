@@ -34,7 +34,7 @@
             inline: inlineHandler,
             iframe: iframeHandler
         },
-        template: '<div class="lity" role="dialog" aria-label="Dialog Window (Press escape to close)" tabindex="-1"><div class="lity-wrap" data-lity-close role="document"><div class="lity-loader" aria-hidden="true">Loading...</div><div class="lity-container"><div class="lity-content"></div><button class="lity-close" type="button" aria-label="Close (Press escape to close)" data-lity-close>&times;</button></div></div></div>'
+        template: '<div class="lity" role="dialog" aria-label="Dialog Window (Press escape to close)" tabindex="-1"><div class="lity-wrap" data-lity-close role="document"><div class="lity-loader" aria-hidden="true">Loading...</div><div class="lity-container"><div class="lity-content"></div><button class="lity-close" type="button" aria-label="Close (Press escape to close)" data-lity-close>&times;</button><button class="lity-prev" type="button" aria-label="Previous" data-lity-previous><</button><button class="lity-next" type="button" aria-label="Next" data-lity-next>></button></div></div></div>'
     };
 
     var _imageRegexp = /(^data:image\/)|(\.(png|jpe?g|gif|svg|webp|bmp|ico|tiff?)(\?\S*)?$)/i;
@@ -489,6 +489,76 @@
         };
 
         // -- Initialization --
+
+        // Adaptation Lity Carousel
+        var iscarousel = false;
+        // two classes to know if the arrows are enabled or not ( prev arrow on first slide and next arrow on last slide are disabled)
+        var disable_prevbtn_class='';
+        var disable_nextbtn_class='';
+        // the previous and next openers for the current slide
+        var prevopener=false;
+        var nextopener=false;
+        var wrap=opener.parent();
+
+        if(opener.is('[data-lity-carousel]') || wrap.is('[data-lity-carousel]') ){
+            prevopener=opener.prev();
+            nextopener=opener.next();
+            if(prevopener.length===0) //if there is no slide before the current one
+            {
+                disable_prevbtn_class=' disable_prevbtn ';
+                prevopener=false;
+            }
+
+            if(nextopener.next().length===0){//if there is no slide after the current one
+                disable_nextbtn_class=' disable_nextbtn ';
+                nextopener=false;
+            }
+
+            iscarousel =true;
+        }
+
+        // we add disable classes, '' is added if it's not required
+        element
+            .attr(_attrAriaHidden, 'false')
+            .addClass(disable_prevbtn_class + disable_nextbtn_class+' lity-loading lity-opened lity-' + result.handler)
+            .appendTo('body')
+            .focus()
+            .on('click', '[data-lity-close]', function(e) {
+                if ($(e.target).is('[data-lity-close]')) {
+                    self.close();
+                }
+                else if ($(e.target).is('[data-lity-previous]') ) {// test if the button clicked was previous arrow
+
+                    if(iscarousel)//if it's a carousel
+                    {
+                        if(prevopener)//we check if a slide is available before and display it
+                        {
+                            self.close();
+                            lity(prevopener.data("lity-target"),lity.options,prevopener);
+                        }
+                        else{return}
+                    }
+                    else{return}//else, we do nothing - button is not active
+                }
+                else if ($(e.target).is('[data-lity-next]') ) {// test if the button clicked was next arrow
+
+                    if(iscarousel)//if it's a carousel
+                    {
+                        if(nextopener)//we check if a slide is available after and display it
+                        {
+                            self.close();
+                            lity(nextopener.data("lity-target"),lity.options,nextopener);
+                        }
+                        else{return}
+                    }
+                    else{return} //else, we do nothing - button is not active
+                }
+            })
+            .trigger('lity:open', [self])
+        ;
+
+        // End of modifications for Lity Carousel
+
 
         result = factory(target, self, options.handlers, options.handler);
 

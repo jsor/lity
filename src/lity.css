@@ -116,7 +116,7 @@
     box-shadow: var(--lity-shadow);
 }
 
-.lity-close,
+.lity-close, .lity-prev, .lity-next
 .lity-close:hover,
 .lity-close:focus,
 .lity-close:active,
@@ -154,6 +154,22 @@
 
 .lity-close:active {
     top: 1px;
+}
+
+/*And we place them and adapt the disable state*/
+.lity-prev{
+    right: 55%;
+    top: 0;
+}
+
+.lity-next{
+    right: 45%;
+    top: 0;
+}
+
+.lity.disable_prevbtn .lity-prev,.lity.disable_nextbtn .lity-next{
+    opacity:.35;
+    cursor:Default;
 }
 
 /* Image */
