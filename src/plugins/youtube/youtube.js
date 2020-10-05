@@ -11,7 +11,7 @@
 }(typeof window !== "undefined" ? window : this, function(lity) {
     'use strict';
 
-    var _regex = /(youtube(-nocookie)?\.com|youtu\.be)\/(watch\?v=|v\/|u\/|embed\/?)?([\w-]{11})(.*)?/i;
+    var _regex = /(youtube(-nocookie)?\.com|youtu\.be)\/(watch\?v=|v\/|u\/|embed\/?)?([\w-]{11})\?(.*)?/i;
 
     lity.handlers('youtube', function(target, instance) {
         var matches = _regex.exec(target);
