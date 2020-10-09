@@ -440,7 +440,7 @@
         };
 
         self.close = function() {
-            if (!isReady || isClosed) {
+            if (isClosed) {
                 return;
             }
 
@@ -466,16 +466,17 @@
                 }
             }
 
-            content.trigger('lity:close', [self]);
+            var trigerable = (content ? content : element);
+            trigerable.trigger('lity:close', [self]);
 
             element
                 .removeClass('lity-opened')
                 .addClass('lity-closed')
             ;
 
-            transitionEnd(content.add(element))
+            transitionEnd(trigerable.add(element))
                 .always(function() {
-                    content.trigger('lity:remove', [self]);
+                    trigerable.trigger('lity:remove', [self]);
                     element.remove();
                     element = undefined;
                     deferred.resolve();
@@ -509,6 +510,9 @@
         ;
 
         function ready(result) {
+            if (isClosed) {
+                return;
+            }
             content = $(result)
                 .css('max-height', winHeight() + 'px')
             ;
