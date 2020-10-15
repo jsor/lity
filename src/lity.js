@@ -31,6 +31,7 @@
             inline: inlineHandler,
             iframe: iframeHandler
         },
+        forceFocusInside: false,
         template: '<div class="lity" role="dialog" aria-label="Dialog Window (Press escape to close)" tabindex="-1"><div class="lity-wrap" data-lity-close role="document"><div class="lity-loader" aria-hidden="true">Loading...</div><div class="lity-container"><div class="lity-content"></div><button class="lity-close" type="button" aria-label="Close (Press escape to close)" data-lity-close>&times;</button></div></div></div>'
     };
 
@@ -263,6 +264,10 @@
             focusableElements.get(focusableElements.length - 1).focus();
             e.preventDefault();
         } else if (!e.shiftKey && focusedIndex === focusableElements.length - 1) {
+            focusableElements.get(0).focus();
+            e.preventDefault();
+        }
+        if (focusedIndex === -1 && instance.options().forceFocusInside) {
             focusableElements.get(0).focus();
             e.preventDefault();
         }
