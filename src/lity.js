@@ -255,16 +255,16 @@
                 if (placeholder.parentNode !== null) {
                     placeholder.parentNode.removeChild(placeholder);
                 }
-
-                if (hasHideClass && !el.closest('.lity-content').length) {
+                
+                if (hasHideClass && !el.closest('.lity-content')) {
                     el.classList.add('lity-hide');
                 }
             }, { once: true })
         ;
-
+        
         el.classList.remove('lity-hide');
         el.insertAdjacentElement('afterend', placeholder);
-
+        
         return el;
     }
 
