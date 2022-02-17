@@ -3,27 +3,23 @@
   "title": "Lity",
   "description": "Lightweight, accessible and responsive lightbox.",
   "author": {
-    "name": "Jan Sorgalla",
+    "name": "Jan Sorgalla, Anton Andreasson",
     "url": "http://sorgalla.com"
   },
   "homepage": "http://sorgalla.com/lity/",
-  "version": "3.0.0-dev",
+  "version": "4.0.0-dev",
   "main": "dist/lity.js",
-  "peerDependencies": {
-    "jquery": ">=1.7"
-  },
   "devDependencies": {
-    "grunt": "^1.1.0",
+    "grunt": "^1.4.1",
     "grunt-contrib-clean": "^1.0.0",
-    "grunt-contrib-concat": "^1.0.1",
-    "grunt-contrib-uglify": "^2.0.0",
-    "grunt-contrib-watch": "^1.0.0",
-    "grunt-cssnano": "^2.1.0",
-    "grunt-postcss": "^0.8.0",
-    "grunt-replace": "^1.0.1",
-    "postcss-cssnext": "^2.8.0",
-    "postcss-remove-root": "0.0.2",
-    "stylefmt": "^4.3.1"
+    "grunt-contrib-concat": "^2.0.0",
+    "grunt-contrib-uglify": "^5.0.1",
+    "grunt-contrib-watch": "^1.1.0",
+    "grunt-postcss": "^0.9.0",
+    "grunt-replace": "^2.0.2",
+    "postcss": "^8.4.6",
+    "postcss-preset-env": "^7.0.1",
+    "stylefmt": "^6.0.3"
   },
   "repository": {
     "type": "git",
@@ -38,9 +34,7 @@
     "accessible",
     "accessibility",
     "a11y",
-    "jquery",
-    "jquery-plugin",
-    "ecosystem:jquery"
+    "vanilla"
   ],
   "license": "MIT",
   "bugs": {
