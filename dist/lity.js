@@ -54,7 +54,6 @@
                     el.addEventListener('transitionend', deferred.resolve, { once: true });
                 }
             });
-            setTimeout(deferred.resolve, 500);
         }
 
         return deferred.promise;
@@ -104,7 +103,7 @@
     };
 
     function trigger(elm, ev, data) {
-        var event = new CustomEvent(ev, {detail: data[0]});
+        var event = new CustomEvent(ev, {bubbles: true, detail: data[0]});
 
         elm.dispatchEvent(event);
     }
@@ -199,7 +198,7 @@
             iframeUrl = transferHash(hashUrl, iframeUrl);
         }
 
-        return '<div class="lity-iframe-container"><iframe frameborder="0" allowfullscreen allow="autoplay; fullscreen" src="' + iframeUrl + '"/></div>';
+        return '<div class="lity-iframe-container"><iframe frameborder="0" allow="autoplay; fullscreen" src="' + iframeUrl + '"/></div>';
     }
 
     function error(msg) {
@@ -259,16 +258,16 @@
                 if (placeholder.parentNode !== null) {
                     placeholder.parentNode.removeChild(placeholder);
                 }
-
-                if (hasHideClass && !el.closest('.lity-content').length) {
+                
+                if (hasHideClass && !el.closest('.lity-content')) {
                     el.classList.add('lity-hide');
                 }
             }, { once: true })
         ;
-
+        
         el.classList.remove('lity-hide');
         el.insertAdjacentElement('afterend', placeholder);
-
+        
         return el;
     }
 
@@ -410,25 +409,22 @@
             // Run inline and iframe handlers after all other handlers
             ['inline', 'iframe'].forEach(function(name, i){
                 delete currentHandlers[name];
-
+                
                 currentHandlers[name] = handlers[name];
             });
-
+            
             $each(currentHandlers, function(name, currentHandler) {
                 // Handler might be "removed" by setting callback to null
                 if (!currentHandler) {
                     return true;
                 }
-
-                if (
-                    currentHandler.test &&
-                    !currentHandler.test(target, instance)
-                ) {
+                
+                if (currentHandler.test && !currentHandler.test(target, instance)) {
                     return true;
                 }
 
                 content = currentHandler(target, instance);
-
+                
                 if (false !== content) {
                     handler = name;
                     return false;
@@ -494,10 +490,10 @@
 
             // We return focus only if the current focus is inside this instance
             if (
-                activeElement && element[0] && 
+                activeElement && 
                 (
-                    document.activeElement === element[0] ||
-                    element[0] !== document.activeElement && element[0].contains(document.activeElement)
+                    document.activeElement === element ||
+                    element !== document.activeElement && element.contains(document.activeElement)
                 )
             ) {
                 activeElement.focus();
