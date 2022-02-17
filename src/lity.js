@@ -51,7 +51,6 @@
                     el.addEventListener('transitionend', deferred.resolve, { once: true });
                 }
             });
-            setTimeout(deferred.resolve, 500);
         }
 
         return deferred.promise;
