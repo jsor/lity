@@ -490,10 +490,10 @@
 
             // We return focus only if the current focus is inside this instance
             if (
-                activeElement && element[0] && 
+                activeElement && 
                 (
-                    document.activeElement === element[0] ||
-                    element[0] !== document.activeElement && element[0].contains(document.activeElement)
+                    document.activeElement === element ||
+                    element !== document.activeElement && element.contains(document.activeElement)
                 )
             ) {
                 activeElement.focus();
