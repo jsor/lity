@@ -6,11 +6,10 @@ supports images, iframes and inline content out of the box.
 
 Minified and gzipped, its total footprint weights about 3kB.
 
-It requires [jQuery](https://jquery.com) or [Zepto](http://zeptojs.com)
-(with the [callbacks](https://github.com/madrobby/zepto/blob/master/src/callbacks.js), 
-[data](https://github.com/madrobby/zepto/blob/master/src/data.js), 
-[deferred](https://github.com/madrobby/zepto/blob/master/src/deferred.js) and 
-[event](https://github.com/madrobby/zepto/blob/master/src/event.js) modules).
+This version does *not* require jQuery anymore. However, as it stands now there are some bugs left to solve, e.g.:
+
+- Inline content works the first time but not the last (triggering `lity:close` seems to be buggy)
+- Using custom markup causes an (invalid) iframe to show, not the expected inlineHandler (haven't figured out why yet)
 
 Installation
 ------------
@@ -22,7 +21,6 @@ document:
 
 ```html
 <link href="dist/lity.css" rel="stylesheet">
-<script src="vendor/jquery.js"></script>
 <script src="dist/lity.js"></script>
 ```
 
@@ -83,8 +81,8 @@ lity('https://www.youtube.com/watch?v=XSGBVzeBUbk');
 lity('<p>Some content to show...</p>');
 
 // Bind as an event handler
-$(document).on('click', '[data-my-lightbox]', lity);
-```
+document.addEventListener('click', '[data-my-lightbox]', lity);
+``, false`
 
 The Lity instance
 -----------------
@@ -181,9 +179,9 @@ argument.
 Triggered before the lightbox is opened.
 
 ```javascript
-$(document).on('lity:open', function(event, instance) {
+document.addEventListener('lity:open', function(event, instance) {
     console.log('Lightbox opened');
-});
+}, false);
 ```
 
 #### lity:ready
@@ -191,9 +189,9 @@ $(document).on('lity:open', function(event, instance) {
 Triggered when the lightbox is ready.
 
 ```javascript
-$(document).on('lity:ready', function(event, instance) {
+document.addEventListener('lity:ready', function(event, instance) {
     console.log('Lightbox ready');
-});
+}, false);
 ```
 
 #### lity:close
@@ -201,9 +199,9 @@ $(document).on('lity:ready', function(event, instance) {
 Triggered before the lightbox is closed.
 
 ```javascript
-$(document).on('lity:close', function(event, instance) {
+document.addEventListener('lity:close', function(event, instance) {
     console.log('Lightbox closed');
-});
+}, false);
 ```
 
 #### lity:remove
@@ -212,9 +210,9 @@ Triggered when the closing animation is finished and just before the lightbox
 is removed from the DOM.
 
 ```javascript
-$(document).on('lity:remove', function(event, instance) {
+document.addEventListener('lity:remove', function(event, instance) {
     console.log('Lightbox removed');
-});
+}, false);
 ```
 
 #### lity:resize
@@ -223,9 +221,9 @@ Triggered when the instance is resized, usually when the user resizes the
 window.
 
 ```javascript
-$(document).on('lity:resize', function(event, instance) {
+document.addEventListener('lity:resize', function(event, instance) {
     console.log('Lightbox resized');
-});
+}, false);
 ```
 
 License
