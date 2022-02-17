@@ -8,10 +8,7 @@ Minified and gzipped, its total footprint weights about 3kB.
 
 Version 4.0.0 (a.k.a "vanilla branch")
 --------------------------------------
-This version does *not* require jQuery anymore. However, as it stands now there are some bugs left to solve, e.g.:
-
-- Inline content works the first time but not subsequent times (triggering `lity:close` seems to be buggy)
-- Using custom markup causes an (invalid) iframe to show, not the expected inlineHandler (haven't figured out why yet)
+This version does *not* require jQuery anymore.
 
 ### Other changes
 
