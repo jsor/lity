@@ -406,25 +406,22 @@
             // Run inline and iframe handlers after all other handlers
             ['inline', 'iframe'].forEach(function(name, i){
                 delete currentHandlers[name];
-
+                
                 currentHandlers[name] = handlers[name];
             });
-
+            
             $each(currentHandlers, function(name, currentHandler) {
                 // Handler might be "removed" by setting callback to null
                 if (!currentHandler) {
                     return true;
                 }
-
-                if (
-                    currentHandler.test &&
-                    !currentHandler.test(target, instance)
-                ) {
+                
+                if (currentHandler.test && !currentHandler.test(target, instance)) {
                     return true;
                 }
 
                 content = currentHandler(target, instance);
-
+                
                 if (false !== content) {
                     handler = name;
                     return false;
