@@ -6,10 +6,19 @@ supports images, iframes and inline content out of the box.
 
 Minified and gzipped, its total footprint weights about 3kB.
 
+Version 4.0.0 (a.k.a "vanilla branch")
+--------------------------------------
 This version does *not* require jQuery anymore. However, as it stands now there are some bugs left to solve, e.g.:
 
-- Inline content works the first time but not the last (triggering `lity:close` seems to be buggy)
+- Inline content works the first time but not subsequent times (triggering `lity:close` seems to be buggy)
 - Using custom markup causes an (invalid) iframe to show, not the expected inlineHandler (haven't figured out why yet)
+
+### Other changes
+
+- TIFF files are not supported anymore (did we ever use them?). However, AVIF support is added instead.
+- IE support is gone as more current ECMAScript is being used.
+- Grunt is still there but updated (as are all of its plugins). And, it does not remove the CSS `:root` stuff anymore.
+- Inline `max-height` styling is not set anymore. If you need this there are (better) CSS only ways to achieve this.
 
 Installation
 ------------
