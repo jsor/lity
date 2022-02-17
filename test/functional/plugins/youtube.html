@@ -6,26 +6,11 @@
     <title>Lity - Youtube Tests</title>
 
     <!-- Core -->
-    <link href="../../../dist/lity.css" rel="stylesheet"/>
-    <script src="../../../vendor/jquery.js"></script>
-    <script src="../../../dist/lity.js"></script>
+    <link href="../../../src/lity.css" rel="stylesheet"/>
+    <script src="../../../src/lity.js"></script>
 
     <!-- Youtube Plugin -->
     <script src="../../../dist/plugins/youtube/youtube.js"></script>
-
-    <script>
-        $(function() {
-            $('a').each(function() {
-                var el = $(this), href = el.attr('href');
-
-                if (href.length > 97) {
-                    href = href.substr(0, 97) + '...';
-                }
-
-                el.text(href);
-            })
-        });
-    </script>
 </head>
 <body style="background: #fff">
 
@@ -51,6 +36,18 @@
         <a href="https://www.youtube-nocookie.com/embed/PePvbhy-qGY" data-lity></a>
     </li>
 </ul>
+
+<script>
+    document.querySelectorAll('a').forEach(link => {
+        href = link.getAttribute('href');
+
+        if (href.length > 97) {
+            href = href.substr(0, 97) + '...';
+        }
+
+        link.innerText = href;
+    });
+</script>
 
 </body>
 </html>

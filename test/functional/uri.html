@@ -5,24 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Lity - URI Tests</title>
 
-    <link href="../../dist/lity.css" rel="stylesheet"/>
-
-    <script src="../../vendor/jquery.js"></script>
-    <script src="../../dist/lity.js"></script>
-
-    <script>
-        $(function() {
-            $('a').each(function() {
-                var el = $(this), href = el.attr('href');
-
-                if (href.length > 97) {
-                    href = href.substr(0, 97) + '...';
-                }
-
-                el.text(href);
-            })
-        });
-    </script>
+    <link href="../../src/lity.css" rel="stylesheet"/>
+    <script src="../../src/lity.js"></script>
 </head>
 <body style="background: #fff">
 
@@ -314,6 +298,18 @@
         <a href="//facebook.com/facebook/videos/10154181299581729/" data-lity></a>
     </li>
 </ul>
+
+<script>
+    document.querySelectorAll('a').forEach(link => {
+        href = link.getAttribute('href');
+
+        if (href.length > 97) {
+            href = href.substr(0, 97) + '...';
+        }
+
+        link.innerText = href;
+    });
+</script>
 
 </body>
 </html>
