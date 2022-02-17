@@ -100,7 +100,7 @@
     };
 
     function trigger(elm, ev, data) {
-        var event = new CustomEvent(ev, {detail: data[0]});
+        var event = new CustomEvent(ev, {bubbles: true, detail: data[0]});
 
         elm.dispatchEvent(event);
     }
