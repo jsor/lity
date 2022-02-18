@@ -86,9 +86,16 @@ A [`Lity`](#the-lity-instance) instance.
 lity('https://www.youtube.com/watch?v=XSGBVzeBUbk');
 lity('<p>Some content to show...</p>');
 
-// Bind as an event handler
-document.addEventListener('click', '[data-my-lightbox]', lity);
-``, false`
+// Bind as an event handler (vanilla version of jQuery’s .on() delegation)
+document.addEventListener('click', function(e) {
+    for (var target = e.target; target && target != this; target = target.parentNode) {
+        if (target.matches('[data-lightbox]')) {
+            lity.call(target, e);
+            break;
+        }
+    }
+}, false);
+```
 
 The Lity instance
 -----------------
