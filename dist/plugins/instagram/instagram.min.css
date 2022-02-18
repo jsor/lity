@@ -1,3 +1,15 @@
-/*! Lity - v3.0.0-dev - 2020-04-26
+/*! Lity - v4.0.0-dev - 2022-02-17
 * http://sorgalla.com/lity/
-* Copyright (c) 2015-2020 Jan Sorgalla; Licensed MIT */.lity-instagram .lity-container{width:100%;max-width:612px}.lity-instagram .lity-iframe-container{padding-top:113.0719%}
+* Copyright (c) 2015-2022 Jan Sorgalla, Anton Andreasson; Licensed MIT */
+:root {
+  --lity-instagram-width: 612;
+}
+
+.lity-instagram .lity-container {
+  width: 100%;
+  max-width: calc(var(--lity-instagram-width) * 1px);
+}
+
+.lity-instagram .lity-iframe-container {
+  padding-top: calc(((var(--lity-instagram-width) + 80) / var(--lity-instagram-width)) * 100%);
+}

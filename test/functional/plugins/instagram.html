@@ -7,26 +7,11 @@
 
     <!-- Core -->
     <link href="../../../dist/lity.css" rel="stylesheet"/>
-    <script src="../../../vendor/jquery.js"></script>
     <script src="../../../dist/lity.js"></script>
 
     <!-- Instagram Plugin -->
     <link href="../../../dist/plugins/instagram/instagram.css" rel="stylesheet"/>
     <script src="../../../dist/plugins/instagram/instagram.js"></script>
-
-    <script>
-        $(function() {
-            $('a').each(function() {
-                var el = $(this), href = el.attr('href');
-
-                if (href.length > 97) {
-                    href = href.substr(0, 97) + '...';
-                }
-
-                el.text(href);
-            })
-        });
-    </script>
 </head>
 <body style="background: #fff">
 
@@ -52,6 +37,18 @@
         <a href="//www.instagr.am/p/BKwZEocjgsE/" data-lity></a>
     </li>
 </ul>
+
+<script>
+    document.querySelectorAll('a').forEach(link => {
+        href = link.getAttribute('href');
+
+        if (href.length > 97) {
+            href = href.substr(0, 97) + '...';
+        }
+
+        link.innerText = href;
+    });
+</script>
 
 </body>
 </html>

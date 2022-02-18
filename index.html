@@ -36,15 +36,6 @@
 
     <p>Minified and gzipped, its total footprint weights about 3kB.</p>
 
-    <p>
-        It requires <a href="http://jquery.com">jQuery</a> or
-        <a href="http://zeptojs.com">Zepto</a> (with the
-        <a href="https://github.com/madrobby/zepto/blob/master/src/callbacks.js">callbacks</a>,
-        <a href="https://github.com/madrobby/zepto/blob/master/src/deferred.js">deferred</a>
-        and <a href="https://github.com/madrobby/zepto/blob/master/src/data.js">data</a>
-        modules).
-    </p>
-
     <h3>Demos</h3>
 
     <p>
@@ -85,7 +76,6 @@
     <p>Include the Lity javascript and css files and its dependencies in your HTML document:</p>
 
 <pre><code class="language-markup">&lt;link href="dist/lity.css" rel="stylesheet">
-&lt;script src="vendor/jquery.js">&lt;/script>
 &lt;script src="dist/lity.js">&lt;/script></code></pre>
 
     <p>Lity can also be installed via Bower or <a href="https://www.npmjs.com/package/lity">npm</a>.</p>
@@ -121,8 +111,15 @@ Inline content
     <pre><code class="language-javascript">// Open a URL in a lightbox
 var lightbox = lity('//www.youtube.com/watch?v=XSGBVzeBUbk');
 
-// Bind as an event handler
-$(document).on('click', '[data-lightbox]', lity);</code></pre>
+// Bind as an event handler (vanilla version of jQuery’s .on() delegation)
+document.addEventListener('click', function(e) {
+    for (var target = e.target; target && target != this; target = target.parentNode) {
+        if (target.matches('[data-lightbox]')) {
+            lity.call(target, e);
+            break;
+        }
+    }
+}, false);</code></pre>
 
     <p>If you want to close the opened lightbox, use <code>lightbox.close()</code>.</p>
 </div>
@@ -133,7 +130,6 @@ $(document).on('click', '[data-lightbox]', lity);</code></pre>
 
 <a href="https://github.com/jsor/lity"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
 
-<script src="vendor/jquery.js"></script>
 <script src="dist/lity.js"></script>
 <script src="dist/plugins/googlemaps/googlemaps.js"></script>
 <script src="dist/plugins/vimeo/vimeo.js"></script>
