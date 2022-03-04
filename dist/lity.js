@@ -1,24 +1,28 @@
-/*! Lity - v3.0.0-dev - 2020-04-26
+/*! Lity - v4.0.0-dev - 2022-02-18
 * http://sorgalla.com/lity/
-* Copyright (c) 2015-2020 Jan Sorgalla; Licensed MIT */
+* Copyright (c) 2015-2022 Jan Sorgalla, Anton Andreasson; Licensed MIT */
 (function(window, factory) {
     if (typeof define === 'function' && define.amd) {
-        define(['jquery'], function($) {
-            return factory(window, $);
-        });
+        define(factory);
     } else if (typeof module === 'object' && typeof module.exports === 'object') {
-        module.exports = factory(window, require('jquery'));
+        module.exports = factory(window);
     } else {
-        window.lity = factory(window, window.jQuery || window.Zepto);
+        window.lity = factory(window);
     }
-}(typeof window !== "undefined" ? window : this, function(window, $) {
+}(typeof window !== "undefined" ? window : this, function(window) {
     'use strict';
 
     var document = window.document;
 
-    var _win = $(window);
-    var _deferred = $.Deferred;
-    var _html = $('html');
+    var _win = window;
+    var _deferred = function() {
+        var self = this;
+        self.promise = new Promise((resolve, reject) => {
+            self.resolve = resolve;
+            self.reject = reject;
+        });
+    };
+    var _html = document.documentElement;
     var _instances = [];
 
     var _attrAriaHidden = 'aria-hidden';
@@ -37,43 +41,76 @@
         template: '<div class="lity" role="dialog" aria-label="Dialog Window (Press escape to close)" tabindex="-1"><div class="lity-wrap" data-lity-close role="document"><div class="lity-loader" aria-hidden="true">Loading...</div><div class="lity-container"><div class="lity-content"></div><button class="lity-close" type="button" aria-label="Close (Press escape to close)" data-lity-close>&times;</button></div></div></div>'
     };
 
-    var _imageRegexp = /(^data:image\/)|(\.(png|jpe?g|gif|svg|webp|bmp|ico|tiff?)(\?\S*)?$)/i;
+    var _imageRegexp = /(^data:image\/)|(\.(png|jpe?g|gif|svg|webp|avif|bmp|ico)(\?\S*)?$)/i;
 
-    var _transitionEndEvent = (function() {
-        var el = document.createElement('div');
+    function transitionEnd(elements) {
+        var deferred = new _deferred();
 
-        var transEndEventNames = {
-            WebkitTransition: 'webkitTransitionEnd',
-            MozTransition: 'transitionend',
-            OTransition: 'oTransitionEnd otransitionend',
-            transition: 'transitionend'
-        };
+        if (!elements.length) {
+            deferred.resolve();
+        } else {
+            $each(elements, function(i, el) {
+                if (typeof el === "object") {
+                    el.addEventListener('transitionend', deferred.resolve, { once: true });
+                }
+            });
+        }
 
-        for (var name in transEndEventNames) {
-            if (el.style[name] !== undefined) {
-                return transEndEventNames[name];
+        return deferred.promise;
+    }
+
+    function extend(out) {
+        out = out || {};
+
+        for (var i = 1; i < arguments.length; i++) {
+          if (!arguments[i])
+            continue;
+      
+          for (var key in arguments[i]) {
+            if (arguments[i].hasOwnProperty(key))
+              out[key] = arguments[i][key];
+          }
+        }
+
+        return out;
+    };
+
+    function $each( obj, callback, args ) {
+        // Adapted from $.each()
+        var value, i = 0;
+
+        if ( args ) {
+            for ( i in obj ) {
+                value = callback.apply( obj[ i ], args );
+
+                if ( value === false ) {
+                    break;
+                }
+            }
+
+            // A special, fast, case for the most common use of each
+        } else {
+            for ( i in obj ) {
+                value = callback.call( obj[ i ], i, obj[ i ] );
+
+                if ( value === false ) {
+                    break;
+                }
             }
         }
 
-        return false;
-    })();
+        return obj;
+    };
 
-    function transitionEnd(element) {
-        var deferred = _deferred();
+    function trigger(elm, ev, data) {
+        var event = new CustomEvent(ev, {bubbles: true, detail: data[0]});
 
-        if (!_transitionEndEvent || !element.length) {
-            deferred.resolve();
-        } else {
-            element.one(_transitionEndEvent, deferred.resolve);
-            setTimeout(deferred.resolve, 500);
-        }
-
-        return deferred.promise();
+        elm.dispatchEvent(event);
     }
 
     function settings(currSettings, key, value) {
         if (arguments.length === 1) {
-            return $.extend({}, currSettings);
+            return extend({}, currSettings);
         }
 
         if (typeof key === 'string') {
@@ -85,7 +122,7 @@
 
             currSettings[key] = value;
         } else {
-            $.extend(currSettings, key);
+            extend(currSettings, key);
         }
 
         return this;
@@ -118,7 +155,7 @@
             return url;
         }
 
-        if ('string' === $.type(params)) {
+        if (typeof 'string' === params) {
             params = parseQueryParams(params);
         }
 
@@ -126,14 +163,14 @@
             var split = url.split('?');
             url = split.shift();
 
-            params = $.extend(
+            params = extend(
                 {},
                 parseQueryParams(split[0]),
                 params
             )
         }
 
-        return url + '?' + $.param(params);
+        return url + '?' + new URLSearchParams(Object.entries(params)).toString();
     }
 
     function transferHash(originalUrl, newUrl) {
@@ -151,7 +188,7 @@
     }
 
     function iframe(iframeUrl, instance, queryParams, hashUrl) {
-        instance && instance.element().addClass('lity-iframe');
+        instance && instance.element().classList.add('lity-iframe');
 
         if (queryParams) {
             iframeUrl = appendQueryParams(iframeUrl, queryParams);
@@ -161,33 +198,36 @@
             iframeUrl = transferHash(hashUrl, iframeUrl);
         }
 
-        return '<div class="lity-iframe-container"><iframe frameborder="0" allowfullscreen allow="autoplay; fullscreen" src="' + iframeUrl + '"/></div>';
+        return '<div class="lity-iframe-container"><iframe allow="autoplay; fullscreen" src="' + iframeUrl + '"></iframe></div>';
     }
 
     function error(msg) {
-        return $('<span class="lity-error"></span>').append(msg);
+        var el = document.createElement('span');
+        el.classList.add('lity-error');
+
+        return el.appendChild(msg);
     }
 
     function imageHandler(target, instance) {
-        var desc = (instance.opener() && instance.opener().data('lity-desc')) || 'Image with no description';
-        var img = $('<img src="' + target + '" alt="' + desc + '"/>');
-        var deferred = _deferred();
+        var desc = (instance.opener() && instance.opener().dataset.lityDesc) || 'Image with no description';
+        var img = document.createElement('img');
+        img.setAttribute('src', target);
+        img.setAttribute('alt', desc);
+        var deferred = new _deferred();
         var failed = function() {
             deferred.reject(error('Failed loading image'));
         };
 
-        img
-            .on('load', function() {
-                if (this.naturalWidth === 0) {
-                    return failed();
-                }
+        img.onload = function() {
+            if (this.naturalWidth === 0) {
+                return failed();
+            }
 
-                deferred.resolve(img);
-            })
-            .on('error', failed)
-        ;
+            deferred.resolve(img);
+        };
+        img.onerror = failed;
 
-        return deferred.promise();
+        return deferred.promise;
     }
 
     imageHandler.test = function(target) {
@@ -198,36 +238,37 @@
         var el, placeholder, hasHideClass;
 
         try {
-            el = $(target);
+            el = document.querySelector(target);
         } catch (e) {
             return false;
         }
-
-        if (!el.length) {
+        
+        if (!el) {
             return false;
         }
-
-        placeholder = $('<i style="display:none !important"></i>');
-        hasHideClass = el.hasClass('lity-hide');
+        
+        placeholder = document.createElement('i');
+        placeholder.style.display = 'none !important';
+        hasHideClass = el.classList.contains('lity-hide');
 
         instance
             .element()
-            .one('lity:remove', function() {
-                placeholder
-                    .before(el)
-                    .remove()
-                ;
-
-                if (hasHideClass && !el.closest('.lity-content').length) {
-                    el.addClass('lity-hide');
+            .addEventListener('lity:remove', function() {
+                placeholder.insertAdjacentElement('beforebegin', el);
+                if (placeholder.parentNode !== null) {
+                    placeholder.parentNode.removeChild(placeholder);
                 }
-            })
+                
+                if (hasHideClass && !el.closest('.lity-content')) {
+                    el.classList.add('lity-hide');
+                }
+            }, { once: true })
         ;
-
-        return el
-            .removeClass('lity-hide')
-            .after(placeholder)
-        ;
+        
+        el.classList.remove('lity-hide');
+        el.insertAdjacentElement('afterend', placeholder);
+        
+        return el;
     }
 
     function iframeHandler(target, instance) {
@@ -237,7 +278,7 @@
     function winHeight() {
         return document.documentElement.clientHeight
             ? document.documentElement.clientHeight
-            : Math.round(_win.height());
+            : Math.round(_win.innerHeight);
     }
 
     function keydown(e) {
@@ -259,49 +300,55 @@
     }
 
     function handleTabKey(e, instance) {
-        var focusableElements = instance.element().find(_focusableElementsSelector);
-        var focusedIndex = focusableElements.index(document.activeElement);
+        var focusableElements = instance.element().querySelectorAll(_focusableElementsSelector);
+
+        function index(item, collection) {
+            return [].slice.call(collection).indexOf(item);
+        }
+          
+        var focusedIndex = index(document.activeElement, focusableElements);
 
         if (e.shiftKey && focusedIndex <= 0) {
-            focusableElements.get(focusableElements.length - 1).focus();
+            focusableElements[focusableElements.length - 1].focus();
             e.preventDefault();
         } else if (!e.shiftKey && focusedIndex === focusableElements.length - 1) {
-            focusableElements.get(0).focus();
+            focusableElements[0].focus();
             e.preventDefault();
         }
     }
 
     function resize() {
-        $.each(_instances, function(i, instance) {
+        _instances.forEach(function(instance, i) {
             instance.resize();
         });
     }
 
     function registerInstance(instanceToRegister) {
         if (1 === _instances.unshift(instanceToRegister)) {
-            _html.addClass('lity-active');
+            _html.classList.add('lity-active');
 
-            _win
-                .on({
-                    resize: resize,
-                    keydown: keydown
-                })
-            ;
+            _win.addEventListener('resize', resize, false);
+            _win.addEventListener('keydown', keydown, false);
         }
 
-        $('body > *').not(instanceToRegister.element())
-            .addClass('lity-hidden')
-            .each(function() {
-                var el = $(this);
+        var filteredElms = document.querySelectorAll('body > *');
+        filteredElms.forEach(el => {
+            if (el == instanceToRegister.element()) {
+                return;
+            }
 
-                if (undefined !== el.data(_dataAriaHidden)) {
-                    return;
-                }
+            el.classList.add('lity-hidden');
 
-                el.data(_dataAriaHidden, el.attr(_attrAriaHidden) || null);
-            })
-            .attr(_attrAriaHidden, 'true')
-        ;
+            if (undefined !== el.dataset[_dataAriaHidden]) {
+                return;
+            }
+
+            if (el && el.getAttribute(_attrAriaHidden)) {
+                el.setAttribute(_dataAriaHidden, el.getAttribute(_attrAriaHidden) || null);
+            }
+
+            el.setAttribute(_attrAriaHidden, 'true');
+        });
     }
 
     function removeInstance(instanceToRemove) {
@@ -309,44 +356,37 @@
 
         instanceToRemove
             .element()
-            .attr(_attrAriaHidden, 'true')
+            .setAttribute(_attrAriaHidden, 'true')
         ;
 
         if (1 === _instances.length) {
-            _html.removeClass('lity-active');
+            _html.classList.remove('lity-active');
 
-            _win
-                .off({
-                    resize: resize,
-                    keydown: keydown
-                })
-            ;
+            _win.removeEventListener('resize', resize, false);
+            _win.removeEventListener('keydown', keydown, false);
         }
 
-        _instances = $.grep(_instances, function(instance) {
-            return instanceToRemove !== instance;
-        });
+        _instances = _instances.filter(instance => instanceToRemove !== instance);
 
         if (!!_instances.length) {
             show = _instances[0].element();
         } else {
-            show = $('.lity-hidden');
+            show = document.querySelectorAll('.lity-hidden');
         }
 
-        show
-            .removeClass('lity-hidden')
-            .each(function() {
-                var el = $(this), oldAttr = el.data(_dataAriaHidden);
+        show.forEach(el => {
+            var oldAttr = el.dataset[_dataAriaHidden];
 
-                if (!oldAttr) {
-                    el.removeAttr(_attrAriaHidden);
-                } else {
-                    el.attr(_attrAriaHidden, oldAttr);
-                }
+            el.classList.remove('lity-hidden');
 
-                el.removeData(_dataAriaHidden);
-            })
-        ;
+            if (!oldAttr) {
+                el.removeAttribute(_attrAriaHidden);
+            } else {
+                el.setAttribute(_attrAriaHidden, oldAttr);
+            }
+
+            delete el.dataset[_dataAriaHidden];
+        });
     }
 
     function currentInstance() {
@@ -360,34 +400,31 @@
     function factory(target, instance, handlers, preferredHandler) {
         var handler = 'inline', content;
 
-        var currentHandlers = $.extend({}, handlers);
+        var currentHandlers = extend({}, handlers);
 
         if (preferredHandler && currentHandlers[preferredHandler]) {
             content = currentHandlers[preferredHandler](target, instance);
             handler = preferredHandler;
         } else {
             // Run inline and iframe handlers after all other handlers
-            $.each(['inline', 'iframe'], function(i, name) {
+            ['inline', 'iframe'].forEach(function(name, i){
                 delete currentHandlers[name];
-
+                
                 currentHandlers[name] = handlers[name];
             });
-
-            $.each(currentHandlers, function(name, currentHandler) {
+            
+            $each(currentHandlers, function(name, currentHandler) {
                 // Handler might be "removed" by setting callback to null
                 if (!currentHandler) {
                     return true;
                 }
-
-                if (
-                    currentHandler.test &&
-                    !currentHandler.test(target, instance)
-                ) {
+                
+                if (currentHandler.test && !currentHandler.test(target, instance)) {
                     return true;
                 }
 
                 content = currentHandler(target, instance);
-
+                
                 if (false !== content) {
                     handler = name;
                     return false;
@@ -406,13 +443,13 @@
         var element;
         var content;
 
-        options = $.extend(
+        options = extend(
             {},
             _defaultOptions,
             options
         );
 
-        element = $(options.template);
+        element = new DOMParser().parseFromString(options.template, 'text/html').body.childNodes[0];
 
         // -- API --
 
@@ -428,18 +465,16 @@
             return content;
         };
 
-        self.options  = $.proxy(settings, self, options);
-        self.handlers = $.proxy(settings, self, options.handlers);
+        self.options  = settings.bind(self, options);
+        self.handlers = settings.bind(self, options.handlers);
 
         self.resize = function() {
             if (!isReady || isClosed) {
                 return;
             }
 
-            content
-                .css('max-height', winHeight() + 'px')
-                .trigger('lity:resize', [self])
-            ;
+            content.style.maxHeight = winHeight() + 'px';
+            trigger(content, 'lity:resize', [self]);
         };
 
         self.close = function() {
@@ -451,113 +486,119 @@
 
             removeInstance(self);
 
-            var deferred = _deferred();
+            var deferred = new _deferred();
 
             // We return focus only if the current focus is inside this instance
             if (
-                activeElement &&
+                activeElement && 
                 (
-                    document.activeElement === element[0] ||
-                    $.contains(element[0], document.activeElement)
+                    document.activeElement === element ||
+                    element !== document.activeElement && element.contains(document.activeElement)
                 )
             ) {
-                try {
-                    activeElement.focus();
-                } catch (e) {
-                    // Ignore exceptions, eg. for SVG elements which can't be
-                    // focused in IE11
-                }
+                activeElement.focus();
             }
 
-            content.trigger('lity:close', [self]);
+            trigger(content, 'lity:close', [self]);
 
-            element
-                .removeClass('lity-opened')
-                .addClass('lity-closed')
-            ;
+            element.classList.remove('lity-opened');
+            element.classList.add('lity-closed');
 
-            transitionEnd(content.add(element))
-                .always(function() {
-                    content.trigger('lity:remove', [self]);
+            transitionEnd([content].concat(element))
+                .then(function() {
+                    trigger(content, 'lity:remove', [self]);
                     element.remove();
                     element = undefined;
                     deferred.resolve();
                 })
             ;
 
-            return deferred.promise();
+            return deferred.promise;
         };
 
         // -- Initialization --
 
         result = factory(target, self, options.handlers, options.handler);
 
-        element
-            .attr(_attrAriaHidden, 'false')
-            .addClass('lity-loading lity-opened lity-' + result.handler)
-            .appendTo('body')
-            .focus()
-            .on('click', '[data-lity-close]', function(e) {
-                if ($(e.target).is('[data-lity-close]')) {
+        element.setAttribute(_attrAriaHidden, 'false');
+        element.classList.add('lity-loading', 'lity-opened', 'lity-' + result.handler);
+        document.body.appendChild(element);
+        element.focus();
+        element.addEventListener('click', function(e) {
+            // loop parent nodes from the target to the delegation node
+            for (var target = e.target; target && target != this; target = target.parentNode) {
+                if (target.matches('[data-lity-close]')) {
                     self.close();
+                    break;
                 }
-            })
-            .trigger('lity:open', [self])
-        ;
+            }
+        }, false);
+
+        trigger(element, 'lity:open', [self]);
 
         registerInstance(self);
 
-        $.when(result.content)
-            .always(ready)
-        ;
-
+        Promise.all([result.content]).then((results) => results.forEach(result => {
+            ready(result)
+        }));
+        
         function ready(result) {
-            content = $(result)
-                .css('max-height', winHeight() + 'px')
-            ;
+            if (result) {
+                if (typeof result !== "string") {
+                    if (result.length) {
+                        var html = Array.prototype.reduce.call(result, function(html, node) {
+                            return html + ( node.outerHTML || node.nodeValue );
+                        }, "");
+                        content = new DOMParser().parseFromString(html, 'text/html').body.childNodes[0];
+                    } else {
+                        content = result;
+                    }
+                } else {
+                    content = new DOMParser().parseFromString(result, 'text/html').body.childNodes[0];
+                }
+            }
+            
+            $each(element.querySelectorAll('.lity-loader'), function() {
+                var loader = this;
+                
+                transitionEnd([loader])
+                    .then(function() {
+                        if (loader.parentNode) {
+                            loader.parentNode.removeChild(loader);
+                        }
+                    })
+                ;
+            });
 
-            element
-                .find('.lity-loader')
-                .each(function() {
-                    var loader = $(this);
+            element.classList.remove('lity-loading');
 
-                    transitionEnd(loader)
-                        .always(function() {
-                            loader.remove();
-                        })
-                    ;
-                })
-            ;
+            var el = element.querySelector('.lity-content');
 
-            element
-                .removeClass('lity-loading')
-                .find('.lity-content')
-                .empty()
-                .append(content)
-            ;
+            while(el.firstChild)
+                el.removeChild(el.firstChild);
+
+            el.appendChild(content);
 
             isReady = true;
 
-            content
-                .trigger('lity:ready', [self])
-            ;
+            trigger(content, 'lity:ready', [self]);
         }
     }
 
     function lity(target, options, opener) {
         if (!target.preventDefault) {
-            opener = $(opener);
+            opener = document.querySelector(opener);
         } else {
             target.preventDefault();
-            opener = $(this);
-            target = opener.data('lity-target') || opener.attr('href') || opener.attr('src');
+            opener = this;
+            target = opener.dataset.lityTarget || opener.getAttribute('href') || opener.getAttribute('src');
         }
 
         var instance = new Lity(
             target,
-            $.extend(
+            extend(
                 {},
-                opener.data('lity-options') || opener.data('lity'),
+                opener ? opener.dataset.lityOptions || opener.dataset.lity : null,
                 options
             ),
             opener,
@@ -569,13 +610,22 @@
         }
     }
 
-    lity.version  = '3.0.0-dev';
-    lity.options  = $.proxy(settings, lity, _defaultOptions);
-    lity.handlers = $.proxy(settings, lity, _defaultOptions.handlers);
+    lity.version  = '4.0.0-dev';
+    lity.options  = settings.bind(lity, _defaultOptions);
+    lity.handlers = settings.bind(lity, _defaultOptions.handlers);
+
     lity.current  = currentInstance;
     lity.iframe   = iframe;
 
-    $(document).on('click.lity', '[data-lity]', lity);
+    document.addEventListener('click', function(e) {
+        // loop parent nodes from the target to the delegation node
+        for (var target = e.target; target && target != this; target = target.parentNode) {
+            if (target.matches('[data-lity]')) {
+                lity.call(target, e);
+                break;
+            }
+        }
+    }, false);
 
     return lity;
 }));

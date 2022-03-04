@@ -1,6 +1,6 @@
-/*! Lity - v3.0.0-dev - 2020-04-26
+/*! Lity - v4.0.0-dev - 2022-02-18
 * http://sorgalla.com/lity/
-* Copyright (c) 2015-2020 Jan Sorgalla; Licensed MIT */
+* Copyright (c) 2015-2022 Jan Sorgalla, Anton Andreasson; Licensed MIT */
 (function(window, factory) {
     if (typeof define === 'function' && define.amd) {
         define(['lity'], function(lity) {

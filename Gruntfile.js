@@ -63,35 +63,12 @@ module.exports = function(grunt) {
         },
         postcss: {
             options: {
+                discardComments: true,
                 processors: [
-                    require('postcss-cssnext')({
-                        browsers: [
-                            'Android 2.3',
-                            'Android >= 4',
-                            'Chrome >= 20',
-                            'Firefox >= 24',
-                            'Explorer >= 8',
-                            'iOS >= 6',
-                            'Opera >= 12',
-                            'Safari >= 6'
-                        ]
-                    }),
-                    require('postcss-remove-root'),
                     require('stylefmt')
                 ]
             },
             css: {
-                expand: true,
-                cwd: 'dist/',
-                src: '**/*.css',
-                dest: 'dist/'
-            }
-        },
-        cssnano: {
-            min: {
-                options: {
-                    discardComments: true
-                },
                 expand: true,
                 cwd: 'dist/',
                 src: '**/*.css',
@@ -117,10 +94,9 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-postcss');
-    grunt.loadNpmTasks('grunt-cssnano');
     grunt.loadNpmTasks('grunt-contrib-watch');
 
-    grunt.registerTask('dist-css', ['clean:css', 'concat:css', 'postcss', 'cssnano']);
+    grunt.registerTask('dist-css', ['clean:css', 'concat:css', 'postcss']);
     grunt.registerTask('dist-js', ['clean:js', 'concat:js', 'uglify', 'replace']);
     grunt.registerTask('default', ['dist-css', 'dist-js']);
 };
